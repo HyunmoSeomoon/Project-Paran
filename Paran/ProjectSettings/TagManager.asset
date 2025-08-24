@@ -8,12 +8,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Wall
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Wall
+  - Window
+  - Coll
   - 
   - 
   - 

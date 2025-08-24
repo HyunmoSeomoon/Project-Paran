@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerMove : MonoBehaviour
 
     private CharacterController cc;
     private Vector3 velocity;
+    [SerializeField] Animator animator;
     
     void Start()
     {
@@ -38,11 +40,13 @@ public class PlayerMove : MonoBehaviour
                 Quaternion targetRot = Quaternion.LookRotation(moveDir);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
             }
-
             cc.Move(moveDir * moveSpeed * Time.deltaTime);
         }
-
-        velocity.y += gravity * Time.deltaTime;
+        animator.SetFloat("Speed", new Vector3(x,0,z).magnitude);
+        RaycastHit hit;
+        if (!Physics.Raycast(transform.position, -transform.up, out hit, 1))
+            velocity.y += gravity * Time.deltaTime;
+        else velocity.y = 0;
         cc.Move(velocity * Time.deltaTime);
     }
 }

@@ -37,7 +37,7 @@ public class CameraOrbit : MonoBehaviour
         Vector3 targetPos = player.position + targetOffset;
 
         // 장애물 충돌 체크
-        Vector3 origin = player.position + Vector3.up * 2.5f;
+        Vector3 origin = player.position + Vector3.up * 1.5f;
         Vector3 dir = targetPos - origin;
         if (Physics.Raycast(origin, dir.normalized, out RaycastHit hit, dir.magnitude, LayerMask.GetMask("Wall")))
         {

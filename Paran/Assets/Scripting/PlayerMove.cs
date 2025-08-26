@@ -15,7 +15,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float crawlSpeed = 5f;
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float gravity = -9.8f;
-    [SerializeField] float rotationSpeed = 3f;
+    [SerializeField] float rotationSpeed = 20f;
 
     private CharacterController cc;
     private Vector3 velocity;
@@ -77,12 +77,16 @@ public class PlayerMove : MonoBehaviour
 
             Vector3 moveDir = (camForward * z + camRight * x).normalized;
 
-            Vector3 forward = transform.forward;
-            float angle = Vector3.SignedAngle(forward, moveDir, Vector3.up);
-            if (Mathf.Abs(angle) <= 90f)
+            if (currentState == PlayerState.Crawl)
+            {
+                float camY = Camera.main.transform.eulerAngles.y;
+                Quaternion crawlRot = Quaternion.Euler(0, camY, 0);
+                transform.rotation = crawlRot;
+            }
+            else
             {
                 Quaternion targetRot = Quaternion.LookRotation(moveDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);  
             }
             cc.Move(moveDir * moveSpeed * Time.deltaTime);
         }

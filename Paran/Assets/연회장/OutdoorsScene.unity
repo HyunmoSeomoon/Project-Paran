@@ -4409,7 +4409,7 @@ MonoBehaviour:
   crawlSpeed: 3
   runSpeed: 7
   gravity: -9.8
-  rotationSpeed: 3
+  rotationSpeed: 20
   animator: {fileID: 671370542}
   currentState: 0
   moveSpeed: 3

@@ -5,7 +5,8 @@ public class EnemySearch : MonoBehaviour
     public enum EnemyState
     {
         Warning,
-        Search
+        Search,
+        Died
     }
 
     [Header("시야 설정")]
@@ -75,60 +76,84 @@ public class EnemySearch : MonoBehaviour
         }
     }
 
-private bool IsPlayerInFOV()
-{
-    Vector3 toPlayer = playerTransform.position - transform.position;
-    float flatDistance = new Vector2(toPlayer.x, toPlayer.z).magnitude;
-
-    // 🛑 거리가 멀면 감지 자체 하지 않음 (Raycast 생략)
-    if (flatDistance > viewRange) return false;
-
-    // 시야각 안인지 검사
-    Vector3 toPlayerFlat = new Vector3(toPlayer.x, 0f, toPlayer.z);
-    float angle = Vector3.Angle(transform.forward, toPlayerFlat.normalized);
-    if (angle > viewAngle * 0.5f) return false;
-
-    // 거리가 충분히 가까우므로 Raycast 시작
-    Vector3 rayOrigin = transform.position + Vector3.up * 1.5f;
-    Vector3 rayTarget = playerTransform.position + Vector3.up * 1.0f;
-    Vector3 rayDir = (rayTarget - rayOrigin).normalized;
-    float rayDistance = Vector3.Distance(rayOrigin, rayTarget);
-
-    if (Physics.Raycast(rayOrigin, rayDir, out RaycastHit hit, rayDistance))
+    private bool IsPlayerInFOV()
     {
-        GameObject hitObject = hit.collider.gameObject;
-        int hitLayer = hitObject.layer;
+        Vector3 toPlayer = playerTransform.position - transform.position;
+        float flatDistance = new Vector2(toPlayer.x, toPlayer.z).magnitude;
 
-        if (hitObject.transform == playerTransform)
-        {
-            return true; // Player가 가장 먼저 맞은 경우
-        }
+        // 🛑 거리가 멀면 감지 자체 하지 않음 (Raycast 생략)
+        if (flatDistance > viewRange) return false;
 
-        if (hitLayer == LayerMask.NameToLayer("Wall"))
-        {
-            //Debug.Log("벽이 막고 있음");
-            return false;
-        }
+        // 시야각 안인지 검사
+        Vector3 toPlayerFlat = new Vector3(toPlayer.x, 0f, toPlayer.z);
+        float angle = Vector3.Angle(transform.forward, toPlayerFlat.normalized);
+        if (angle > viewAngle * 0.5f) return false;
 
-        if (hitLayer == LayerMask.NameToLayer("Window"))
+        // 거리가 충분히 가까우므로 Raycast 시작
+        Vector3 rayOrigin = transform.position + Vector3.up * 1.5f;
+        Vector3 rayTarget = playerTransform.position + Vector3.up * 1.0f;
+        Vector3 rayDir = (rayTarget - rayOrigin).normalized;
+        float rayDistance = Vector3.Distance(rayOrigin, rayTarget);
+
+        if (Physics.Raycast(rayOrigin, rayDir, out RaycastHit hit, rayDistance))
         {
-            if (playerState.currentState == PlayerMove.PlayerState.Crawl)
+            GameObject hitObject = hit.collider.gameObject;
+            int hitLayer = hitObject.layer;
+
+            if (hitObject.transform == playerTransform)
             {
-                //Debug.Log("창문 + 웅크림 → 감지 실패");
+                return true; // Player가 가장 먼저 맞은 경우
+            }
+
+            if (hitLayer == LayerMask.NameToLayer("Wall"))
+            {
+                //Debug.Log("벽이 막고 있음");
                 return false;
             }
-            else
+
+            if (hitLayer == LayerMask.NameToLayer("Window"))
             {
-                //Debug.Log("창문 너머 플레이어 감지 성공");
-                return true;
+                if (playerState.currentState == PlayerMove.PlayerState.Crawl)
+                {
+                    //Debug.Log("창문 + 웅크림 → 감지 실패");
+                    return false;
+                }
+                else
+                {
+                    //Debug.Log("창문 너머 플레이어 감지 성공");
+                    return true;
+                }
             }
+
+            return false; // 기타 물체가 막고 있으면 감지 실패
         }
 
-        return false; // 기타 물체가 막고 있으면 감지 실패
+        return false; // 아무것도 안 맞으면 감지 실패
+    }
+    public void SetState(EnemyState newState)
+    {
+        if (currentState == EnemyState.Died)
+        {
+            // 이미 사망한 경우, 상태 변경 무시
+            return;
+        }
+
+        currentState = newState;
+
+        if (newState == EnemyState.Died)
+        {
+            Debug.Log("적 사망 처리됨");
+            // 필요한 경우 사망 애니메이션 재생이나 컴포넌트 비활성화 처리
+            // 예: GetComponent<Animator>().SetTrigger("Die");
+            // 또는 NavMeshAgent, AI 컴포넌트 비활성화 등
+        }
     }
 
-    return false; // 아무것도 안 맞으면 감지 실패
-}
+    // 외부에서 상태를 확인
+    public EnemyState GetState()
+    {
+        return currentState;
+    }
     private void OnDrawGizmosSelected()
     {
         if (playerTransform == null) return;

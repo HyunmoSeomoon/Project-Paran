@@ -30,7 +30,7 @@ public class AssasinManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("EnemyStateHandler 스크립트가 없습니다.");
+                    Debug.LogWarning("EnemySearch 스크립트가 없습니다.");
                 }
             }
             else if (enemiesInRange.Count > 1)

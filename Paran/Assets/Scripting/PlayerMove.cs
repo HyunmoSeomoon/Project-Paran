@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,11 +8,12 @@ public class PlayerMove : MonoBehaviour
     {
         Stand,
         Crawl,
+        Walk,
         Run
     }
 
     [Header("속도 설정")]
-    [SerializeField] float standSpeed = 7f;
+    [SerializeField] float walkSpeed = 7f;
     [SerializeField] float crawlSpeed = 5f;
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float gravity = -9.8f;
@@ -24,47 +26,78 @@ public class PlayerMove : MonoBehaviour
 
     public PlayerState currentState = PlayerState.Stand;
     public float moveSpeed; // 현재 속도
+    public float targetSpeed; // 가속 감속을 위한 목표 속도
 
     void Start()
     {
         cc = GetComponent<CharacterController>();
-        moveSpeed = standSpeed;
+        moveSpeed = 0f;
     }
 
     void Update()
     {
+        
+        // 입력 처리
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        Vector3 inputDir = new Vector3(x, 0, z).normalized;
+
         // 상태 전환 처리
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            currentState = PlayerState.Crawl;
+            if (currentState != PlayerState.Crawl)
+                currentState = PlayerState.Crawl;
+            else currentState = PlayerState.Stand;
         }
-        else if (Input.GetKey(KeyCode.LeftShift))
+
+        if (currentState != PlayerState.Crawl)
         {
-            currentState = PlayerState.Run;
+            if (inputDir != Vector3.zero)
+            {
+                currentState = PlayerState.Walk;
+                if (Input.GetKey(KeyCode.LeftShift))
+                    currentState = PlayerState.Run;
+            }
+            else
+            {
+                currentState = PlayerState.Stand;
+            }
         }
         else
         {
-            currentState = PlayerState.Stand;
+            if (inputDir != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+                currentState = PlayerState.Run;
         }
 
         // 상태에 따라 속도 설정
         switch (currentState)
         {
             case PlayerState.Stand:
-                moveSpeed = standSpeed;
+                targetSpeed = 0;
+                animator.SetBool("Running", false);
+                animator.SetBool("Crawling", false);
+                break;
+            case PlayerState.Walk:
+                targetSpeed = walkSpeed;
+                animator.SetBool("Running", false);
+                animator.SetBool("Crawling", false);
                 break;
             case PlayerState.Crawl:
-                moveSpeed = crawlSpeed;
+                targetSpeed = crawlSpeed;
+                animator.SetBool("Running", false);
+                animator.SetBool("Crawling", true);
                 break;
             case PlayerState.Run:
-                moveSpeed = runSpeed;
+                targetSpeed = runSpeed;
+                animator.SetBool("Running", true);
+                animator.SetBool("Crawling", false);
                 break;
         }
-
-        // 입력 처리
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 inputDir = new Vector3(x, 0, z).normalized;
+        
+        if (Mathf.Abs(moveSpeed - targetSpeed) < 0.01f)
+            moveSpeed = targetSpeed;
+        else
+            moveSpeed = Mathf.Lerp(moveSpeed, targetSpeed, Time.deltaTime * 5f); // 현재속도를 초속 5의 가속도에 맞춰 목표 속도까지 증가
 
         if (inputDir != Vector3.zero)
         {
@@ -72,6 +105,7 @@ public class PlayerMove : MonoBehaviour
             Vector3 camRight = Camera.main.transform.right;
             camForward.y = 0f;
             camRight.y = 0f;
+
             camForward.Normalize();
             camRight.Normalize();
 
@@ -86,7 +120,7 @@ public class PlayerMove : MonoBehaviour
             else
             {
                 Quaternion targetRot = Quaternion.LookRotation(moveDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);  
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
             }
             cc.Move(moveDir * moveSpeed * Time.deltaTime);
         }

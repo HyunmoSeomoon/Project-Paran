@@ -2261,7 +2261,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 7c049a0d46bfcee429134fb5a880c64c, type: 2}
     - target: {fileID: 5866666021909216657, guid: 0796ce0366bff414d870e6ac89dbbaee, type: 3}
       propertyPath: m_AnimatePhysics
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4817,14 +4817,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f0317884156054c921aff705682d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standSpeed: 5
-  crawlSpeed: 3
-  runSpeed: 7
+  walkSpeed: 3
+  crawlSpeed: 2
+  runSpeed: 9
   gravity: -9.8
   rotationSpeed: 10
   animator: {fileID: 671370542}
   currentState: 0
-  moveSpeed: 3
+  moveSpeed: 0
 --- !u!143 &1698001923
 CharacterController:
   m_ObjectHideFlags: 0

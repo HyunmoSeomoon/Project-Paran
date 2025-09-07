@@ -125,10 +125,12 @@ public class PlayerMove : MonoBehaviour
             cc.Move(moveDir * moveSpeed * Time.deltaTime);
         }
         animator.SetFloat("Speed", new Vector3(x,0,z).magnitude);
-        RaycastHit hit;
-        if (!Physics.Raycast(transform.position, -transform.up, out hit, 1))
-            velocity.y += gravity * Time.deltaTime;
-        else velocity.y = 0;
+
+        bool isGrounded = cc.isGrounded;
+        
+        if (isGrounded && velocity.y < 0) velocity.y = 0;
+
+        velocity.y += gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
     }
 }

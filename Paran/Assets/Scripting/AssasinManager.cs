@@ -1,58 +1,68 @@
 using UnityEngine;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
-public class AssasinManager : MonoBehaviour
+public class PlayerInteract : MonoBehaviour
 {
-    private List<GameObject> enemiesInRange = new List<GameObject>();
 
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private float alignDistance = 1.5f; // 암살 애니메이션 정렬 거리
+    [SerializeField] private float alignDistance = 0.5f; // 암살 애니메이션 정렬 거리
     [SerializeField] private Vector3 positionOffset = Vector3.zero;
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (enemiesInRange.Count == 1)
+            Interaction();
+        }
+    }
+
+    void Interaction()
+    {
+        Vector3 sphereCenter = transform.position + transform.forward * alignDistance;
+        Collider[] hits = Physics.OverlapSphere(sphereCenter, alignDistance);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
             {
-                GameObject enemy = enemiesInRange[0];
+                Debug.Log("1단계 통과");
+                EnemySearch stateHandler = hit.GetComponent<EnemySearch>();
+                if (stateHandler == null) return;
 
-                // 거리 정렬 및 위치 맞춤
-                Vector3 directionToEnemy = (enemy.transform.position - playerTransform.position).normalized;
-                playerTransform.position = enemy.transform.position - directionToEnemy * alignDistance + positionOffset;
-                playerTransform.LookAt(enemy.transform); // 정렬
+                // 후면 체크
+                Vector3 toEnemy = (hit.transform.position - transform.position).normalized;
+                float dot = Vector3.Dot(hit.transform.forward, toEnemy);
 
-                // 상태 변경
-                EnemySearch stateHandler = enemy.GetComponent<EnemySearch>();
-                if (stateHandler != null)
+                Debug.Log("Dot value: " + dot);
+                Debug.Log("Enemy State: " + stateHandler.GetState());
+
+                if (dot > 0.7f && stateHandler.GetState() != EnemySearch.EnemyState.Search)
                 {
+                    Debug.Log("2단계 통과");
+                    Vector3 directionToEnemy = (hit.transform.position - transform.position).normalized;
+                    Vector3 newPosition = hit.transform.position - directionToEnemy * alignDistance + positionOffset;
+                    newPosition.y = playerTransform.position.y; // Y값 고정
+                    playerTransform.position = newPosition;
+
+                    Vector3 lookDirection = new Vector3(hit.transform.position.x, playerTransform.position.y, hit.transform.position.z);
+                    playerTransform.LookAt(lookDirection);
+
+                    //애니메이션 여기 추가
                     stateHandler.SetState(EnemySearch.EnemyState.Died);
-                }
-                else
-                {
-                    Debug.LogWarning("EnemySearch 스크립트가 없습니다.");
+                    break; // 하나만 암살
                 }
             }
-            else if (enemiesInRange.Count > 1)
+            else if (hit.CompareTag("InteractableObject"))
             {
-                Debug.LogError("암살 대상이 둘 이상입니다!");
+
             }
         }
     }
-
-    private void OnTriggerEnter(Collider other)
+    void OnDrawGizmosSelected()
     {
-        if (other.CompareTag("Enemy") && !enemiesInRange.Contains(other.gameObject))
-        {
-            enemiesInRange.Add(other.gameObject);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Enemy") && enemiesInRange.Contains(other.gameObject))
-        {
-            enemiesInRange.Remove(other.gameObject);
-        }
+        Gizmos.color = Color.red;
+        Vector3 sphereCenter = transform.position + transform.forward * alignDistance;
+        Gizmos.DrawWireSphere(sphereCenter, alignDistance);
     }
 }

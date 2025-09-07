@@ -785,7 +785,7 @@ Transform:
   m_GameObject: {fileID: 744466554}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 148.5, y: -5.223, z: 26.49}
+  m_LocalPosition: {x: 150.02, y: -5.223, z: 25.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1741,11 +1741,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fcd1566183b044f9fa0873502a6f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewAngle: 70
-  viewRange: 15
+  viewAngle: 90
+  viewRange: 10
+  losMask:
+    serializedVersion: 2
+    m_Bits: 456
+  probeDistance: 10
   playerTransform: {fileID: 744466555}
-  currentState: 0
+  currentState: 1
   playerVisible: 0
+  checkSound: 0
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
@@ -1783,7 +1788,7 @@ Transform:
   m_GameObject: {fileID: 1976438681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7375079, z: -0, w: 0.6753386}
-  m_LocalPosition: {x: 153.29, y: -5.83, z: 26.2}
+  m_LocalPosition: {x: 154.37, y: -5.83, z: 26.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

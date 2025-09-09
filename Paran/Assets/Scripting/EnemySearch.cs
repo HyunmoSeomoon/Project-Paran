@@ -7,7 +7,7 @@ public class EnemySearch : MonoBehaviour
     {
         Idle,
         Warning,
-        Search,
+        Chase,
         Died
     }
     public enum LosResult
@@ -29,24 +29,20 @@ public class EnemySearch : MonoBehaviour
     public Transform playerTransform;
 
     [Header("감지 속도 스케일")]
-    [SerializeField] private float detectNear = 2.0f;      // 아주 가까움 판정 거리
-    [SerializeField] private float detectFar = 12.0f;     // 멀다 판정 거리(이상에선 최소 가중)
-    [SerializeField] private float detectMinMultiplier = 0.5f;  // 멀 때 최소 속도 배수
-    [SerializeField] private float detectMaxMultiplier = 2.5f;  // 가까울 때 최대 속도 배수
-    [SerializeField] private float visualBoost = 1.2f;     // 시야로 감지 중 가산(배수)
-    [SerializeField] private float soundBoost = 0.8f;     // 청각으로 감지 중 가산(배수): 1 이상으로 설정하지 말 것!!!!
+    [SerializeField] private float visualBoost = 2f;     // 시야로 감지 중 가산(배수)
+    [SerializeField] private float soundBoost = 1f;     // 청각으로 감지 중 가산(배수)
+    [SerializeField] private float watchTurnSpeedVision = 120f;
+    [SerializeField] private float watchTurnSpeedSound  = 90f;
     public EnemyState currentState = EnemyState.Warning;
     private NavMeshAgent agent;
     private float playerInSightTimer = 0f;
-    private float timeToSwitchState = 5f;
+    private float timeToSwitchState = 10f;
     private float searchDuration = 15f;
     private float searchTimer = 0f;
     private PlayerMove playerState;
 
     public bool playerVisible = false;
     public bool checkSound = false;
-
-    public LayerMask obstacleMask;
     private LosResult lastLos;
     private void Start()
     {
@@ -76,35 +72,26 @@ private void Update()
     {
         case EnemyState.Warning:
         {
-            if (playerVisible)
-            {
-                // Player를 계속 바라보게: 이동 정지 + 회전 수동 제어
-                if (agent != null)
-                {
-                    agent.isStopped = true;
-                    agent.updateRotation = false;
-                }
+            bool lookBySound  = !playerVisible && checkSound; // 시야 없을 때만 청각으로 고개 돌림
 
-                // XZ 평면 기준으로 플레이어 방향으로 천천히 회전
+            if (playerVisible || lookBySound)
+            {
+                if (agent != null) { agent.isStopped = playerVisible; agent.updateRotation = false; }
+
                 Vector3 to = playerTransform.position - transform.position;
                 to.y = 0f;
-                if (to.sqrMagnitude > 0.0001f)
+                if (to.sqrMagnitude > 1e-4f)
                 {
-                    Quaternion targetRot = Quaternion.LookRotation(to, Vector3.up);
-                    transform.rotation = Quaternion.RotateTowards(
-                        transform.rotation, targetRot, 120f * Time.deltaTime);
+                    var targetRot = Quaternion.LookRotation(to, Vector3.up);
+                    float spd = playerVisible ? watchTurnSpeedVision : watchTurnSpeedSound;
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, spd * Time.deltaTime);
                 }
             }
             else
             {
-                // 시야에서 벗어나면 에이전트 회전 제어 복구
-                if (agent != null)
-                {
-                    agent.updateRotation = true;
-                    // agent.isStopped = false; // 필요 시 순찰 재개 지점에서 해제
-                }
+                if (agent != null) agent.updateRotation = true;
             }
-
+            
             bool sensed = playerVisible || checkSound;
             if (sensed)
             {
@@ -114,7 +101,7 @@ private void Update()
                 if (playerInSightTimer >= timeToSwitchState)
                 {
                     Debug.Log($"플레이어 감지 (rate x{detectRate:F2})");
-                    currentState = EnemyState.Search;
+                    currentState = EnemyState.Chase;
                     searchTimer = 0f;
 
                     // 수색 돌입 시 에이전트 제어 복구 및 이동 재개
@@ -132,7 +119,7 @@ private void Update()
             break;
         }
 
-        case EnemyState.Search:
+        case EnemyState.Chase:
         {
             if (playerVisible || checkSound)
             {
@@ -172,19 +159,19 @@ private void Update()
 
         Vector3 origin = transform.position + Vector3.up * 1.5f;
         Vector3 dest   = target.position   + Vector3.up * 1.0f;
+        
+        // ✅ 자기 레이어 제외
+        int selfMask = 1 << gameObject.layer;
+        int effectiveMask = losMask & ~selfMask;
 
-        if (Physics.Linecast(origin, dest, out sharedHit, losMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Linecast(origin, dest, out sharedHit, effectiveMask, QueryTriggerInteraction.Ignore))
         {
-            Debug.Log($"[EnemySearch] Linecast hit: {sharedHit.collider.name} (Layer: {LayerMask.LayerToName(sharedHit.collider.gameObject.layer)})");
             // Player가 첫 히트?
-            if (sharedHit.collider.transform.root == target.root)
-                return LosResult.Player;
-
+            if (sharedHit.collider.transform.root == target.root) return LosResult.Player;
             // 창문/벽 구분
             int hitLayer = sharedHit.collider.gameObject.layer;
             if (hitLayer == LayerMask.NameToLayer("Window")) return LosResult.Window;
-            if (hitLayer == LayerMask.NameToLayer("Wall"))   return LosResult.Wall;
-
+            if (hitLayer == LayerMask.NameToLayer("Wall")) return LosResult.Wall;
             // ✅ 그 외 어떤 레이어든 "장애물"로 간주 (안전 기본값)
             return LosResult.Wall;
         }
@@ -222,43 +209,30 @@ private void Update()
         if (flatDist > probeDistance) return false;
         if (result == LosResult.Window) return false; // 창문은 청각 차단
 
-    // 플레이어가 'Run' 상태이고, LOS가 Player일 때만 청각 감지 + 회전
-        if (result == LosResult.Player && playerState != null && playerState.currentState == PlayerMove.PlayerState.Run)
-        {
-            // XZ 평면 기준으로만 바라보도록 회전
-            Vector3 look = new Vector3(toPlayer.x, 0f, toPlayer.z);
-            if (look.sqrMagnitude > 0.0001f)
-            {
-                //Navmesh가 Rotation을 관리하지 못하도록 설정
-                agent.updateRotation = false;
+        // 플레이어가 'Run' 상태이고, LOS가 Player일 때만 청각 감지 + 회전
+        if (result == LosResult.Player && playerState != null && playerState.currentState == PlayerMove.PlayerState.Run) return true; // 청각으로 감지됨
 
-                Quaternion targetRot = Quaternion.LookRotation(look, Vector3.up);
-                // 충분히 천천히 회전
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 90f * Time.deltaTime);
-            }
-            return true; // 청각으로 감지됨
-        }
         return false;
     }
 
     private float ComputeDetectRate(bool viaVision, bool viaSound)
     {
-        // 플레이어까지 평면거리
+        // 감지 안 되면 0 (호출 측에서 이미 컷하지만 방어적)
+        if (!viaVision && !viaSound) return 0f;
+
+        // 거리(XZ)
         Vector3 to = playerTransform.position - transform.position;
         float d = new Vector2(to.x, to.z).magnitude;
 
-        // 0(멀다)~1(가깝다)로 정규화
-        float closeness = Mathf.InverseLerp(detectFar, detectNear, d);
-        // 거리 기반 속도 배수
-        float rate = Mathf.Lerp(detectMinMultiplier, detectMaxMultiplier, closeness);
+        // 분모: 시야만/청각만/둘 다(합)
+        float denom = viaVision && viaSound
+            ? (visualBoost + soundBoost)
+            : (viaVision ? visualBoost : soundBoost);
 
-        // 둘 다 참이면 rate이 더욱 커지도록 설계
-        float modality = 1f;
-        if (viaVision) modality = visualBoost;
-        if (viaSound) modality = soundBoost;
-        if (viaVision && viaSound) modality = visualBoost / soundBoost;
+        // 제안식: base - (slope * d) / denom
+        float rate = 10f - (3f * d) / denom;
 
-        return rate * modality; // 최종 배수
+        return Mathf.Max(0f, rate); // 방어적 클램프
     }
 
     public void SetState(EnemyState newState)

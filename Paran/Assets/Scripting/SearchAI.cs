@@ -51,7 +51,7 @@ public class SearchAI : MonoBehaviour
                 }
                 break;
 
-            case EnemySearch.EnemyState.Search:
+            case EnemySearch.EnemyState.Chase:
                 if (enemyManager.playerVisible)
                 {
                     // 플레이어를 본 프레임의 플레이어 위치 저장

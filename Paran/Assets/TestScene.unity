@@ -804,9 +804,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f0317884156054c921aff705682d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
+  walkSpeed: 5
   crawlSpeed: 3
-  runSpeed: 10
+  runSpeed: 7
   gravity: -9.8
   rotationSpeed: 3
   animator: {fileID: 630305164}
@@ -1748,12 +1748,13 @@ MonoBehaviour:
     m_Bits: 456
   probeDistance: 10
   playerTransform: {fileID: 744466555}
+  visualBoost: 2
+  soundBoost: 1
+  watchTurnSpeedVision: 120
+  watchTurnSpeedSound: 90
   currentState: 1
   playerVisible: 0
   checkSound: 0
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!143 &1976438684
 CharacterController:
   m_ObjectHideFlags: 0

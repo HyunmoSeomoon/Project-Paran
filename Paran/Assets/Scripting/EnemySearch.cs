@@ -1,135 +1,240 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySearch : MonoBehaviour
 {
     public enum EnemyState
     {
+        Idle,
         Warning,
-        Search,
+        Chase,
         Died
+    }
+    public enum LosResult
+    {
+        None,       // Raycast 안 함 or 안 맞음
+        Player,     // 플레이어가 첫 히트
+        Wall,
+        Window
     }
 
     [Header("시야 설정")]
     public float viewAngle = 90f;
     public float viewRange = 10f;
+    [SerializeField] private LayerMask losMask = ~0;
+    [SerializeField] private float probeDistance = 10f; // 이 거리 이내일 때만 Raycast 수행
+    private RaycastHit sharedHit;
 
     [Header("플레이어 참조")]
     public Transform playerTransform;
 
+    [Header("감지 속도 스케일")]
+    [SerializeField] private float visualBoost = 2f;     // 시야로 감지 중 가산(배수)
+    [SerializeField] private float soundBoost = 1f;     // 청각으로 감지 중 가산(배수)
+    [SerializeField] private float watchTurnSpeedVision = 120f;
+    [SerializeField] private float watchTurnSpeedSound  = 90f;
     public EnemyState currentState = EnemyState.Warning;
-
+    private NavMeshAgent agent;
     private float playerInSightTimer = 0f;
-    private float timeToSwitchState = 5f;
+    private float timeToSwitchState = 10f;
     private float searchDuration = 15f;
     private float searchTimer = 0f;
     private PlayerMove playerState;
 
     public bool playerVisible = false;
-
-    public LayerMask obstacleMask;
+    public bool checkSound = false;
+    private LosResult lastLos;
     private void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
         if (playerTransform != null) playerState = playerTransform.GetComponent<PlayerMove>();
-    }
-    private void Update()
-    {
-        if (playerTransform == null) return;
 
-        playerVisible = IsPlayerInFOV();
-
-        switch (currentState)
+        if (playerTransform != null)
         {
-            case EnemyState.Warning:
-                if (playerVisible)
-                {
-                    playerInSightTimer += Time.deltaTime;
-                    if (playerInSightTimer >= timeToSwitchState)
-                    {
-                        Debug.Log("플레이어 감지");
-                        currentState = EnemyState.Search;
-                        searchTimer = 0f;
-                    }
-                }
-                else
-                {
-                    playerInSightTimer = 0f;
-                }
-                break;
-
-            case EnemyState.Search:
-                if (playerVisible)
-                {
-                    Debug.Log("플레이어 재감지");
-                    searchTimer = 0f;
-                }
-                else
-                {
-                    searchTimer += Time.deltaTime;
-                    if (searchTimer >= searchDuration)
-                    {
-                        Debug.Log("경계 해제");
-                        currentState = EnemyState.Warning;
-                        playerInSightTimer = 0f;
-                    }
-                }
-                break;
+            int playerLayerBit = 1 << playerTransform.gameObject.layer;
+            if ((losMask.value & playerLayerBit) == 0)
+            {
+                Debug.LogWarning("[EnemySearch] losMask에 Player 레이어가 포함되어 있지 않습니다. " +
+                                 "Player, Wall, Window 레이어를 포함하도록 설정하세요.", this);
+            }
         }
     }
+private void Update()
+{
+    if (playerTransform == null) return;
 
-    private bool IsPlayerInFOV()
+    lastLos = UpdateSharedRaycast(playerTransform);
+
+    playerVisible = IsPlayerInFOV(lastLos);
+    checkSound    = AuditoryCheck(lastLos);
+
+    switch (currentState)
     {
+        case EnemyState.Warning:
+        {
+            bool lookBySound  = !playerVisible && checkSound; // 시야 없을 때만 청각으로 고개 돌림
+
+            if (playerVisible || lookBySound)
+            {
+                if (agent != null) { agent.isStopped = playerVisible; agent.updateRotation = false; }
+
+                Vector3 to = playerTransform.position - transform.position;
+                to.y = 0f;
+                if (to.sqrMagnitude > 1e-4f)
+                {
+                    var targetRot = Quaternion.LookRotation(to, Vector3.up);
+                    float spd = playerVisible ? watchTurnSpeedVision : watchTurnSpeedSound;
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, spd * Time.deltaTime);
+                }
+            }
+            else
+            {
+                if (agent != null) agent.updateRotation = true;
+            }
+            
+            bool sensed = playerVisible || checkSound;
+            if (sensed)
+            {
+                float detectRate = ComputeDetectRate(playerVisible, checkSound);
+                playerInSightTimer += Time.deltaTime * detectRate;
+
+                if (playerInSightTimer >= timeToSwitchState)
+                {
+                    Debug.Log($"플레이어 감지 (rate x{detectRate:F2})");
+                    currentState = EnemyState.Chase;
+                    searchTimer = 0f;
+
+                    // 수색 돌입 시 에이전트 제어 복구 및 이동 재개
+                    if (agent != null)
+                    {
+                        agent.updateRotation = true;
+                        agent.isStopped = false;
+                    }
+                }
+            }
+            else
+            {
+                playerInSightTimer = 0f;
+            }
+            break;
+        }
+
+        case EnemyState.Chase:
+        {
+            if (playerVisible || checkSound)
+            {
+                Debug.Log("플레이어 재감지");
+                searchTimer = 0f;
+            }
+            else
+            {
+                searchTimer += Time.deltaTime;
+                if (searchTimer >= searchDuration)
+                {
+                    Debug.Log("경계 해제");
+                    currentState = EnemyState.Warning;
+                    playerInSightTimer = 0f;
+                }
+            }
+            break;
+        }
+    }
+}
+
+    private LosResult UpdateSharedRaycast(Transform target)
+    {
+        if (target == null) return LosResult.None;
+
+        // 2D(XZ) 제곱거리로 먼저 컷
+        Vector2 A = new Vector2(transform.position.x, transform.position.z);
+        Vector2 B = new Vector2(target.position.x, target.position.z);
+        float sqrDist = (A - B).sqrMagnitude;
+        float sqrGate = probeDistance * probeDistance;
+
+        if (sqrDist > sqrGate)
+        {
+            // 게이트 밖 → Raycast 자체를 생략
+            return LosResult.None;
+        }
+
+        Vector3 origin = transform.position + Vector3.up * 1.5f;
+        Vector3 dest   = target.position   + Vector3.up * 1.0f;
+        
+        // ✅ 자기 레이어 제외
+        int selfMask = 1 << gameObject.layer;
+        int effectiveMask = losMask & ~selfMask;
+
+        if (Physics.Linecast(origin, dest, out sharedHit, effectiveMask, QueryTriggerInteraction.Ignore))
+        {
+            // Player가 첫 히트?
+            if (sharedHit.collider.transform.root == target.root) return LosResult.Player;
+            // 창문/벽 구분
+            int hitLayer = sharedHit.collider.gameObject.layer;
+            if (hitLayer == LayerMask.NameToLayer("Window")) return LosResult.Window;
+            if (hitLayer == LayerMask.NameToLayer("Wall")) return LosResult.Wall;
+            // ✅ 그 외 어떤 레이어든 "장애물"로 간주 (안전 기본값)
+            return LosResult.Wall;
+        }
+        return LosResult.None;
+    }
+
+    private bool IsPlayerInFOV(LosResult result)
+    {
+        if (playerTransform == null) return false;
+
+        // 📌 1. 거리 컷
         Vector3 toPlayer = playerTransform.position - transform.position;
         float flatDistance = new Vector2(toPlayer.x, toPlayer.z).magnitude;
-
-        // 🛑 거리가 멀면 감지 자체 하지 않음 (Raycast 생략)
         if (flatDistance > viewRange) return false;
 
-        // 시야각 안인지 검사
-        Vector3 toPlayerFlat = new Vector3(toPlayer.x, 0f, toPlayer.z);
+        // 📌 2. 시야각 컷
+        Vector3 toPlayerFlat = new Vector3(toPlayer.x, 0, toPlayer.z);
         float angle = Vector3.Angle(transform.forward, toPlayerFlat.normalized);
         if (angle > viewAngle * 0.5f) return false;
 
-        // 거리가 충분히 가까우므로 Raycast 시작
-        Vector3 rayOrigin = transform.position + Vector3.up * 1.5f;
-        Vector3 rayTarget = playerTransform.position + Vector3.up * 1.0f;
-        Vector3 rayDir = (rayTarget - rayOrigin).normalized;
-        float rayDistance = Vector3.Distance(rayOrigin, rayTarget);
+        // 공유 result 사용
+        if (result == LosResult.Player) return true;
+        if (result == LosResult.Window)
+            return playerState == null || playerState.currentState != PlayerMove.PlayerState.Crawl;
+        return false;
+}
 
-        if (Physics.Raycast(rayOrigin, rayDir, out RaycastHit hit, rayDistance))
-        {
-            GameObject hitObject = hit.collider.gameObject;
-            int hitLayer = hitObject.layer;
+    private bool AuditoryCheck(LosResult result)
+    {
+        if (playerTransform == null) return false;
 
-            if (hitObject.transform == playerTransform)
-            {
-                return true; // Player가 가장 먼저 맞은 경우
-            }
+        Vector3 toPlayer = playerTransform.position - transform.position;
+        float flatDist = new Vector2(toPlayer.x, toPlayer.z).magnitude;
 
-            if (hitLayer == LayerMask.NameToLayer("Wall"))
-            {
-                //Debug.Log("벽이 막고 있음");
-                return false;
-            }
+        if (flatDist > probeDistance) return false;
+        if (result == LosResult.Window) return false; // 창문은 청각 차단
 
-            if (hitLayer == LayerMask.NameToLayer("Window"))
-            {
-                if (playerState.currentState == PlayerMove.PlayerState.Crawl)
-                {
-                    //Debug.Log("창문 + 웅크림 → 감지 실패");
-                    return false;
-                }
-                else
-                {
-                    //Debug.Log("창문 너머 플레이어 감지 성공");
-                    return true;
-                }
-            }
+        // 플레이어가 'Run' 상태이고, LOS가 Player일 때만 청각 감지 + 회전
+        if (result == LosResult.Player && playerState != null && playerState.currentState == PlayerMove.PlayerState.Run) return true; // 청각으로 감지됨
 
-            return false; // 기타 물체가 막고 있으면 감지 실패
-        }
-
-        return false; // 아무것도 안 맞으면 감지 실패
+        return false;
     }
+
+    private float ComputeDetectRate(bool viaVision, bool viaSound)
+    {
+        // 감지 안 되면 0 (호출 측에서 이미 컷하지만 방어적)
+        if (!viaVision && !viaSound) return 0f;
+
+        // 거리(XZ)
+        Vector3 to = playerTransform.position - transform.position;
+        float d = new Vector2(to.x, to.z).magnitude;
+
+        // 분모: 시야만/청각만/둘 다(합)
+        float denom = viaVision && viaSound
+            ? (visualBoost + soundBoost)
+            : (viaVision ? visualBoost : soundBoost);
+
+        // 제안식: base - (slope * d) / denom
+        float rate = 10f - (3f * d) / denom;
+
+        return Mathf.Max(0f, rate); // 방어적 클램프
+    }
+
     public void SetState(EnemyState newState)
     {
         if (currentState == EnemyState.Died)
@@ -154,6 +259,7 @@ public class EnemySearch : MonoBehaviour
     {
         return currentState;
     }
+
     private void OnDrawGizmosSelected()
     {
         if (playerTransform == null) return;
@@ -190,6 +296,18 @@ public class EnemySearch : MonoBehaviour
             Vector3 rayTarget = playerTransform.position + Vector3.up * 1.0f;
             Gizmos.color = Color.red;
             Gizmos.DrawLine(origin, rayTarget);
+        }
+
+        Gizmos.color = Color.black;
+        int seg = 48;
+        Vector3 center = new Vector3(transform.position.x, transform.position.y + 0.05f, transform.position.z);
+        Vector3 prev = center + new Vector3(probeDistance, 0f, 0f);
+        for (int i = 1; i <= seg; i++)
+        {
+            float t = (float)i / seg * Mathf.PI * 2f;
+            Vector3 next = center + new Vector3(Mathf.Cos(t) * probeDistance, 0f, Mathf.Sin(t) * probeDistance);
+            Gizmos.DrawLine(prev, next);
+            prev = next;
         }
     }
 }

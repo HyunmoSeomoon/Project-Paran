@@ -31,13 +31,10 @@ public class EnemySearch : MonoBehaviour
     [Header("감지 속도 스케일")]
     [SerializeField] private float visualBoost = 2f;     // 시야로 감지 중 가산(배수)
     [SerializeField] private float soundBoost = 1f;     // 청각으로 감지 중 가산(배수)
-    [SerializeField] private float watchTurnSpeedVision = 120f;
-    [SerializeField] private float watchTurnSpeedSound  = 90f;
     public EnemyState currentState = EnemyState.Warning;
     private NavMeshAgent agent;
     private float playerInSightTimer = 0f;
     private float timeToSwitchState = 10f;
-    private float searchDuration = 15f;
     private float searchTimer = 0f;
     private PlayerMove playerState;
 
@@ -71,27 +68,7 @@ private void Update()
     switch (currentState)
     {
         case EnemyState.Warning:
-        {
-            bool lookBySound  = !playerVisible && checkSound; // 시야 없을 때만 청각으로 고개 돌림
-
-            if (playerVisible || lookBySound)
-            {
-                if (agent != null) { agent.isStopped = playerVisible; agent.updateRotation = false; }
-
-                Vector3 to = playerTransform.position - transform.position;
-                to.y = 0f;
-                if (to.sqrMagnitude > 1e-4f)
-                {
-                    var targetRot = Quaternion.LookRotation(to, Vector3.up);
-                    float spd = playerVisible ? watchTurnSpeedVision : watchTurnSpeedSound;
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, spd * Time.deltaTime);
-                }
-            }
-            else
-            {
-                if (agent != null) agent.updateRotation = true;
-            }
-            
+        {         
             bool sensed = playerVisible || checkSound;
             if (sensed)
             {
@@ -129,12 +106,6 @@ private void Update()
             else
             {
                 searchTimer += Time.deltaTime;
-                if (searchTimer >= searchDuration)
-                {
-                    Debug.Log("경계 해제");
-                    currentState = EnemyState.Warning;
-                    playerInSightTimer = 0f;
-                }
             }
             break;
         }

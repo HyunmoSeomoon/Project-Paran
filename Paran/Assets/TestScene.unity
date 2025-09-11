@@ -750,7 +750,7 @@ Transform:
   m_GameObject: {fileID: 694732975}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.6, y: 6.39, z: -11.9}
+  m_LocalPosition: {x: 153.92, y: 6.39, z: -11.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1722,6 +1722,7 @@ GameObject:
   - component: {fileID: 1976438683}
   - component: {fileID: 1976438686}
   - component: {fileID: 1976438687}
+  - component: {fileID: 1976438688}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1750,8 +1751,6 @@ MonoBehaviour:
   playerTransform: {fileID: 744466555}
   visualBoost: 2
   soundBoost: 1
-  watchTurnSpeedVision: 120
-  watchTurnSpeedSound: 90
   currentState: 1
   playerVisible: 0
   checkSound: 0
@@ -1841,6 +1840,26 @@ CapsuleCollider:
   m_Height: 1.927768
   m_Direction: 1
   m_Center: {x: 0.017602563, y: 1.6336561, z: 0.07748512}
+--- !u!114 &1976438688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976438681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4cbec90f7747374c86c10c92b32bfb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPoints:
+  - {fileID: 507887195}
+  - {fileID: 2050552096}
+  waypointTolerance: 0.5
+  chaseDuration: 5
+  postChasePause: 2
+  watchTurnSpeedVision: 360
+  watchTurnSpeedSound: 120
 --- !u!1 &2037168739
 GameObject:
   m_ObjectHideFlags: 0

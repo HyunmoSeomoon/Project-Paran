@@ -9,7 +9,8 @@ public class PlayerMove : MonoBehaviour
         Stand,
         Crawl,
         Walk,
-        Run
+        Run,
+        Carry
     }
 
     [Header("속도 설정")]
@@ -36,21 +37,20 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        
         // 입력 처리
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 inputDir = new Vector3(x, 0, z).normalized;
 
         // 상태 전환 처리
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry)
         {
-            if (currentState != PlayerState.Crawl)
+            if (currentState != PlayerState.Crawl )
                 currentState = PlayerState.Crawl;
             else currentState = PlayerState.Stand;
         }
 
-        if (currentState != PlayerState.Crawl)
+        if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry)
         {
             if (inputDir != Vector3.zero)
             {
@@ -63,7 +63,7 @@ public class PlayerMove : MonoBehaviour
                 currentState = PlayerState.Stand;
             }
         }
-        else
+        else if (currentState == PlayerState.Crawl)
         {
             if (inputDir != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
                 currentState = PlayerState.Run;
@@ -75,21 +75,31 @@ public class PlayerMove : MonoBehaviour
             case PlayerState.Stand:
                 targetSpeed = 0;
                 animator.SetBool("Running", false);
+                animator.SetBool("Carrying", false);
                 animator.SetBool("Crawling", false);
                 break;
             case PlayerState.Walk:
                 targetSpeed = walkSpeed;
                 animator.SetBool("Running", false);
+                animator.SetBool("Carrying", false);
                 animator.SetBool("Crawling", false);
                 break;
             case PlayerState.Crawl:
                 targetSpeed = crawlSpeed;
                 animator.SetBool("Running", false);
+                animator.SetBool("Carrying", false);
                 animator.SetBool("Crawling", true);
                 break;
             case PlayerState.Run:
                 targetSpeed = runSpeed;
                 animator.SetBool("Running", true);
+                animator.SetBool("Carrying", false);
+                animator.SetBool("Crawling", false);
+                break;
+            case PlayerState.Carry:
+                targetSpeed = walkSpeed-1;
+                animator.SetBool("Running", false);
+                animator.SetBool("Carrying", true);
                 animator.SetBool("Crawling", false);
                 break;
         }

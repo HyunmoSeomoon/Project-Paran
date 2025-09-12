@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyMove : MonoBehaviour
 {
     [Header("순찰 관련")]
     [SerializeField] private Transform[] patrolPoints;
     public float waypointTolerance = 0.5f;
-    private int patrolIndex;
+    private int patrolIndex = 0;
+    [SerializeField] float waitAtWaypoint = 5f; // 대기 시간(초)
+    bool waiting;                                // 중복 코루틴 방지
 
     [Header("추적 관련")]
     private float chaseTimer;
@@ -68,6 +71,11 @@ public class EnemyMove : MonoBehaviour
 
         switch (enemyManager.currentState)
         {
+            case EnemySearch.EnemyState.Idle:
+                agent.updateRotation = true;
+                agent.isStopped = false;
+                Patrol();
+                break;
             case EnemySearch.EnemyState.Warning:
                 HandleWarning();
                 break;
@@ -78,7 +86,7 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    void Patrol()
+    /*void Patrol()
     {
         {
             if (patrolPoints == null || patrolPoints.Length == 0) return;
@@ -95,6 +103,54 @@ public class EnemyMove : MonoBehaviour
 
             if (!agent.hasPath) agent.SetDestination(target);
         }
+    }*/
+
+    void Patrol()
+    {
+        if (patrolPoints == null || patrolPoints.Length == 0) return;
+        if (!agent.isOnNavMesh) return;
+
+        Transform tgt = patrolPoints[patrolIndex];
+        if (tgt == null) { patrolIndex = (patrolIndex + 1) % patrolPoints.Length; return; }
+
+        // 필요 시 경로 보장
+        if (!agent.hasPath && !agent.pathPending)
+            agent.SetDestination(tgt.position);
+
+        // --- XZ(높이 무시) 도착 판정 ---
+        Vector2 curXZ = new Vector2(transform.position.x, transform.position.z);
+        Vector2 tgtXZ = new Vector2(tgt.position.x, tgt.position.z);
+        float arriveThreshold = Mathf.Max(agent.stoppingDistance, waypointTolerance);
+
+        if (!waiting && Vector2.Distance(curXZ, tgtXZ) <= arriveThreshold)
+        {
+            StartCoroutine(WaitAndGotoNext());
+        }
+    }
+    IEnumerator WaitAndGotoNext()
+    {
+        waiting = true;
+
+        // 진행 반대 방향 바라보기 (velocity가 거의 0이면 현재 forward 기준)
+        Vector3 moveDir = agent.velocity; moveDir.y = 0f;
+        if (moveDir.sqrMagnitude < 1e-4f) moveDir = transform.forward;
+        transform.rotation = Quaternion.LookRotation(-moveDir, Vector3.up);
+
+        // 5초 대기
+        agent.isStopped = true;
+        agent.updateRotation = false;
+        yield return new WaitForSeconds(waitAtWaypoint);
+
+        // 다음 포인트로
+        patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+        agent.isStopped = false;
+        agent.updateRotation = true;
+
+        Transform next = patrolPoints[patrolIndex];
+        if (next != null)
+            agent.SetDestination(next.position);
+
+        waiting = false;
     }
 
     int GetClosestPatrolIndex(Vector3 from)
@@ -140,13 +196,14 @@ public class EnemyMove : MonoBehaviour
 
         if (enemyManager.playerVisible || lookBySound)
         {
-            // 고개만 돌릴 때: 시야 때는 멈추고, 소리 때는 멈추지 않음
+            // 고개만 돌릴 때: 멈춤
             agent.updateRotation = false;
-            agent.isStopped = enemyManager.playerVisible;
+            agent.isStopped = true;
 
             var target = enemyManager.playerTransform != null ? enemyManager.playerTransform.position : transform.position + transform.forward;
             float spd = enemyManager.playerVisible ? watchTurnSpeedVision : watchTurnSpeedSound;
             RotateTowards(target, spd);
+            //2초동안 계속 바라보게 설정
         }
         else
         {

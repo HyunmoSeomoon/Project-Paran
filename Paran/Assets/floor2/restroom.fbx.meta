@@ -1,0 +1,317 @@
+fileFormatVersion: 2
+guid: 736310fcf55cc77449fb2aee70d03472
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface50
+    second: {fileID: 2100000, guid: 93c1777cf06d770499391919e758e8f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface51
+    second: {fileID: 2100000, guid: 0edd2d61166b349478a3bae8b888adf8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface61
+    second: {fileID: 2100000, guid: 398346d270a10b74b88926754e1df396, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface62
+    second: {fileID: 2100000, guid: ff6cc27a6ebbdec4881c13f2d45b3780, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface63
+    second: {fileID: 2100000, guid: e8a78b93584dbc3418b7e906258152d0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface64
+    second: {fileID: 2100000, guid: 2fc5d85846881034d92875962ecbf4df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface66
+    second: {fileID: 2100000, guid: 7a6f1908d3840f6478db1836b535e9a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface69
+    second: {fileID: 2100000, guid: 4aa77df8cbde9f241bf3c898940e0e33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frame3
+    second: {fileID: 2100000, guid: 3dbb46a113881844cb722877db6b8675, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: light2
+    second: {fileID: 2100000, guid: 0a0a7ab4528061148b4594215280c8d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: marble
+    second: {fileID: 2100000, guid: fb07611bb691e804d948d02d6eb60440, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal1
+    second: {fileID: 2100000, guid: 33bc6386ad72f914fb5090c123f54b92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mirror1
+    second: {fileID: 2100000, guid: 60b3f557ac2efea498449cd95b1a2c98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: partition_metal5
+    second: {fileID: 2100000, guid: 28c4d20f33beb424fa583168121763c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: partition_metal6
+    second: {fileID: 2100000, guid: 3f767ded865ac2944ad49303afa3a44e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: partition_wood6
+    second: {fileID: 2100000, guid: b505d5939d3528147bb236f4ea698729, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: partition_wood7
+    second: {fileID: 2100000, guid: e555740612422b24fbf39cd2b0efeded, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: partition_wood8
+    second: {fileID: 2100000, guid: bc99289ab033a7343bdea2a8c339d2ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_aiStandardSurface50
+    second: {fileID: 2100000, guid: 5296ae1aa2fc1cb4ba33dc1168952ee8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_aiStandardSurface51
+    second: {fileID: 2100000, guid: a7aff1145da961249a492bd2efc387da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_aiStandardSurface61
+    second: {fileID: 2100000, guid: bbcfa594acf6d7a4eaeff31e954e5fb5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_aiStandardSurface62
+    second: {fileID: 2100000, guid: 5b2ff655b601d1242a7276efd7a834e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_aiStandardSurface63
+    second: {fileID: 2100000, guid: 17464ab8421a1864d9aceeee7c25ca0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_aiStandardSurface64
+    second: {fileID: 2100000, guid: d89afc098310e054abcbc03cc5f86c63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_aiStandardSurface66
+    second: {fileID: 2100000, guid: f265df9a9a44abc41954d69708a743ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_aiStandardSurface69
+    second: {fileID: 2100000, guid: e4396f22b2cdad4409903199e9796169, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_frame3
+    second: {fileID: 2100000, guid: 2075e777f77338d46a2e43f27ad4e927, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_light2
+    second: {fileID: 2100000, guid: b117fd188a9951740988d94f7969857f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_marble
+    second: {fileID: 2100000, guid: 060b5ea40072a734483f52ce7fea2c75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_metal1
+    second: {fileID: 2100000, guid: ac66dbd71cfc95f4480c0fdc793d146c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_mirror1
+    second: {fileID: 2100000, guid: b9cb85c7459fa104c945e11bdf45b1b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_partition_metal5
+    second: {fileID: 2100000, guid: bb7f2988afb16c04aa4456fabb84e3cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_partition_metal6
+    second: {fileID: 2100000, guid: 0ebba7cd587760b499761ecefe4ac19a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_partition_wood6
+    second: {fileID: 2100000, guid: 04596d7a6fbafe845b11d0a1c5f436c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_partition_wood7
+    second: {fileID: 2100000, guid: 1b473d2a4f6fe0244938f62287c75260, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_partition_wood8
+    second: {fileID: 2100000, guid: 706ad3c96f1465e4481958f3587f39ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_side3
+    second: {fileID: 2100000, guid: 462f038d2c0dc5641a0c04097d03f918, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_urinal1
+    second: {fileID: 2100000, guid: dff8a3c9ea349444492f19b09e2a03a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: restroom_left_urinal_metal1
+    second: {fileID: 2100000, guid: 9baf0b50c055b9448a360a0bd0c7f366, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: side3
+    second: {fileID: 2100000, guid: 1568c1819662068418e50f25794cfec7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: urinal1
+    second: {fileID: 2100000, guid: 7e879bb61bd84664dbcb70f309161cf6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: urinal_metal1
+    second: {fileID: 2100000, guid: ccd694b5721c2c048ad49da434182774, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

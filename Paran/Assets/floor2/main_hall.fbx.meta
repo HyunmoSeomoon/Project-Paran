@@ -1,0 +1,227 @@
+fileFormatVersion: 2
+guid: be3af10dd66b99c4c8a85de9ec3fde5a
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface1
+    second: {fileID: 2100000, guid: 914edc88e6417ab4c90d0baa678a31e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface1
+    second: {fileID: 2100000, guid: 6ccf9b9a66a446a4b8e8b966c5eac864, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface11
+    second: {fileID: 2100000, guid: 52c992aee0f5d7443bf3a7ae76b570f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface12
+    second: {fileID: 2100000, guid: 119816de25b7d094fa474c8a355dd6f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface13
+    second: {fileID: 2100000, guid: 23471d09223c0c04c9ebc7c7f485b746, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface14
+    second: {fileID: 2100000, guid: 7702961ee20337849b5be6bb0e3e86c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface15
+    second: {fileID: 2100000, guid: 47b2a5225b2f9304d9c2bc0b8ae8b8f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface16
+    second: {fileID: 2100000, guid: 6c30d0921ca25444e92e2a55fd2b6647, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface17
+    second: {fileID: 2100000, guid: 98ec3ebc44fd6474f93299259e2e0c78, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface19
+    second: {fileID: 2100000, guid: 7cef2c4301d491742ae34f7c27d46164, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface2
+    second: {fileID: 2100000, guid: 9c0ba8a3106316b4fab78ee80ad51fe2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface20
+    second: {fileID: 2100000, guid: dbf33c066648d044688badba929a0a6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface21
+    second: {fileID: 2100000, guid: 4937d79e54c92a447b2cdbb3b371f292, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface22
+    second: {fileID: 2100000, guid: 0c838f3be20fdf74e8e1ed8f6cc7260f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface23
+    second: {fileID: 2100000, guid: 7457a7637bb675d43b474ee1bc62a7ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface4
+    second: {fileID: 2100000, guid: e0390f110db67db46bcac767b817aed3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface5
+    second: {fileID: 2100000, guid: b7a055815c4ec3241a091e7d2ce7a304, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface6
+    second: {fileID: 2100000, guid: 2f15db448f3ba01418e22a7be2c9b1be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_aiStandardSurface9
+    second: {fileID: 2100000, guid: 06674073c061b244e88022a484b8a822, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_banister_main_UV_aiStandardSurface2
+    second: {fileID: 2100000, guid: b2d09b4fc032a2d4d8dc2b287036f602, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_banister_main_UV_aiStandardSurface3
+    second: {fileID: 2100000, guid: 266b7fe1c2bf00844bb35afb80f39cf4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_banister_stairs_left_UV_aiStandardSurface1
+    second: {fileID: 2100000, guid: 956a9461250eac042931fbab1ad347f7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_banister_stairs_left_UV_aiStandardSurface3
+    second: {fileID: 2100000, guid: 10b1f017713c0744597da9424aa96d6a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_main_hall_ceiling_top1
+    second: {fileID: 2100000, guid: bcb50317a04fefb48b40194c26fabd90, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

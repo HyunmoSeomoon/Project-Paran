@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
         Phase3, //암살 페이즈
         Phase4, //결말 컷씬
         Phase5, //
+        Retry, // PlayerKilled, 재도전 씬
         Ending //
     }
 

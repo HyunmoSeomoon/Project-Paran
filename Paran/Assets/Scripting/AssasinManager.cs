@@ -37,7 +37,7 @@ public class PlayerInteract : MonoBehaviour
                 Debug.Log("Dot value: " + dot);
                 Debug.Log("Enemy State: " + stateHandler.GetState());
 
-                if (dot > 0.7f && stateHandler.GetState() != EnemySearch.EnemyState.Chase)
+                if (dot > 0.5f && stateHandler.GetState() != EnemySearch.EnemyState.Chase)
                 {
                     Debug.Log("2단계 통과");
                     Vector3 directionToEnemy = (hit.transform.position - transform.position).normalized;

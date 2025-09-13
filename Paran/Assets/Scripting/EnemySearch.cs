@@ -111,8 +111,7 @@ private void Update()
         }
     }
 }
-
-    private LosResult UpdateSharedRaycast(Transform target)
+    public LosResult UpdateSharedRaycast(Transform target)
     {
         if (target == null) return LosResult.None;
 
@@ -168,7 +167,7 @@ private void Update()
         if (result == LosResult.Window)
             return playerState == null || playerState.currentState != PlayerMove.PlayerState.Crawl;
         return false;
-}
+    }
 
     private bool AuditoryCheck(LosResult result)
     {
@@ -183,6 +182,12 @@ private void Update()
         // 플레이어가 'Run' 상태이고, LOS가 Player일 때만 청각 감지 + 회전
         if (result == LosResult.Player && playerState != null && playerState.currentState == PlayerMove.PlayerState.Run) return true; // 청각으로 감지됨
 
+        return false;
+    }
+    private bool DeadBodyinFov()
+    {
+        //시야각: IsPlayerinFov과 동일, 시야각 안에 layer가 DeadBody인 오브젝트가 감지되면 true 반환
+        //Wall인 물체로 가려지면 감지 불가, Window는 가능
         return false;
     }
 

@@ -16,11 +16,13 @@ public class EnemyMove : MonoBehaviour
     private Vector3 lastPlayerPos;
     public float chaseDuration = 5f;     // 5초 추적
     private bool isPausingAfterChase;
+    [SerializeField] private float killRange = 5f;
 
     [Header("의심 관련")]
     private Vector3 lastKnownPlayerPos;
     public float postChasePause = 2f;    // 시야 잃으면 2초 정지
     private float pauseUntil;
+    private bool isSearching;
 
     [Header("참조 관련")]
     private NavMeshAgent agent;
@@ -30,6 +32,9 @@ public class EnemyMove : MonoBehaviour
     [Header("Look Settings")]
     public float watchTurnSpeedVision = 360f;
     public float watchTurnSpeedSound  = 120f;
+
+    [Header("기타")]
+    bool deathApplied = false;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -81,30 +86,14 @@ public class EnemyMove : MonoBehaviour
                 break;
 
             case EnemySearch.EnemyState.Chase:
+                // 만약 시체를 봤으면 (bool) Search() 호출
                 HandleChase();
+                break;
+            case EnemySearch.EnemyState.Died:
+                if (!deathApplied) ApplyDeathOnce();
                 break;
         }
     }
-
-    /*void Patrol()
-    {
-        {
-            if (patrolPoints == null || patrolPoints.Length == 0) return;
-            if (agent.pathPending) return;
-
-            var target = patrolPoints[patrolIndex].position;
-
-            if (Vector3.Distance(transform.position, target) <= waypointTolerance)
-            {
-                patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
-                target = patrolPoints[patrolIndex].position;
-                agent.SetDestination(target);
-            }
-
-            if (!agent.hasPath) agent.SetDestination(target);
-        }
-    }*/
-
     void Patrol()
     {
         if (patrolPoints == null || patrolPoints.Length == 0) return;
@@ -166,7 +155,6 @@ public class EnemyMove : MonoBehaviour
         }
         return closest;
     }
-
     void OnStateChanged(EnemySearch.EnemyState from, EnemySearch.EnemyState to)
     {
         if (to == EnemySearch.EnemyState.Chase)
@@ -215,10 +203,15 @@ public class EnemyMove : MonoBehaviour
     }
     void HandleChase()
     {
+        if (enemyManager == null || enemyManager.playerTransform == null)
+        {
+            Debug.Log("enemyManager가 올바르지 않습니다.");
+            return;
+        }
         // 추적 시간 측정 (시야가 있든 없든 5초 카운트)
         chaseTimer += Time.deltaTime;
 
-        if (enemyManager.playerVisible && enemyManager.playerTransform != null)
+        if (enemyManager.playerVisible)
         {
             // 시야를 확보하면 계속 쫓기 + 마지막 위치 갱신
             lastPlayerPos = enemyManager.playerTransform.position;
@@ -238,6 +231,17 @@ public class EnemyMove : MonoBehaviour
                 agent.isStopped = false;
                 agent.updateRotation = true;
                 agent.SetDestination(lastPlayerPos);
+            }
+        }
+        // Chase 상태에서 Player와의 사이에 장애물이 없고 
+        Vector3 flat = enemyManager.playerTransform.position - transform.position;
+        flat.y = 0f;
+        if (flat.sqrMagnitude <= killRange * killRange)
+        {
+            if (enemyManager.UpdateSharedRaycast(enemyManager.playerTransform) == EnemySearch.LosResult.Player)
+            {
+                PlayerKill();
+                return;
             }
         }
 
@@ -262,6 +266,89 @@ public class EnemyMove : MonoBehaviour
                 enemyManager.currentState = EnemySearch.EnemyState.Warning;
             }
         }
+    }
+    void Search()
+    {
+        if (isSearching || agent == null || !agent.isOnNavMesh) return;
+        StartCoroutine(CoSearch());
+    }
+
+    IEnumerator CoSearch()
+    {
+        isSearching = true;
+
+        Vector3 origin = transform.position;
+        float end = Time.time + 15f;              // 15초
+        agent.isStopped = false;
+        agent.updateRotation = true;
+
+        while (Time.time < end)
+        {
+            // 중단 조건: 사망/플레이어 발견
+            if (enemyManager == null || enemyManager.GetState() == EnemySearch.EnemyState.Died) break;
+            if (enemyManager.playerVisible && enemyManager.playerTransform != null)
+            {
+                enemyManager.currentState = EnemySearch.EnemyState.Chase;
+                agent.SetDestination(enemyManager.playerTransform.position);
+                isSearching = false; yield break;
+            }
+
+            // 반경 30m 랜덤 지점으로 이동
+            if (NavMesh.SamplePosition(origin + (Vector3)(Random.insideUnitCircle * 30f), out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+
+                // 도착/중단까지 대기
+                while (Time.time < end && (agent.pathPending || agent.remainingDistance > Mathf.Max(agent.stoppingDistance, waypointTolerance)))
+                {
+                    if (enemyManager.playerVisible && enemyManager.playerTransform != null)
+                    {
+                        enemyManager.currentState = EnemySearch.EnemyState.Chase;
+                        agent.SetDestination(enemyManager.playerTransform.position);
+                        isSearching = false; yield break;
+                    }
+                    if (enemyManager.GetState() == EnemySearch.EnemyState.Died) { isSearching = false; yield break; }
+                    yield return null;
+                }
+            }
+            else yield return null;
+        }
+
+        // 수색 종료 → 경계(Warning)로 복귀 & 근처 웨이포인트 이동
+        if (enemyManager != null && enemyManager.currentState != EnemySearch.EnemyState.Chase)
+        {
+            enemyManager.currentState = EnemySearch.EnemyState.Warning;
+            if (patrolPoints != null && patrolPoints.Length > 0)
+            {
+                patrolIndex = GetClosestPatrolIndex(transform.position);
+                agent.SetDestination(patrolPoints[patrolIndex].position);
+            }
+        }
+
+        isSearching = false;
+    }
+    void PlayerKill()
+    {
+        // GameController에 요청, GamePhase 전환: RetryScene 호출
+    }
+    void ApplyDeathOnce()
+    {
+        deathApplied = true;
+
+        agent.updateRotation = false;
+        agent.isStopped = true;
+
+        int deadLayer = LayerMask.NameToLayer("DeadBody");
+        if (deadLayer == -1)
+            Debug.LogWarning("DeadBody 레이어를 먼저 Project Settings > Tags and Layers에 추가하세요.", this);
+        else
+            SetLayerRecursively(transform, deadLayer);
+    }
+
+    static void SetLayerRecursively(Transform root, int layer)
+    {
+        foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+            t.gameObject.layer = layer;
     }
     void RotateTowards(Vector3 worldPos, float degPerSec)
     {

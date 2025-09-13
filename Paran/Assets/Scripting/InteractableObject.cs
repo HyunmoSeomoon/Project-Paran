@@ -5,7 +5,6 @@ public class InteractableObject : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private Rigidbody hipsbody;
     [SerializeField] private Transform originParent;
-    private FixedJoint attachedJoint;
     private Rigidbody[] allRigidbodies;
     void Start()
     {
@@ -18,7 +17,7 @@ public class InteractableObject : MonoBehaviour
 
     }
 
-    public void PickUp(Transform attachPoint)
+    public virtual void PickUp(Transform attachPoint)
     {
         foreach (Rigidbody rigidbody in allRigidbodies)
         {
@@ -29,7 +28,7 @@ public class InteractableObject : MonoBehaviour
         hipsbody.transform.rotation = attachPoint.rotation;
     }
 
-    public void Drop()
+    public virtual void Drop()
     {
         hipsbody.transform.SetParent(originParent);
         foreach (Rigidbody rigidbody in allRigidbodies)

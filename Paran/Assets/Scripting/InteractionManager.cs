@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DeadBodyTest : MonoBehaviour
+public class InteractionManager : MonoBehaviour
 {
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private LayerMask interactableLayer;
@@ -43,7 +43,7 @@ public class DeadBodyTest : MonoBehaviour
 
         foreach (var col in colliders)
         {
-            // 콜라이더에서 RagdollInteractable 스크립트를 찾아본다.
+            // 콜라이더에서 Interactable 스크립트를 찾아본다.
             if (col.TryGetComponent<InteractableObject>(out InteractableObject interactable))
             {
                 float distance = Vector3.Distance(transform.position, col.transform.position);

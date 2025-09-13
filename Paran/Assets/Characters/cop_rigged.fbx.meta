@@ -1,9 +1,79 @@
 fileFormatVersion: 2
-guid: 058f7463f1e5a4f49a4e7bec177669fd
+guid: dfa71ff5e801e244cbe5ab3d4404e36e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: belt_leather
+    second: {fileID: 2100000, guid: 79f6f3035a3c87d418b1e8abf76ec9a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: belt_metal1
+    second: {fileID: 2100000, guid: ca6842a6f12e0334ab4d63268e81090b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body
+    second: {fileID: 2100000, guid: d47b5bb8c95b1ee46837984625f900f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: button1
+    second: {fileID: 2100000, guid: 93615b4fdb2ff6442a192b651238bc5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clothes2
+    second: {fileID: 2100000, guid: 59238a61bf7c08e4c88934a4294bc226, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyebrow1
+    second: {fileID: 2100000, guid: 6b199ac348cc8c54f935c6e75b60c0c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyes
+    second: {fileID: 2100000, guid: 28fdf4d49eb59864b8fbab26d76d3f2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair
+    second: {fileID: 2100000, guid: e3e18563487f0bf46b0e53642ece8689, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hat_cloth1
+    second: {fileID: 2100000, guid: 709527d77f5a1f24c988eee6799b94f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hat_leather1
+    second: {fileID: 2100000, guid: ab23bae79559a6c4ba4d7ec7c832f438, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: police_mark
+    second: {fileID: 2100000, guid: d2ee1b42145ceab40a301745b1868330, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoes_leather1
+    second: {fileID: 2100000, guid: 2b82709d15bbb75459143fe4de717ee0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoes_sole1
+    second: {fileID: 2100000, guid: 2aafcfd404ede7e41b01483538e90154, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoulder_board1
+    second: {fileID: 2100000, guid: 87ed1f78745ee084cb6889df4dedb9eb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

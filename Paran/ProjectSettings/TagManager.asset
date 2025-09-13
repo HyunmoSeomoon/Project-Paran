@@ -15,9 +15,9 @@ TagManager:
   - UI
   - Wall
   - Window
-  - Coll
+  - Deadbody
   - Enemy
-  - 
+  - Ceiling
   - 
   - 
   - 

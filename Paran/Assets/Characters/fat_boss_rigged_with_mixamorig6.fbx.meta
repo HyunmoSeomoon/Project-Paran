@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5d70a2c7bf28e6e4990ae240082ea580
+guid: 058f7463f1e5a4f49a4e7bec177669fd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,138 +7,93 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_Adrenaline Syringe
-    second: {fileID: 2100000, guid: e9c838c851bffe14da67ae11862fc8cf, type: 2}
+      name: aiStandardSurface21
+    second: {fileID: 2100000, guid: 9e5c36e82b0e4374687afcbafddadc32, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_Blood_Bag1
-    second: {fileID: 2100000, guid: 1134e3d75e38bfc4199da3f5ac051629, type: 2}
+      name: aiStandardSurface22
+    second: {fileID: 2100000, guid: 0b5943cff9d83094e9712d51ec9c152e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_Material #82
-    second: {fileID: 2100000, guid: fe196519ecedcf843a24334504949e7e, type: 2}
+      name: aiStandardSurface23
+    second: {fileID: 2100000, guid: 53401e969eef9af4c9b51fc074496528, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface14
-    second: {fileID: 2100000, guid: f8b0456d15a896c4696f2265fc39e781, type: 2}
+      name: aiStandardSurface24
+    second: {fileID: 2100000, guid: 4c443e7b200f6de4797e1c7ee6f8a6bf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface15
-    second: {fileID: 2100000, guid: 4a50cce05578d064fad373394dec1e88, type: 2}
+      name: aiStandardSurface25
+    second: {fileID: 2100000, guid: 14054f2e247661048beb56151994bb65, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface16
-    second: {fileID: 2100000, guid: 986f7c4139b8f1441bad5d931b7e8f65, type: 2}
+      name: aiStandardSurface26
+    second: {fileID: 2100000, guid: 30a5a5dc5ecf23944a20ae4f8e8fb9e0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface17
-    second: {fileID: 2100000, guid: 77d92663c9489cc4099f6e7a7c5ff8a5, type: 2}
+      name: aiStandardSurface27
+    second: {fileID: 2100000, guid: a74c0c997182a04449c7d6d51ddf8f92, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface18
-    second: {fileID: 2100000, guid: dfc5e292bb9d26e488ebdd3bbaac062d, type: 2}
+      name: aiStandardSurface28
+    second: {fileID: 2100000, guid: 217208c5bfd733b458c7b81b9f0d28ee, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface25
-    second: {fileID: 2100000, guid: f34f7543cd165cf46824f0ad3e054700, type: 2}
+      name: aiStandardSurface29
+    second: {fileID: 2100000, guid: 183b62051dc3c8345a3bc49a2c206ad7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface26
-    second: {fileID: 2100000, guid: 7bacd9aa60bb1b748b6c187e04fc7240, type: 2}
+      name: aiStandardSurface31
+    second: {fileID: 2100000, guid: c57cd14ed801f0c40baf772a66317327, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface27
-    second: {fileID: 2100000, guid: f8e40bc5987d9ee40a92c97f2c66e3f8, type: 2}
+      name: aiStandardSurface32
+    second: {fileID: 2100000, guid: 21473d90bf655814aa186e583e8f78ec, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface30
-    second: {fileID: 2100000, guid: 3e3a1faed9dd7f849b5fdc523959bad5, type: 2}
+      name: aiStandardSurface33
+    second: {fileID: 2100000, guid: 2d403394da6259645b3ce7173f0817d3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface31
-    second: {fileID: 2100000, guid: d916fb03f436b6340bac12c27767f8c3, type: 2}
+      name: aiStandardSurface34
+    second: {fileID: 2100000, guid: 29fe8c1eb3e17b84a8b3eae35bca3e8f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface32
-    second: {fileID: 2100000, guid: 1f31906198b956d4a93ff85e44144884, type: 2}
+      name: aiStandardSurface35
+    second: {fileID: 2100000, guid: e8be1d73b537896428d78d8609fabcbe, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface33
-    second: {fileID: 2100000, guid: a99726426c0ca4e46905b284bd1d0e2b, type: 2}
+      name: aiStandardSurface36
+    second: {fileID: 2100000, guid: 10c282513d52dbb4a875230fa38cc4f9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface34
-    second: {fileID: 2100000, guid: 71762776eace16245a7de81cf38ab02f, type: 2}
+      name: aiStandardSurface37
+    second: {fileID: 2100000, guid: 19bfa9480b13ae84098ff914758eb884, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface35
-    second: {fileID: 2100000, guid: b2e8a4ef9e20c9f47b2a645230fb3c9d, type: 2}
+      name: aiStandardSurface38
+    second: {fileID: 2100000, guid: c1019ee0f35450f42acb1d60e25d8e30, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface36
-    second: {fileID: 2100000, guid: 14ac82f1b62a2024daefe1f5729536b1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface38
-    second: {fileID: 2100000, guid: 772ad95861fe28b459663f5f853fd1b0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface4
-    second: {fileID: 2100000, guid: ecf640fd5d88ab24fa4198fd360f0b2d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface5
-    second: {fileID: 2100000, guid: eee63755423f1834bbf87fcbfeb1c409, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface6
-    second: {fileID: 2100000, guid: 2164befffe0390043ba17bb83aea88de, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface7
-    second: {fileID: 2100000, guid: 484997df900da974ab837158cdb05ac6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_aiStandardSurface8
-    second: {fileID: 2100000, guid: 334b4e9800c99cc4388b0c09c035b4fd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_curtain1
-    second: {fileID: 2100000, guid: a58d84a2641e72c4791f47171d9bdfb1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_glass
-    second: {fileID: 2100000, guid: a365e2dc4e833f54f8d3e924b43fa62e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bo2_metal
-    second: {fileID: 2100000, guid: 3ca925d7535116e45a3e8d9bfa52a588, type: 2}
+      name: aiStandardSurface39
+    second: {fileID: 2100000, guid: dfd32d2c1ab8fab4f94b61d6adfeb499, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -232,7 +187,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

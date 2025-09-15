@@ -1,0 +1,23 @@
+🔹 Animations are divided into three main categories:✅ Silent Takedown Animations✅ Silent Fall Takedown Animations✅ Silent Hang Takedown Animations
+
+✅ And etc Animation too
+
+🔹 Animation List
+
+1️⃣ Silent Takedown Animations (Attack & React)
+
+✔ Anim_Idle✔ Anim_Silent_Crouch_idle✔ Anim_Silent_Crouch_Walk✔ Anim_Silent_Crouch_Backward_Walk✔ Anim_Silent_Takedown_01✔ Anim_Silent_Takedown_01_React✔ Anim_Silent_Takedown_02✔ Anim_Silent_Takedown_02_React✔ Anim_Silent_Takedown_03✔ Anim_Silent_Takedown_03_React✔ Anim_Silent_Takedown_04✔ Anim_Silent_Takedown_04_React✔ Anim_Silent_Takedown_05✔ Anim_Silent_Takedown_05_React✔ Anim_Silent_Takedown_06✔ Anim_Silent_Takedown_06_React✔ Anim_Silent_Takedown_07✔ Anim_Silent_Takedown_07_React✔ Anim_Silent_Takedown_08✔ Anim_Silent_Takedown_08_React✔ Anim_Silent_Takedown_09✔ Anim_Silent_Takedown_09_React✔ Anim_Silent_Takedown_10✔ Anim_Silent_Takedown_10_React
+
+💠 Value - TZ - 123
+
+2️⃣ Silent Fall Takedown Animations (Attack & React)
+
+✔ Anim_Silent_Crouch_to_Fall✔ Anim_Silent_Fall_idle✔ Anim_Silent_Fall_Takedown_01✔ Anim_Silent_Fall_Takedown_01_React✔ Anim_Silent_Fall_Takedown_02✔ Anim_Silent_Fall_Takedown_02_React✔ Anim_Silent_Fall_Takedown_03✔ Anim_Silent_Fall_Takedown_03_React✔ Anim_Silent_Fall_Takedown_04✔ Anim_Silent_Fall_Takedown_04_React✔ Anim_Silent_Fall_Takedown_05✔ Anim_Silent_Fall_Takedown_05_React✔ Anim_Silent_Fall_to_Hang
+
+💠 Value - TZ - 60
+
+3️⃣ Silent Hang Takedown Animations (Attack & React)
+
+✔ Anim_Silent_Hang_idle✔ Anim_Silent_Hang_A_Takedown_01✔ Anim_Silent_Hang_A_Takedown_01_React✔ Anim_Silent_Hang_A_Takedown_02✔ Anim_Silent_Hang_A_Takedown_02_React✔ Anim_Silent_Hang_A_Takedown_03✔ Anim_Silent_Hang_A_Takedown_03_React✔ Anim_Silent_Hang_A_Takedown_04✔ Anim_Silent_Hang_A_Takedown_04_React✔ Anim_Silent_Hang_A_Takedown_05✔ Anim_Silent_Hang_A_Takedown_05_React✔ Anim_Silent_Hang_B_Takedown_01✔ Anim_Silent_Hang_B_Takedown_01_React✔ Anim_Silent_Hang_B_Takedown_02✔ Anim_Silent_Hang_B_Takedown_02_React✔ Anim_Silent_Hang_B_Takedown_03✔ Anim_Silent_Hang_B_Takedown_03_React✔ Anim_Silent_Hang_Move_Left✔ Anim_Silent_Hang_Move_Right
+
+💠 Values - TZ - 130, TZ - 143, RZ - 180

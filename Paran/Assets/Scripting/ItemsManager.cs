@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class ItemsManager : InteractableObject
 {
-    [SerializeField] private Image itemImage;
+    public Sprite itemIcon;
+    public string itemDescription;
+    public string itemName;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,8 +22,14 @@ public class ItemsManager : InteractableObject
 
     public override void PickUp(Transform attachPoint)
     {
-        UIManager uIManager = attachPoint.gameObject.GetComponent<UIManager>();
+        UIManager uIManager = FindAnyObjectByType<UIManager>().GetComponent<UIManager>();
         uIManager.TurnOnUI(UIManager.UITypes.ItemInfo);
+        if (uIManager.GetUIPanel(UIManager.UITypes.ItemInfo) is ItemInfoUI itemPanel)
+        {
+            itemPanel.UpdateInfo(itemIcon, itemName, itemDescription);
+        }
+        attachPoint.parent.gameObject.GetComponent<PlayerMove>().isMoved = false;
+        gameObject.SetActive(false);
     }
 
     public override void Drop()

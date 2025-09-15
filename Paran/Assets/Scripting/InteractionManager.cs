@@ -18,7 +18,6 @@ public class InteractionManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("Test");
             // 1. 현재 무언가를 들고 있다면, 내려놓는다.
             if (currentHeldObject != null)
             {
@@ -63,7 +62,7 @@ public class InteractionManager : MonoBehaviour
             targetObject.PickUp(attachTransform);
             currentHeldObject = targetObject;
             //playerAnimator.SetBool("Carrying", true);
-            playerMove.currentState = PlayerMove.PlayerState.Carry;
+            //playerMove.currentState = PlayerMove.PlayerState.Carry;
         }
     }
 }

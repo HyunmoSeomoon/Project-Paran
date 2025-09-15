@@ -31,6 +31,7 @@ public class PlayerMove : MonoBehaviour
     public float moveSpeed; // 현재 속도
     public float targetSpeed; // 가속 감속을 위한 목표 속도
     private bool attackFlag = false;
+    public bool isMoved = true;
 
     void Start()
     {
@@ -40,42 +41,44 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (!isMoved) return;
         // 입력 처리
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 inputDir = new Vector3(x, 0, z).normalized;
-
+        
         // 상태 전환 처리
-        if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
-        {
-            if (currentState != PlayerState.Crawl)
-                currentState = PlayerState.Crawl;
-            else currentState = PlayerState.Stand;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            currentState = PlayerState.Attack;
-        }
-
-        if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
-        {
-            if (inputDir != Vector3.zero)
+            if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
             {
-                currentState = PlayerState.Walk;
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (currentState != PlayerState.Crawl)
+                    currentState = PlayerState.Crawl;
+                else currentState = PlayerState.Stand;
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                currentState = PlayerState.Attack;
+            }
+
+            if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
+            {
+                if (inputDir != Vector3.zero)
+                {
+                    currentState = PlayerState.Walk;
+                    if (Input.GetKey(KeyCode.LeftShift))
+                        currentState = PlayerState.Run;
+                }
+                else
+                {
+                    currentState = PlayerState.Stand;
+                }
+            }
+            else if (currentState == PlayerState.Crawl)
+            {
+                if (inputDir != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
                     currentState = PlayerState.Run;
             }
-            else
-            {
-                currentState = PlayerState.Stand;
-            }
-        }
-        else if (currentState == PlayerState.Crawl)
-        {
-            if (inputDir != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
-                currentState = PlayerState.Run;
-        }
+        
 
         // 상태에 따라 속도 설정
         switch (currentState)

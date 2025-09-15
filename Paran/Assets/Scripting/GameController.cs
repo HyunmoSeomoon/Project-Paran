@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            
+
         }
         else Destroy(gameObject);
     }

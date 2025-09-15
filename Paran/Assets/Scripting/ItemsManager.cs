@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class ItemsManager : InteractableObject
 {
-    public Image itemImage;
+    public Sprite itemIcon;
+    public string itemDescription;
+    public string itemName;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,6 +24,10 @@ public class ItemsManager : InteractableObject
     {
         UIManager uIManager = FindAnyObjectByType<UIManager>().GetComponent<UIManager>();
         uIManager.TurnOnUI(UIManager.UITypes.ItemInfo);
+        if (uIManager.GetUIPanel(UIManager.UITypes.ItemInfo) is ItemInfoUI itemPanel)
+        {
+            itemPanel.UpdateInfo(itemIcon, itemName, itemDescription);
+        }
         attachPoint.parent.gameObject.GetComponent<PlayerMove>().isMoved = false;
         gameObject.SetActive(false);
     }

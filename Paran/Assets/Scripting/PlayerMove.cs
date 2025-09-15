@@ -46,39 +46,39 @@ public class PlayerMove : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 inputDir = new Vector3(x, 0, z).normalized;
-        
+
         // 상태 전환 처리
-            if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
-            {
-                if (currentState != PlayerState.Crawl)
-                    currentState = PlayerState.Crawl;
-                else currentState = PlayerState.Stand;
-            }
+        if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
+        {
+            if (currentState != PlayerState.Crawl)
+                currentState = PlayerState.Crawl;
+            else currentState = PlayerState.Stand;
+        }
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                currentState = PlayerState.Attack;
-            }
+        if (Input.GetMouseButtonDown(0))
+        {
+            currentState = PlayerState.Attack;
+        }
 
-            if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
+        if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
+        {
+            if (inputDir != Vector3.zero)
             {
-                if (inputDir != Vector3.zero)
-                {
-                    currentState = PlayerState.Walk;
-                    if (Input.GetKey(KeyCode.LeftShift))
-                        currentState = PlayerState.Run;
-                }
-                else
-                {
-                    currentState = PlayerState.Stand;
-                }
-            }
-            else if (currentState == PlayerState.Crawl)
-            {
-                if (inputDir != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+                currentState = PlayerState.Walk;
+                if (Input.GetKey(KeyCode.LeftShift))
                     currentState = PlayerState.Run;
             }
-        
+            else
+            {
+                currentState = PlayerState.Stand;
+            }
+        }
+        else if (currentState == PlayerState.Crawl)
+        {
+            if (inputDir != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+                currentState = PlayerState.Run;
+        }
+
 
         // 상태에 따라 속도 설정
         switch (currentState)
@@ -164,7 +164,12 @@ public class PlayerMove : MonoBehaviour
 
     private void Attack()
     {
-            animator.SetTrigger("Attack");
-            currentState = PlayerState.Stand;
+        animator.SetTrigger("Attack");
+        currentState = PlayerState.Stand;
+    }
+
+    public void MoveEnable(bool b)
+    {
+        isMoved = b;
     }
 }

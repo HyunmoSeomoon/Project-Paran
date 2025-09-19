@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
+            
         }
         else Destroy(gameObject);
     }
@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
         if (a == 50)
         {
             currentTime = currentTime.AddSeconds(1);
-            //Debug.Log(currentTime.ToString("MM/dd/yyyy HH:mm:ss"));
+            Debug.Log(currentTime.ToString("MM/dd/yyyy HH:mm:ss"));
             a = 0;
         }
     }

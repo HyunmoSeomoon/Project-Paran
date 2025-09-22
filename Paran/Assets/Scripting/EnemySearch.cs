@@ -211,6 +211,11 @@ private void Update()
         return Mathf.Max(0f, rate); // 방어적 클램프
     }
 
+    public float PlayerDetectRatio()
+    {
+        return Mathf.Clamp01(playerInSightTimer / timeToSwitchState);
+    }
+    
     public void SetState(EnemyState newState)
     {
         if (currentState == EnemyState.Died)

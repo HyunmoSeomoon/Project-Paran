@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
         Ending //
     }
 
+    [SerializeField] private UIManager uIManager;
+
     //For SingleTon pattern
     public static GameController Instance { get; private set; }
     void Awake()
@@ -29,19 +31,22 @@ public class GameController : MonoBehaviour
     }
 
     public bool timeFlag = true;
-    private DateTime startTime = new DateTime(1939,11,11,10,00,00);
+    private DateTime startTime = new DateTime(1939,11,11,9,15,00);
     private DateTime currentTime;
     private int a = 0;
-    void Start() {
+    void Start()
+    {
         currentTime = startTime;
+        uIManager.SetClockTime(currentTime.Hour,currentTime.Minute);
     }
     void FixedUpdate()
     {
         a++;
-        if (a == 50)
+        if (a == 1500)
         {
-            currentTime = currentTime.AddSeconds(1);
+            currentTime = currentTime.AddMinutes(1);
             Debug.Log(currentTime.ToString("MM/dd/yyyy HH:mm:ss"));
+            uIManager.NormalClockTime();
             a = 0;
         }
     }

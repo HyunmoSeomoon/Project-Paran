@@ -5,7 +5,12 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject itemUI;
-    [SerializeField] private GameObject clock;
+
+    [Header("시계 ui")]
+    [SerializeField] private GameObject clockUI;
+    [SerializeField] private GameObject minuteUI;
+    [SerializeField] private GameObject hourUI;
+
     public EventHandler turnOnSpecificUI;
     public enum UITypes
     {
@@ -71,6 +76,23 @@ public class UIManager : MonoBehaviour
         {
             panel.Value.Hide();
         }
+    }
+
+    public void SetClockTime(int hour, int minute)
+    {
+        if (minuteUI == null || hourUI == null)
+            return;
+
+        minuteUI.transform.rotation = Quaternion.Euler(0, 0, minute * -6);
+        hourUI.transform.rotation = Quaternion.Euler(0, 0, ( (hour * -30) - (minute*0.1f) ));
+    }
+
+    Vector3 normalMinute = new Vector3(0, 0, -6);
+    Vector3 normalHour = new Vector3(0, 0, -0.1f);
+    public void NormalClockTime()
+    {
+        minuteUI.transform.Rotate(normalMinute);
+        hourUI.transform.Rotate(normalHour);
     }
 }
 

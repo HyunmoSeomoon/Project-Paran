@@ -28,15 +28,18 @@ public class PlayerMove : MonoBehaviour
     public PlayerState currentState = PlayerState.Stand;
     public float moveSpeed; // 현재 속도
     public float targetSpeed; // 가속 감속을 위한 목표 속도
+    public bool isMoved;
 
     void Start()
     {
         cc = GetComponent<CharacterController>();
         moveSpeed = 0f;
+        isMoved = true;
     }
 
     void Update()
     {
+        if (!isMoved) return;
         // 입력 처리
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");

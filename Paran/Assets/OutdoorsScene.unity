@@ -6741,6 +6741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cop_rigged (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: dfa71ff5e801e244cbe5ab3d4404e36e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 80b9fda272bcf3243b07a4ac98baa70c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7237,19 +7241,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1698001920}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4f0317884156054c921aff705682d58, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ba0250a188ca464a9f36b1d782a176d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
-  crawlSpeed: 2
-  runSpeed: 9
+  walkSpeed: 7
+  crawlSpeed: 5
+  runSpeed: 10
   gravity: -9.8
-  rotationSpeed: 10
+  rotationSpeed: 20
   animator: {fileID: 582727887}
   currentState: 0
   moveSpeed: 0
   targetSpeed: 0
-  isMoved: 0
+  isMoved: 1
 --- !u!143 &1698001923
 CharacterController:
   m_ObjectHideFlags: 0

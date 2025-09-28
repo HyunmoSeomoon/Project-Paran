@@ -7838,15 +7838,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 684547202183167830, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1118518282859320501, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7359963649020321326, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1506311277}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4522451655232636953, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1831061730}
   m_SourcePrefab: {fileID: 100100000, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+--- !u!1 &1801423686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4522451655232636953, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+  m_PrefabInstance: {fileID: 1801423685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1801496025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2016161718662227199, guid: be3af10dd66b99c4c8a85de9ec3fde5a, type: 3}
@@ -8244,6 +8253,40 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7359963649020321326, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
   m_PrefabInstance: {fileID: 1801423685}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1831061730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801423686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10716df5f25a5a147bcf12fb864864e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  waypointTolerance: 0.5
+  patrolIndex: 0
+  waitAtWaypoint: 5
+  waiting: 0
+  chaseTimer: 0
+  lastPlayerPos: {x: 0, y: 0, z: 0}
+  chaseDuration: 5
+  isPausingAfterChase: 0
+  killRange: 5
+  lastKnownPlayerPos: {x: 0, y: 0, z: 0}
+  postChasePause: 2
+  pauseUntil: 0
+  isSearching: 0
+  agent: {fileID: 0}
+  enemyManager: {fileID: 0}
+  prevState: 0
+  watchTurnSpeedVision: 360
+  watchTurnSpeedSound: 120
+  deathApplied: 0
 --- !u!1 &1836986957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8614542453468779477, guid: 736310fcf55cc77449fb2aee70d03472, type: 3}

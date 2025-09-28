@@ -2127,11 +2127,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7627970225857190834, guid: be3af10dd66b99c4c8a85de9ec3fde5a, type: 3}
---- !u!4 &501061298 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d72b10c4f0f7b834eb1cb5f003610fe3, type: 3}
-  m_PrefabInstance: {fileID: 1177468151}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &518691662 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6064047257221361561, guid: be3af10dd66b99c4c8a85de9ec3fde5a, type: 3}
@@ -2214,7 +2209,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: a28bf7fdb12bd6e4182394f8654e7b9b, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 7c049a0d46bfcee429134fb5a880c64c, type: 2}
+      objectReference: {fileID: 9100000, guid: 71bda8cde57d98540a51328df4497518, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4545,8 +4540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7854c5bcdeb2f4faedd6e9a196e903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hipsbody: {fileID: 1177468163}
-  originParent: {fileID: 501061298}
 --- !u!1 &1181746589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 20984534839814401, guid: be3af10dd66b99c4c8a85de9ec3fde5a, type: 3}
@@ -7256,6 +7249,7 @@ MonoBehaviour:
   currentState: 0
   moveSpeed: 0
   targetSpeed: 0
+  isMoved: 0
 --- !u!143 &1698001923
 CharacterController:
   m_ObjectHideFlags: 0
@@ -7850,6 +7844,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4522451655232636953, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1831061730}
+    - targetCorrespondingSourceObject: {fileID: 4522451655232636953, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1831061731}
   m_SourcePrefab: {fileID: 100100000, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
 --- !u!1 &1801423686 stripped
 GameObject:
@@ -8262,31 +8259,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 1801423686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10716df5f25a5a147bcf12fb864864e2, type: 3}
+  m_Script: {fileID: 11500000, guid: f9b90b7c45b12174f8a3120ec45c8706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 946686016}
+  - {fileID: 1916506076}
   waypointTolerance: 0.5
-  patrolIndex: 0
   waitAtWaypoint: 5
-  waiting: 0
-  chaseTimer: 0
-  lastPlayerPos: {x: 0, y: 0, z: 0}
   chaseDuration: 5
-  isPausingAfterChase: 0
   killRange: 5
-  lastKnownPlayerPos: {x: 0, y: 0, z: 0}
   postChasePause: 2
-  pauseUntil: 0
-  isSearching: 0
-  agent: {fileID: 0}
-  enemyManager: {fileID: 0}
-  prevState: 0
   watchTurnSpeedVision: 360
   watchTurnSpeedSound: 120
-  deathApplied: 0
+  enemyAnimator: {fileID: 1831061731}
+--- !u!95 &1831061731
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801423686}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: dfa71ff5e801e244cbe5ab3d4404e36e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 80b9fda272bcf3243b07a4ac98baa70c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1836986957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8614542453468779477, guid: 736310fcf55cc77449fb2aee70d03472, type: 3}

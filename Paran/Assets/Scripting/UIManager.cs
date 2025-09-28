@@ -93,11 +93,11 @@ public class UIManager : MonoBehaviour
             return;
 
         minuteUI.transform.rotation = Quaternion.Euler(0, 0, minute * -6);
-        hourUI.transform.rotation = Quaternion.Euler(0, 0, ( (hour * -30) - (minute*0.1f) ));
+        hourUI.transform.rotation = Quaternion.Euler(0, 0, ( (hour * -30) - (minute*0.5f) ));
     }
 
     Vector3 normalMinute = new Vector3(0, 0, -6);
-    Vector3 normalHour = new Vector3(0, 0, -0.1f);
+    Vector3 normalHour = new Vector3(0, 0, -0.5f);
     public void NormalClockTime()
     {
         minuteUI.transform.Rotate(normalMinute);

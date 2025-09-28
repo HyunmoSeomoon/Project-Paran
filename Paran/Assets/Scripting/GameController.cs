@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
     void FixedUpdate()
     {
         a++;
-        if (a == 1500)
+        if (a == 100)
         {
             currentTime = currentTime.AddMinutes(1);
             Debug.Log(currentTime.ToString("MM/dd/yyyy HH:mm:ss"));

@@ -23,6 +23,8 @@ public class EnemyMove : MonoBehaviour
     public float postChasePause = 2f;    // 시야 잃으면 2초 정지
     private float pauseUntil;
     private bool isSearching;
+    private float soundTimer = 0f; // 현재 타이머
+    private bool soundRecentlyHeard = false;
 
     [Header("참조 관련")]
     private NavMeshAgent agent;
@@ -179,8 +181,25 @@ public class EnemyMove : MonoBehaviour
     }
     void HandleWarning()
     {
-        // 시야X + 소리O 때만 소리 방향으로 고개 돌림
-        bool lookBySound = !enemyManager.playerVisible && enemyManager.checkSound;
+        // 새로운 소리를 들었을 경우 타이머 리셋
+        if (!enemyManager.playerVisible && enemyManager.checkSound && !soundRecentlyHeard)
+        {
+            soundTimer = Mathf.Max(0.5f, enemyManager.PlayerDetectRatio() * 2f);
+            Debug.Log($"{soundTimer:F2}초 기다립니다");
+            soundRecentlyHeard = true;
+        }
+
+        // 타이머 감소
+        if (soundTimer > 0f)
+        {
+            soundTimer -= Time.deltaTime;
+            if (soundTimer <= 0f)
+            {
+                soundRecentlyHeard = false;
+            }
+        }
+
+        bool lookBySound = !enemyManager.playerVisible && soundRecentlyHeard;
 
         if (enemyManager.playerVisible || lookBySound)
         {
@@ -191,7 +210,6 @@ public class EnemyMove : MonoBehaviour
             var target = enemyManager.playerTransform != null ? enemyManager.playerTransform.position : transform.position + transform.forward;
             float spd = enemyManager.playerVisible ? watchTurnSpeedVision : watchTurnSpeedSound;
             RotateTowards(target, spd);
-            //2초동안 계속 바라보게 설정
         }
         else
         {
@@ -267,7 +285,7 @@ public class EnemyMove : MonoBehaviour
             }
         }
     }
-    void Search()
+    void Serch()
     {
         if (isSearching || agent == null || !agent.isOnNavMesh) return;
         StartCoroutine(CoSearch());

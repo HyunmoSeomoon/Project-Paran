@@ -30,7 +30,6 @@ public class EnemySearch : MonoBehaviour
 
     [Header("감지 속도 스케일")]
     [SerializeField] private float visualBoost = 2f;     // 시야로 감지 중 가산(배수)
-    [SerializeField] private float soundBoost = 1f;     // 청각으로 감지 중 가산(배수)
     public EnemyState currentState = EnemyState.Warning;
     private NavMeshAgent agent;
     private float playerInSightTimer = 0f;
@@ -72,7 +71,7 @@ private void Update()
             bool sensed = playerVisible || checkSound;
             if (sensed)
             {
-                float detectRate = ComputeDetectRate(playerVisible, checkSound);
+                float detectRate = ComputeDetectRate(playerVisible);
                 playerInSightTimer += Time.deltaTime * detectRate;
 
                 if (playerInSightTimer >= timeToSwitchState)
@@ -91,7 +90,8 @@ private void Update()
             }
             else
             {
-                playerInSightTimer = 0f;
+                playerInSightTimer -= 2f * Time.deltaTime;
+                if (playerInSightTimer < 0f) playerInSightTimer = 0f;
             }
             break;
         }
@@ -191,24 +191,27 @@ private void Update()
         return false;
     }
 
-    private float ComputeDetectRate(bool viaVision, bool viaSound)
+    private float ComputeDetectRate(bool viaVision)
     {
-        // 감지 안 되면 0 (호출 측에서 이미 컷하지만 방어적)
-        if (!viaVision && !viaSound) return 0f;
+        if (!viaVision) return 0f; // 시야에 안 보이면 감지 안 함
 
-        // 거리(XZ)
+        // 거리(XZ 기준)
         Vector3 to = playerTransform.position - transform.position;
-        float d = new Vector2(to.x, to.z).magnitude;
+        float distance = new Vector2(to.x, to.z).magnitude;
 
-        // 분모: 시야만/청각만/둘 다(합)
-        float denom = viaVision && viaSound
-            ? (visualBoost + soundBoost)
-            : (viaVision ? visualBoost : soundBoost);
+        // 파라미터
+        float maxRate = 10f;      // 최대 감지율 (가까울 때)
+        float minRate = 2f;       // 최소 감지율 (멀리 있을 때도 이 정도는 유지)
+        float falloffDistance = 10f; // 감지율이 떨어지기 시작하는 기준 거리
 
-        // 제안식: base - (slope * d) / denom
-        float rate = 10f - (3f * d) / denom;
+        // 거리 기반 감쇠 (선형 or 곡선적 감쇠 가능)
+        float t = Mathf.Clamp01(distance / falloffDistance);
+        float rate = Mathf.Lerp(maxRate, minRate, t); // 가까울수록 maxRate, 멀수록 minRate
 
-        return Mathf.Max(0f, rate); // 방어적 클램프
+        // 시각 배수 적용
+        rate *= visualBoost;
+
+        return rate;
     }
 
     public float PlayerDetectRatio()

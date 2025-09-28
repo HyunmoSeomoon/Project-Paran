@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +11,8 @@ public class PlayerMove : MonoBehaviour
         Crawl,
         Walk,
         Run,
-        Carry
+        Carry,
+        Attack
     }
 
     [Header("속도 설정")]
@@ -22,12 +24,14 @@ public class PlayerMove : MonoBehaviour
 
     private CharacterController cc;
     private Vector3 velocity;
-    
+
     [SerializeField] Animator animator;
 
     public PlayerState currentState = PlayerState.Stand;
     public float moveSpeed; // 현재 속도
     public float targetSpeed; // 가속 감속을 위한 목표 속도
+    private bool attackFlag = false;
+    public bool isMoved = true;
 
     void Start()
     {
@@ -37,20 +41,26 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (!isMoved) return;
         // 입력 처리
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 inputDir = new Vector3(x, 0, z).normalized;
 
         // 상태 전환 처리
-        if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
         {
-            if (currentState != PlayerState.Crawl )
+            if (currentState != PlayerState.Crawl)
                 currentState = PlayerState.Crawl;
             else currentState = PlayerState.Stand;
         }
 
-        if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry)
+        if (Input.GetMouseButtonDown(0))
+        {
+            currentState = PlayerState.Attack;
+        }
+
+        if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
         {
             if (inputDir != Vector3.zero)
             {
@@ -68,6 +78,7 @@ public class PlayerMove : MonoBehaviour
             if (inputDir != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
                 currentState = PlayerState.Run;
         }
+
 
         // 상태에 따라 속도 설정
         switch (currentState)
@@ -97,13 +108,20 @@ public class PlayerMove : MonoBehaviour
                 animator.SetBool("Crawling", false);
                 break;
             case PlayerState.Carry:
-                targetSpeed = walkSpeed-1;
+                targetSpeed = walkSpeed - 1;
                 animator.SetBool("Running", false);
                 animator.SetBool("Carrying", true);
                 animator.SetBool("Crawling", false);
                 break;
+            case PlayerState.Attack:
+                targetSpeed = 0;
+                animator.SetBool("Running", false);
+                animator.SetBool("Carrying", false);
+                animator.SetBool("Crawling", false);
+                Attack();
+                break;
         }
-        
+
         if (Mathf.Abs(moveSpeed - targetSpeed) < 0.01f)
             moveSpeed = targetSpeed;
         else
@@ -134,13 +152,24 @@ public class PlayerMove : MonoBehaviour
             }
             cc.Move(moveDir * moveSpeed * Time.deltaTime);
         }
-        animator.SetFloat("Speed", new Vector3(x,0,z).magnitude);
+        animator.SetFloat("Speed", new Vector3(x, 0, z).magnitude);
 
         bool isGrounded = cc.isGrounded;
-        
+
         if (isGrounded && velocity.y < 0) velocity.y = 0;
 
         velocity.y += gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
+    }
+
+    private void Attack()
+    {
+        animator.SetTrigger("Attack");
+        currentState = PlayerState.Stand;
+    }
+
+    public void MoveEnable(bool b)
+    {
+        isMoved = b;
     }
 }

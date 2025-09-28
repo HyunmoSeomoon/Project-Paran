@@ -35,6 +35,7 @@ public class EnemyMove : MonoBehaviour
 
     [Header("기타")]
     bool deathApplied = false;
+    [SerializeField] private Animator enemyAnimator;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -60,11 +61,13 @@ public class EnemyMove : MonoBehaviour
     void Update()
     {
         if (enemyManager == null || agent == null) return;
-        
+
         // 죽으면 멈추도록
         if (enemyManager.GetState() == EnemySearch.EnemyState.Died)
         {
             if (!agent.isStopped) agent.isStopped = true;
+            enemyAnimator.enabled = false;
+            GetComponent<EnemyRagDollManager>().ControlKinematic(false);
             return;
         }
 
@@ -82,17 +85,22 @@ public class EnemyMove : MonoBehaviour
                 Patrol();
                 break;
             case EnemySearch.EnemyState.Warning:
+                agent.speed = 2;
                 HandleWarning();
                 break;
 
             case EnemySearch.EnemyState.Chase:
                 // 만약 시체를 봤으면 (bool) Search() 호출
+                agent.speed = 7;
                 HandleChase();
                 break;
             case EnemySearch.EnemyState.Died:
                 if (!deathApplied) ApplyDeathOnce();
                 break;
         }
+
+        enemyAnimator.SetFloat("Enemy_Speed", agent.velocity.magnitude);
+        
     }
     void Patrol()
     {
@@ -123,22 +131,37 @@ public class EnemyMove : MonoBehaviour
         // 진행 반대 방향 바라보기 (velocity가 거의 0이면 현재 forward 기준)
         Vector3 moveDir = agent.velocity; moveDir.y = 0f;
         if (moveDir.sqrMagnitude < 1e-4f) moveDir = transform.forward;
-        transform.rotation = Quaternion.LookRotation(-moveDir, Vector3.up);
+        //transform.rotation = Quaternion.LookRotation(-moveDir, Vector3.up);
 
         // 5초 대기
         agent.isStopped = true;
         agent.updateRotation = false;
-        yield return new WaitForSeconds(waitAtWaypoint);
+        yield return new WaitForSeconds(waitAtWaypoint/2);
+
+        enemyAnimator.SetTrigger("Turn");
+        float elapsedTime = 0f;
+        Quaternion startRotation = transform.rotation;
+        while (elapsedTime < 1.5f)
+        {
+            float angle = Mathf.Lerp(0, 180f, elapsedTime / 1.5f);
+            transform.rotation = startRotation * Quaternion.AngleAxis(angle, Vector3.up);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.rotation = Quaternion.LookRotation(-moveDir, Vector3.up); // 정확하게 회전 마무리
+
+
+        yield return new WaitForSeconds(waitAtWaypoint / 2);
 
         // 다음 포인트로
         patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
-        agent.isStopped = false;
         agent.updateRotation = true;
+        agent.isStopped = false;
 
         Transform next = patrolPoints[patrolIndex];
         if (next != null)
             agent.SetDestination(next.position);
-
+        
         waiting = false;
     }
 

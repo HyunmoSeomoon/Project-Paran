@@ -70,6 +70,15 @@ public class UIManager : MonoBehaviour
         else Debug.Log("uiTypes error");
     }
 
+    public IUIPanel GetUIPanel(UITypes uITypes)
+    {
+        if (uiPanels.TryGetValue(uITypes, out IUIPanel uiPanel))
+        {
+            return uiPanel;
+        }
+        return null;
+    }
+
     private void HideAll()
     {
         foreach (var panel in uiPanels)

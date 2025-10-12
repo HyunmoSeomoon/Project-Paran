@@ -69,7 +69,6 @@ public class EnemyMove : MonoBehaviour
         {
             if (!agent.isStopped) agent.isStopped = true;
             enemyAnimator.enabled = false;
-            GetComponent<EnemyRagDollManager>().ControlKinematic(false);
             return;
         }
 

@@ -12,7 +12,8 @@ public class PlayerMove : MonoBehaviour
         Walk,
         Run,
         Carry,
-        Attack
+        Attack,
+        Dialogue
     }
 
     [Header("속도 설정")]
@@ -41,23 +42,28 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (!isMoved) return;
-        // 입력 처리
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 inputDir = new Vector3(x, 0, z).normalized;
-
-        // 상태 전환 처리
-        if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
+        Vector3 inputDir = Vector3.zero;
+        float x = 0;
+        float z = 0;
+        if (isMoved)
         {
-            if (currentState != PlayerState.Crawl)
-                currentState = PlayerState.Crawl;
-            else currentState = PlayerState.Stand;
-        }
+            // 입력 처리
+            x = Input.GetAxis("Horizontal");
+            z = Input.GetAxis("Vertical");
+            inputDir = new Vector3(x, 0, z).normalized;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            currentState = PlayerState.Attack;
+            // 상태 전환 처리
+            if (Input.GetKeyDown(KeyCode.LeftControl) && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
+            {
+                if (currentState != PlayerState.Crawl)
+                    currentState = PlayerState.Crawl;
+                else currentState = PlayerState.Stand;
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                currentState = PlayerState.Attack;
+            }
         }
 
         if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
@@ -91,6 +97,7 @@ public class PlayerMove : MonoBehaviour
                 break;
             case PlayerState.Walk:
                 targetSpeed = walkSpeed;
+                animator.SetFloat("Speed", 1f);
                 animator.SetBool("Running", false);
                 animator.SetBool("Carrying", false);
                 animator.SetBool("Crawling", false);
@@ -119,6 +126,12 @@ public class PlayerMove : MonoBehaviour
                 animator.SetBool("Carrying", false);
                 animator.SetBool("Crawling", false);
                 Attack();
+                break;
+            case PlayerState.Dialogue:
+                targetSpeed = 0;
+                animator.SetBool("Running", false);
+                animator.SetBool("Carrying", false);
+                animator.SetBool("Crawling", false);
                 break;
         }
 
@@ -152,7 +165,7 @@ public class PlayerMove : MonoBehaviour
             }
             cc.Move(moveDir * moveSpeed * Time.deltaTime);
         }
-        animator.SetFloat("Speed", new Vector3(x, 0, z).magnitude);
+        animator.SetFloat("Speed", inputDir.magnitude);
 
         bool isGrounded = cc.isGrounded;
 
@@ -164,8 +177,17 @@ public class PlayerMove : MonoBehaviour
 
     private void Attack()
     {
+        MoveEnable(false);
         animator.SetTrigger("Attack");
+        StartCoroutine(MakeAttackDelay());
+    }
+
+    IEnumerator MakeAttackDelay()
+    {
+        yield return new WaitForSeconds(2f);
         currentState = PlayerState.Stand;
+        MoveEnable(true);
+        yield break;
     }
 
     public void MoveEnable(bool b)

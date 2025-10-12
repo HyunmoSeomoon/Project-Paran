@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 
-public class PlayerInteract : MonoBehaviour
+public class AssasinManager : MonoBehaviour
 {
 
     [SerializeField] private Transform playerTransform;

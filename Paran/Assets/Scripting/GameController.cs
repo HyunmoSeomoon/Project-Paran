@@ -45,7 +45,6 @@ public class GameController : MonoBehaviour
         if (a == 100)
         {
             currentTime = currentTime.AddMinutes(1);
-            Debug.Log(currentTime.ToString("MM/dd/yyyy HH:mm:ss"));
             uIManager.NormalClockTime();
             a = 0;
         }

@@ -17,7 +17,8 @@ public class UIManager : MonoBehaviour
         Menu,
         Inventory,
         ItemInfo,
-        Map
+        Map,
+        Dialogue
     }
 
     // 각 UI 타입에 맞는 패널들을 등록할 딕셔너리

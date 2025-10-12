@@ -20,6 +20,8 @@ public class ItemInfoUI : IUIPanel
         itemInfoUI.SetActive(false);
     }
 
+    
+
     public void UpdateInfo(Sprite icon, string name, string description)
     {
         if (itemIconImage != null) itemIconImage.sprite = icon;

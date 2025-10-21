@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1499466234852791681}
   - component: {fileID: 1634268175243923619}
   - component: {fileID: 5252766664398339123}
-  - component: {fileID: 684547202183167830}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -82,10 +81,11 @@ MonoBehaviour:
   probeDistance: 10
   playerTransform: {fileID: 0}
   visualBoost: 2
-  soundBoost: 1
   currentState: 1
   playerVisible: 0
   checkSound: 0
+  corpseVec: {x: 0, y: 0, z: 0}
+  isCheckcorpse: 0
 --- !u!195 &1634268175243923619
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -131,26 +131,6 @@ CapsuleCollider:
   m_Height: 1.927768
   m_Direction: 1
   m_Center: {x: 0.017602563, y: 1.6336561, z: 0.07748512}
---- !u!114 &684547202183167830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4522451655232636953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4cbec90f7747374c86c10c92b32bfb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  waypointTolerance: 0.5
-  chaseDuration: 5
-  postChasePause: 2
-  watchTurnSpeedVision: 360
-  watchTurnSpeedSound: 120
 --- !u!1001 &235506192335579620
 PrefabInstance:
   m_ObjectHideFlags: 0

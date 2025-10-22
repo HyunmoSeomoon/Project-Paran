@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.soupday.cc3_unity_tools": {
-      "version": "file:C:/Users/USER/Documents/Reallusion/Character_Creator_and_iClone_Auto_Setup_1.4.6_for_Unity_HDRP12",
+      "version": "file:D:/Character_Creator_and_iClone_Auto_Setup_1.4.6_for_Unity_HDRP12/Character_Creator_and_iClone_Auto_Setup_1.4.6_for_Unity_HDRP12",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -174,7 +174,7 @@
       }
     },
     "com.unity.searcher": {
-      "version": "4.9.2",
+      "version": "4.9.3",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
@@ -193,7 +193,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.render-pipelines.core": "17.0.3",
-        "com.unity.searcher": "4.9.2"
+        "com.unity.searcher": "4.9.3"
       }
     },
     "com.unity.test-framework": {

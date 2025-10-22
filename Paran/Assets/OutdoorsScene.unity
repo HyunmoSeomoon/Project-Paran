@@ -13564,11 +13564,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4992940208195667045, guid: be3af10dd66b99c4c8a85de9ec3fde5a, type: 3}
---- !u!95 &1593098825 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: dfa71ff5e801e244cbe5ab3d4404e36e, type: 3}
-  m_PrefabInstance: {fileID: 1506311276}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1618969999 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8824770508166169890, guid: be3af10dd66b99c4c8a85de9ec3fde5a, type: 3}
@@ -14222,7 +14217,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2.672}
+  m_AnchoredPosition: {x: 0, y: 3.052}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1696685515
@@ -14237,7 +14232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5a027cb33663b4a91ab5d062280ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySearch: {fileID: 2014339593}
+  enemySearch: {fileID: 2014339601}
   detectionSlider: {fileID: 971888150}
   firstImage: {fileID: 783591309}
 --- !u!114 &1696685516
@@ -15036,6 +15031,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1916506076}
     - target: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+      propertyPath: viewAngle
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+      propertyPath: viewRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       propertyPath: currentState
       value: 1
       objectReference: {fileID: 0}
@@ -15092,7 +15095,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 684547202183167830, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
     m_RemovedGameObjects:
     - {fileID: 1118518282859320501, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
     m_AddedGameObjects:
@@ -15105,7 +15109,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4522451655232636953, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1831061730}
+      addedObject: {fileID: 1831061731}
+    - targetCorrespondingSourceObject: {fileID: 4522451655232636953, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2014339597}
   m_SourcePrefab: {fileID: 100100000, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
 --- !u!1 &1801423686 stripped
 GameObject:
@@ -15510,29 +15517,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7359963649020321326, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
   m_PrefabInstance: {fileID: 1801423685}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1831061730
-MonoBehaviour:
+--- !u!95 &1831061731
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801423686}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b90b7c45b12174f8a3120ec45c8706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 946686016}
-  - {fileID: 1916506076}
-  waypointTolerance: 0.5
-  waitAtWaypoint: 5
-  chaseDuration: 5
-  killRange: 5
-  postChasePause: 2
-  watchTurnSpeedVision: 360
-  watchTurnSpeedSound: 120
-  enemyAnimator: {fileID: 1593098825}
+  m_Avatar: {fileID: 9000000, guid: dfa71ff5e801e244cbe5ab3d4404e36e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 80b9fda272bcf3243b07a4ac98baa70c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1831235509
 GameObject:
   m_ObjectHideFlags: 0
@@ -17838,7 +17844,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2014339593 stripped
+--- !u!114 &2014339597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801423686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b90b7c45b12174f8a3120ec45c8706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 4
+  rotSpeed: 90
+  patrolPoints:
+  - {fileID: 946686016}
+  - {fileID: 1916506076}
+  patrolIndex: 0
+--- !u!114 &2014339601 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
   m_PrefabInstance: {fileID: 1801423685}

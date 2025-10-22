@@ -184,8 +184,8 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator MakeAttackDelay()
     {
-        yield return new WaitForSeconds(2f);
         currentState = PlayerState.Stand;
+        yield return new WaitForSeconds(2f);
         MoveEnable(true);
         yield break;
     }

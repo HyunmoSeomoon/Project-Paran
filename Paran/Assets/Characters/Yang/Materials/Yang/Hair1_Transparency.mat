@@ -105,7 +105,7 @@ Material:
     - _AOOccludeAll: 0.5
     - _AOStrength: 1
     - _AddPrecomputedVelocity: 0
-    - _AlphaClip: 0.666
+    - _AlphaClip: 0.547
     - _AlphaCutoffEnable: 1
     - _AlphaDstBlend: 10
     - _AlphaPower: 0.7
@@ -156,7 +156,7 @@ Material:
     - _ShadowClip: 0.5
     - _SmoothnessMax: 0.8
     - _SmoothnessMin: 0.4216
-    - _SmoothnessPower: 1
+    - _SmoothnessPower: 0.5
     - _SpecularMultiplier: 0.20495625
     - _SpecularShiftMax: -0.239
     - _SpecularShiftMin: 0.533

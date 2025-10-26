@@ -6588,7 +6588,7 @@ GameObject:
   - component: {fileID: 946686016}
   m_Layer: 0
   m_Name: Point1
-  m_TagString: Untagged
+  m_TagString: PatrolPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11427,6 +11427,51 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -666528588096777592, guid: be3af10dd66b99c4c8a85de9ec3fde5a, type: 3}
+--- !u!1 &1437342218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1437342220}
+  - component: {fileID: 1437342219}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1437342219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437342218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d250f04b4bea14f8be8b434d06c3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 1698001921}
+--- !u!4 &1437342220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437342218}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.911152, y: 0.7259009, z: -6.7383204}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1452108177
 GameObject:
   m_ObjectHideFlags: 0
@@ -16032,7 +16077,7 @@ GameObject:
   - component: {fileID: 1916506076}
   m_Layer: 0
   m_Name: Point2
-  m_TagString: Untagged
+  m_TagString: PatrolPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17436,12 +17481,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b90b7c45b12174f8a3120ec45c8706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  rotSpeed: 0
+  moveSpeed: 4
+  rotSpeed: 200
   patrolPoints:
   - {fileID: 946686016}
   - {fileID: 1916506076}
   patrolIndex: 0
+  idleRotSpeed: 120
 --- !u!114 &2014339601 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}

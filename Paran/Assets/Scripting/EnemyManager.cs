@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class EnemyManager : MonoBehaviour
     private PlayerMove playerState;
     private List<EnemySearch> enemies = new List<EnemySearch>();
     private List<Transform> patrolPoints = new List<Transform>();
+    private float[,] distTable;   //지점 간 adjacency matrix(사전 계산)
 
     private void Awake()
     {
@@ -40,6 +42,7 @@ public class EnemyManager : MonoBehaviour
     {
         RegisterAllEnemies();
         RegisterAllPatrolPoints();
+        ComputePatPointDist();
         if (playerTransform != null) playerState = playerTransform.GetComponent<PlayerMove>();
     }
 
@@ -55,7 +58,22 @@ public class EnemyManager : MonoBehaviour
         foreach (var point in GameObject.FindGameObjectsWithTag("PatrolPoint"))
             patrolPoints.Add(point.transform);
     }
-
+    private void ComputePatPointDist()
+    {
+        int n = patrolPoints.Count;
+        distTable = new float[n, n];
+        
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i; j < n; j++)
+            {
+                float dist = Vector3.Distance(patrolPoints[i].position, patrolPoints[j].position);
+                distTable[i, j] = dist;
+                distTable[j, i] = dist; // 대칭
+            }
+        }
+        Debug.Log($"[EnemyManager] PatrolPoint 거리 행렬 계산 완료 ({n}x{n})");
+    }
     public Transform GetRandomPatrolPoint()
     {
         if (patrolPoints.Count == 0) return null;
@@ -65,25 +83,26 @@ public class EnemyManager : MonoBehaviour
     // ──────────────────────────────────────────────
     // 🧩 이벤트 처리부
     // ──────────────────────────────────────────────
-
-    /// <summary>
-    /// (1) 시체 발견 시 호출됨
-    /// </summary>
     private void HandleCorpseAlert(EnemySearch spotter, Transform corpse)
     {
         Debug.Log($"[EnemyManager] {spotter.name}이(가) 시체 {corpse.name}을 발견했습니다.");
 
-        // 주변 적들에게 Warning 전파
-        BroadcastWarning(spotter, corpse.position, 15f);
-    }
+        // 20미터 내 포인트, 10미터 내 적들로 각 리스트 생성
+        var nearbyCorpse = patrolPoints.Where(p => Vector3.Distance(p.position, corpse.position) <= 20f).ToList();
+        var enemyCorpse = enemies.Where(q => Vector3.Distance(q.transform.position, corpse.position) <= 10f).ToList();
 
-    /// <summary>
-    /// 플레이어 발견 공동 추적 이벤트
+        foreach (var e in enemyCorpse)
+        {
+            if (e == null || e == spotter || e.GetState() == EnemySearch.EnemyState.Died)
+                continue;
+            e.SetState(EnemySearch.EnemyState.Warning);
+        }
+    }
     private void HandlePlayerDetected(EnemySearch sender, EnemySearch.EnemyState state)
     {
         if (state == EnemySearch.EnemyState.Chase)
         {
-            Debug.Log($"[Manager] {sender.name}이 Chase 상태로 전환됨");
+            Debug.Log($"[EnemyManager] {sender.name}이 Chase 상태로 전환됨");
 
             foreach (var enemy in enemies)
             {
@@ -100,52 +119,12 @@ public class EnemyManager : MonoBehaviour
             }
         }
     }
-
-    /// <summary>
-    /// (3) 적 사망 시 호출됨
-    /// </summary>
     private void HandleEnemyDeath(EnemySearch deadEnemy)
     {
         if (enemies.Contains(deadEnemy))
         {
             enemies.Remove(deadEnemy);
             Debug.Log($"[EnemyManager] {deadEnemy.name}이 사망하여 리스트에서 제거됨.");
-        }
-    }
-
-    // ──────────────────────────────────────────────
-    // 🧩 상태 전파 로직
-    // ──────────────────────────────────────────────
-
-    private void BroadcastWarning(EnemySearch sender, Vector3 sourcePos, float radius)
-    {
-        foreach (var e in enemies)
-        {
-            if (e == null || e == sender || e.GetState() == EnemySearch.EnemyState.Died)
-                continue;
-
-            float dist = Vector3.Distance(e.transform.position, sourcePos);
-            if (dist <= radius)
-            {
-                Debug.Log($"[EnemyManager] {e.name}이(가) {sender.name}의 경보를 듣고 경계 상태로 전환");
-                e.SetState(EnemySearch.EnemyState.Warning);
-            }
-        }
-    }
-
-    private void BroadcastAlert(EnemySearch sender, Vector3 playerPos, float radius)
-    {
-        foreach (var e in enemies)
-        {
-            if (e == null || e == sender || e.GetState() == EnemySearch.EnemyState.Died)
-                continue;
-
-            float dist = Vector3.Distance(e.transform.position, playerPos);
-            if (dist <= radius)
-            {
-                Debug.Log($"[EnemyManager] {e.name}이(가) {sender.name}의 경보를 듣고 추적 상태로 전환");
-                e.SetState(EnemySearch.EnemyState.Chase);
-            }
         }
     }
 }

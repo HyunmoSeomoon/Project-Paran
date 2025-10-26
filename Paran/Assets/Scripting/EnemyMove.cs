@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,13 +9,15 @@ public class EnemyMove : MovableAI
 {
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private int patrolIndex = 0;
+    [SerializeField] private float idleRotSpeed = 60f;
     bool arriveFlag = false;
-    private float soundTimer = 0f, chaseTimer = 0f, pauseUntil = 0f;
+    private float soundTimer = 0f, chaseTimer = 0f, pauseUntil = 0f; //pauseUntilW = 0f;
     private float chaseDuration = 5f;
     private bool soundRecentlyHeard = false;
     private EnemySearch enemy;
     private Vector3 lastPlayerPos, lastKnownPlayerPos;
     private bool isPausingAfterChase;
+    //private bool isPausingAfterWarning;
     private bool isCollaborating = false;
     protected override void Start()
     {
@@ -59,7 +62,7 @@ public class EnemyMove : MovableAI
     }
     private void HandleCorpseAlert(EnemySearch spotter, Transform corpse)
     {
-        Debug.Log($"[매니저] {spotter.name}이 {corpse.name}을 발견했다!");
+        Debug.Log($"[이벤트 송신] {spotter.name}이 {corpse.name}을 발견했다!");
     }
     void CheckArrive()
     {
@@ -77,7 +80,7 @@ public class EnemyMove : MovableAI
     }
     IEnumerator IdleTurn()
     {
-        // NavMesh 정지 - 돛착
+        // NavMesh 정지 - 도착
         agent.isStopped = true;
         agent.updateRotation = false;
 
@@ -89,7 +92,7 @@ public class EnemyMove : MovableAI
 
             while (Quaternion.Angle(transform.rotation, targetRot) > 0.1f)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
                 yield return null;
             }
 
@@ -108,7 +111,7 @@ public class EnemyMove : MovableAI
 
         while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
             yield return null;
         }
             
@@ -119,7 +122,6 @@ public class EnemyMove : MovableAI
         agent.updateRotation = true;
         agent.SetDestination(patrolPoints[patrolIndex].position);
         arriveFlag = false;
-        
     }
     void HandleWarning()
     {
@@ -129,6 +131,7 @@ public class EnemyMove : MovableAI
             soundTimer = Mathf.Max(0.5f, enemy.PlayerDetectRatio() * 2f);
             Debug.Log($"{soundTimer:F2}초 기다립니다");
             soundRecentlyHeard = true;
+            //isPausingAfterWarning = false;
         }
 
         // 타이머 감소
@@ -186,7 +189,7 @@ public class EnemyMove : MovableAI
         {
             Debug.Log("의심중");
             isPausingAfterChase = true;
-            pauseUntil = Time.time + 2f;
+            pauseUntil = Time.time + 3f;
         }
 
         // 복귀

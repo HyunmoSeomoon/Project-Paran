@@ -43,6 +43,7 @@ public class EnemyManager : MonoBehaviour
         RegisterAllEnemies();
         RegisterAllPatrolPoints();
         ComputePatPointDist();
+        TestKMeansClustering();
         if (playerTransform != null) playerState = playerTransform.GetComponent<PlayerMove>();
     }
 
@@ -62,7 +63,7 @@ public class EnemyManager : MonoBehaviour
     {
         int n = patrolPoints.Count;
         distTable = new float[n, n];
-        
+
         for (int i = 0; i < n; i++)
         {
             for (int j = i; j < n; j++)
@@ -74,12 +75,122 @@ public class EnemyManager : MonoBehaviour
         }
         Debug.Log($"[EnemyManager] PatrolPoint 거리 행렬 계산 완료 ({n}x{n})");
     }
-    public Transform GetRandomPatrolPoint()
+    private void TestKMeansClustering()
     {
-        if (patrolPoints.Count == 0) return null;
-        return patrolPoints[UnityEngine.Random.Range(0, patrolPoints.Count)];
-    }
+        int n = patrolPoints.Count;
+        if (n == 0)
+        {
+            Debug.LogWarning("[KMeans Test] PatrolPoint가 없습니다!");
+            return;
+        }
 
+        // 예시: 3개 그룹으로 나누기
+        int k = 3;
+        List<List<Transform>> clusters = KMeansClusterWithCache(patrolPoints, k);
+
+        // 클러스터 결과 콘솔 출력
+        Debug.Log($"[KMeans Test] 총 {k}개 클러스터로 분류 완료.");
+        for (int i = 0; i < clusters.Count; i++)
+        {
+            string clusterInfo = $"Cluster {i + 1}: " +
+                string.Join(", ", clusters[i].Select(p => p.name));
+            Debug.Log(clusterInfo);
+        }
+    }
+    private List<List<Transform>> KMeansClusterWithCache(List<Transform> subset, int k, int maxIter = 20)
+    {
+        int n = subset.Count;
+        if (n == 0 || k <= 0) return new List<List<Transform>>();
+
+        // (1) subset을 patrolPoints의 인덱스로 매핑
+        int[] subsetIdx = subset.Select(p => patrolPoints.IndexOf(p)).ToArray();
+
+        // (2) 무작위 초기 중심 선택
+        System.Random rand = new System.Random();
+        List<int> centers = subsetIdx.OrderBy(x => rand.Next()).Take(k).ToList();
+
+        int[] assignment = new int[n];
+        bool changed = true;
+        int iter = 0;
+
+        while (changed && iter < maxIter)
+        {
+            changed = false;
+            iter++;
+
+            // (3) 각 포인트를 가장 가까운 중심에 할당 (거리 행렬 이용)
+            for (int i = 0; i < n; i++)
+            {
+                float bestDist = float.MaxValue;
+                int bestCenter = 0;
+
+                foreach (int cIdx in centers)
+                {
+                    float d = distTable[subsetIdx[i], cIdx];
+                    if (d < bestDist)
+                    {
+                        bestDist = d;
+                        bestCenter = cIdx;
+                    }
+                }
+
+                int newCluster = centers.IndexOf(bestCenter);
+                if (assignment[i] != newCluster)
+                {
+                    assignment[i] = newCluster;
+                    changed = true;
+                }
+            }
+
+            // (4) 중심 재계산 → 각 클러스터의 중심에 가장 가까운 실제 포인트 선택
+            for (int c = 0; c < k; c++)
+            {
+                var clusterPoints = subsetIdx.Where((_, i) => assignment[i] == c).ToList();
+                if (clusterPoints.Count == 0) continue;
+
+                float bestSum = float.MaxValue;
+                int bestPoint = clusterPoints[0];
+
+                foreach (int candidate in clusterPoints)
+                {
+                    float sum = 0f;
+                    foreach (int other in clusterPoints)
+                        sum += distTable[candidate, other];
+                    if (sum < bestSum)
+                    {
+                        bestSum = sum;
+                        bestPoint = candidate;
+                    }
+                }
+                centers[c] = bestPoint;
+            }
+        }
+
+        // (5) 결과 클러스터 구성
+        List<List<Transform>> result = new List<List<Transform>>();
+        for (int c = 0; c < k; c++)
+            result.Add(new List<Transform>());
+
+        for (int i = 0; i < n; i++)
+            result[assignment[i]].Add(subset[i]);
+
+        Debug.Log($"[KMeans] 최종 결과 (총 클러스터 {k}개, 반복 {iter}회)");
+        for (int c = 0; c < k; c++)
+        {
+            string clusterInfo = $"Cluster {c + 1}: ";
+            if (result[c].Count == 0)
+            {
+                clusterInfo += "(비어있음)";
+            }
+            else
+            {
+                clusterInfo += string.Join(", ",
+                    result[c].Select(p => p.name));
+            }
+            Debug.Log(clusterInfo);
+        }
+        return result;
+    }
     // ──────────────────────────────────────────────
     // 🧩 이벤트 처리부
     // ──────────────────────────────────────────────
@@ -89,13 +200,22 @@ public class EnemyManager : MonoBehaviour
 
         // 20미터 내 포인트, 10미터 내 적들로 각 리스트 생성
         var nearbyCorpse = patrolPoints.Where(p => Vector3.Distance(p.position, corpse.position) <= 20f).ToList();
-        var enemyCorpse = enemies.Where(q => Vector3.Distance(q.transform.position, corpse.position) <= 10f).ToList();
+        var enemyCorpse = enemies.Where(e => e != null && e != spotter && e.GetState() != EnemySearch.EnemyState.Died).Where(q => Vector3.Distance(q.transform.position, corpse.position) <= 10f).ToList();
 
-        foreach (var e in enemyCorpse)
+        List<List<Transform>> clusters = KMeansClusterWithCache(nearbyCorpse, enemyCorpse.Count);
+
+        for (int i = 0; i < enemyCorpse.Count; i++)
         {
-            if (e == null || e == spotter || e.GetState() == EnemySearch.EnemyState.Died)
-                continue;
-            e.SetState(EnemySearch.EnemyState.Warning);
+            var cluster = clusters[i];
+            var enemy = enemyCorpse[i];
+
+            enemy.SetState(EnemySearch.EnemyState.Warning);
+            EnemyMove mover = enemy.GetComponent<EnemyMove>();
+            if (mover != null && cluster.Count > 0)
+            {
+                //mover.찾아라(cluster);
+                Debug.Log($"[EnemyManager] {enemy.name}이 {cluster.Count}개 포인트 수색 시작");
+            }
         }
     }
     private void HandlePlayerDetected(EnemySearch sender, EnemySearch.EnemyState state)

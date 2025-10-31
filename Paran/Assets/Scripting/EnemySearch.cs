@@ -257,8 +257,8 @@ public class EnemySearch : MonoBehaviour
         float distance = new Vector2(to.x, to.z).magnitude;
 
         // 파라미터
-        float maxRate = 10f;      // 최대 감지율 (가까울 때)
-        float minRate = 2f;       // 최소 감지율 (멀리 있을 때도 이 정도는 유지)
+        float maxRate = 10f;      // 최대 감지율
+        float minRate = 2f;       // 최소 감지율
         float falloffDistance = 10f; // 감지율이 떨어지기 시작하는 기준 거리
 
         // 거리 기반 감쇠 (선형 or 곡선적 감쇠 가능)

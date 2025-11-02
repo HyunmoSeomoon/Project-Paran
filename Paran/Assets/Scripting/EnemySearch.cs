@@ -211,32 +211,33 @@ public class EnemySearch : MonoBehaviour
     // ✅ 다른 적 중 Died 상태를 감지
     private void TryDetectDeadBody()
     {
-        EnemySearch[] allEnemies = FindObjectsByType<EnemySearch>(FindObjectsSortMode.None);
-        foreach (var enemy in allEnemies)
+        var corpses = EnemyManager.Instance?.GetCorpsePositions();
+        if (corpses == null || corpses.Count == 0) return;
+
+        foreach (var corpsePos in corpses)
         {
-            if (enemy == this) continue;
-            if (enemy.GetState() != EnemyState.Died) continue;
+            Vector3 toCorpse = corpsePos.position - transform.position;
+            float dist = new Vector2(toCorpse.x, toCorpse.z).magnitude;
+            if (dist > viewRange) continue;
 
-            LosResult corpseLos = UpdateSharedRaycast(enemy.transform);
-            if (IsCorpseInFOV(enemy.transform, corpseLos))
+            float angle = Vector3.Angle(transform.forward, new Vector3(toCorpse.x, 0, toCorpse.z).normalized);
+            if (angle > viewAngle * 0.5f) continue;
+
+            // Raycast로 가림 여부만 확인
+            Vector3 origin = transform.position + Vector3.up * 1.5f;
+            Vector3 dest = corpsePos.position + Vector3.up * 0.5f;
+            if (!Physics.Linecast(origin, dest, out var hit, ~0, QueryTriggerInteraction.Ignore))
             {
-                HandleDeadBodySpotted(enemy.transform);
-                return; // 한 구만 감지해도 충분
+                HandleDeadBodySpotted(corpsePos);
+                return;
             }
+
+            int hitLayer = hit.collider.gameObject.layer;
+            if (hitLayer == LayerMask.NameToLayer("Wall")) continue;
+
+            HandleDeadBodySpotted(corpsePos);
+            return;
         }
-    }
-
-    private bool IsCorpseInFOV(Transform corpse, LosResult result)
-    {
-        Vector3 toCorpse = corpse.position - transform.position;
-        float dist = new Vector2(toCorpse.x, toCorpse.z).magnitude;
-        if (dist > viewRange) return false;
-
-        float angle = Vector3.Angle(transform.forward, new Vector3(toCorpse.x, 0, toCorpse.z).normalized);
-        if (angle > viewAngle * 0.5f) return false;
-
-        if (result == LosResult.Wall) return false; // 벽으로 가려지면 불가
-        return true; // 나머지는 가능
     }
 
     public void HandleDeadBodySpotted(Transform corpse)
@@ -257,8 +258,8 @@ public class EnemySearch : MonoBehaviour
         float distance = new Vector2(to.x, to.z).magnitude;
 
         // 파라미터
-        float maxRate = 10f;      // 최대 감지율 (가까울 때)
-        float minRate = 2f;       // 최소 감지율 (멀리 있을 때도 이 정도는 유지)
+        float maxRate = 10f;      // 최대 감지율
+        float minRate = 2f;       // 최소 감지율
         float falloffDistance = 10f; // 감지율이 떨어지기 시작하는 기준 거리
 
         // 거리 기반 감쇠 (선형 or 곡선적 감쇠 가능)
@@ -284,8 +285,8 @@ public class EnemySearch : MonoBehaviour
         if (_currentState == newState || _currentState == EnemyState.Died)
             return;
         if (newState == EnemyState.Died) OnEnemyDied?.Invoke(this);
+        else OnStateChanged?.Invoke(this, _currentState);
         _currentState = newState;
-        OnStateChanged?.Invoke(this, _currentState);
     }
 
     // 외부에서 상태를 확인

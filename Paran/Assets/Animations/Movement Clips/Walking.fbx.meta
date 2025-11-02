@@ -34,8 +34,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: 0_T-Pose
-      takeName: 0_T-Pose
+      name: 6387233483776_TempMotion (1)
+      takeName: 6387233483776_TempMotion
       internalID: -7881739814215078984
       firstFrame: 0
       lastFrame: 71
@@ -51,9 +51,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

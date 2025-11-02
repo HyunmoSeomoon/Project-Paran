@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
@@ -17,8 +18,10 @@ public class EnemyMove : MovableAI
     private EnemySearch enemy;
     private Vector3 lastPlayerPos, lastKnownPlayerPos;
     private bool isPausingAfterChase;
-    //private bool isPausingAfterWarning;
+    private Coroutine currentRoutine; // 진행 중인 코루틴
     private bool isCollaborating = false;
+    public static event Action<EnemyMove, Transform> OnCorpseArrived;
+    private bool isSearchingCorpse = false;
     protected override void Start()
     {
         base.Start();
@@ -70,8 +73,11 @@ public class EnemyMove : MovableAI
         {
             Debug.Log("도착!");
             arriveFlag = true;
-            if (patrolPoints.Length == 1) StartCoroutine(IdleTurn());
-            else StartCoroutine(Patrol());
+            patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+            if (currentRoutine != null)
+                StopCoroutine(currentRoutine);
+            if (patrolPoints.Length == 1) currentRoutine = StartCoroutine(IdleTurn());
+            else currentRoutine = StartCoroutine(Patrol());
         }
     }
     protected override void MoveDefault()
@@ -104,34 +110,73 @@ public class EnemyMove : MovableAI
         // NavMesh 정지 - 도착
         agent.isStopped = true;
         agent.updateRotation = false;
-
-        // 180도 회전
-        Quaternion startRot = transform.rotation;
-        Quaternion targetRot = Quaternion.Euler(0f, 180f, 0f) * startRot;
-
-        while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
+        // 다음 포인트 방향 계산
+        Vector3 dirToNext = patrolPoints[patrolIndex].position - transform.position;
+        dirToNext.y = 0f;
+        if (dirToNext.sqrMagnitude > 0.001f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
-            yield return null;
-        }
-            
-        yield return new WaitForSeconds(5f); // 5초 대기
+            Quaternion targetRot = Quaternion.LookRotation(dirToNext.normalized, Vector3.up);
 
-        patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+            while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
+            {
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
+                yield return null;
+            }
+        }
+        yield return new WaitForSeconds(3f); // 3초 대기
+
         agent.isStopped = false;
         agent.updateRotation = true;
         agent.SetDestination(patrolPoints[patrolIndex].position);
         arriveFlag = false;
+    }
+    IEnumerator LookPlayerAndResume(float sec)
+    {
+        agent.isStopped = true;
+        agent.updateRotation = false;
+
+        // 마지막으로 플레이어가 있던 방향 계산
+        Vector3 lastDir = enemy.playerTransform.position - transform.position;
+        lastDir.y = 0f;
+        if (lastDir.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(lastDir.normalized, Vector3.up);
+
+            while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
+            {
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
+                yield return null;
+            }
+        }
+
+        // n초 대기
+        yield return new WaitForSeconds(sec);
+
+        if (enemy.GetState() != EnemySearch.EnemyState.Warning)
+        {
+            enemy.SetState(EnemySearch.EnemyState.Warning);
+            yield break;
+        } 
+
+        // 순찰 복귀
+        if(enemy.GetState() == EnemySearch.EnemyState.Warning)
+        {
+            if (patrolPoints.Length == 1)
+                currentRoutine = StartCoroutine(IdleTurn());
+            else
+                currentRoutine = StartCoroutine(Patrol());   
+        }
     }
     void HandleWarning()
     {
         // 새로운 소리를 들었을 경우 타이머 리셋
         if (!enemy.playerVisible && enemy.checkSound && !soundRecentlyHeard)
         {
-            soundTimer = Mathf.Max(0.5f, enemy.PlayerDetectRatio() * 2f);
-            Debug.Log($"{soundTimer:F2}초 기다립니다");
+            soundTimer = 2f;
+            Debug.Log("2초 기다립니다");
             soundRecentlyHeard = true;
-            //isPausingAfterWarning = false;
         }
 
         // 타이머 감소
@@ -139,23 +184,27 @@ public class EnemyMove : MovableAI
         {
             soundTimer -= Time.deltaTime;
             if (soundTimer <= 0f)
-            {
                 soundRecentlyHeard = false;
-            }
         }
 
         bool lookBySound = !enemy.playerVisible && soundRecentlyHeard;
 
         if (enemy.playerVisible || lookBySound)
         {
-            var target = enemy.playerTransform.position;
-            RotToward(target);
+            if (currentRoutine != null)
+            {
+                StopCoroutine(currentRoutine);
+                currentRoutine = null;
+            }
+
+            RotToward(enemy.playerTransform.position);
         }
         else
         {
-            // 순찰 재개
-            agent.isStopped = false;
-            agent.updateRotation = true;
+            if (currentRoutine == null)
+            {
+                currentRoutine = StartCoroutine(LookPlayerAndResume(2f));
+            }
         }
     }
     void HandleChase()
@@ -190,21 +239,10 @@ public class EnemyMove : MovableAI
             Debug.Log("의심중");
             isPausingAfterChase = true;
             pauseUntil = Time.time + 3f;
-        }
-
-        // 복귀
-        if (isPausingAfterChase)
-        {
-            if (lastKnownPlayerPos != Vector3.zero)
-                RotToward(lastKnownPlayerPos);
-
-            if (Time.time >= pauseUntil)
-            {
-                Debug.Log("의심끝");
-                // 의심 종료 → Warning 복귀
-                isPausingAfterChase = false;
-                enemy.SetState(EnemySearch.EnemyState.Warning);
-            }
+            chaseTimer = 0f;
+            if (currentRoutine != null)
+                StopCoroutine(currentRoutine);
+            StartCoroutine(LookPlayerAndResume(3f));
         }
     }
     void ChaseTogether(EnemySearch sender, Transform target)
@@ -230,8 +268,84 @@ public class EnemyMove : MovableAI
         }
 
         Debug.Log($"{name} → 공동 추적 종료");
-        if (enemy.currentState != EnemySearch.EnemyState.Chase) enemy.SetState(EnemySearch.EnemyState.Chase);
         isCollaborating = false;
+    }
+    public void MoveToCorpse(Transform corpse)
+    {
+        if (isSearchingCorpse) return;
+        StopAllCoroutines();
+        StartCoroutine(MoveToCorpseRoutine(corpse));
+    }
+    private IEnumerator MoveToCorpseRoutine(Transform corpse)
+    {
+        isSearchingCorpse = true;
+        agent.isStopped = false;
+        agent.updateRotation = true;
+        agent.SetDestination(corpse.position);
+
+        while (agent.pathPending || agent.remainingDistance > 3f)
+            yield return null;
+
+        Debug.Log($"[{name}] 시체({corpse.name}) 근처 3m 도착");
+        agent.isStopped = true;
+        OnCorpseArrived?.Invoke(this, corpse);
+        isSearchingCorpse = false;
+    }
+    public IEnumerator Search(List<Transform> clusterPoints)
+    {
+        // 수색 포인트 순회
+        for (int i = 0; i < clusterPoints.Count; i++)
+        {
+            Transform target = clusterPoints[i];
+            if (target == null) continue;
+
+            // 이동 시작
+            agent.isStopped = false;
+            agent.updateRotation = true;
+            agent.SetDestination(target.position);
+            Debug.Log($"[{name}] 수색 포인트 {i + 1}/{clusterPoints.Count}로 이동 중...");
+
+            // 도착 대기
+            while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+                yield return null;
+
+            // 도착 시 회전 
+            agent.isStopped = true;
+            agent.updateRotation = false;
+
+            Vector3 dir = target.position - transform.position;
+            dir.y = 0f;
+            if (dir.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
+                while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotSpeed * Time.deltaTime);
+                    yield return null;
+                }
+            }
+
+            Debug.Log($"[{name}] 포인트({target.name}) 도착 → 주변 관찰 중...");
+            yield return new WaitForSeconds(UnityEngine.Random.Range(2f, 4f)); // 2~4초 랜덤 대기
+        }
+        // NavMeshAgent 정상화
+        agent.isStopped = false;
+        agent.updateRotation = true;
+
+        // Warning으로 복귀
+        EnemySearch search = GetComponent<EnemySearch>();
+        if (search != null)
+        {
+            if (patrolPoints != null && patrolPoints.Length > 0)
+            {
+                patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+                agent.SetDestination(patrolPoints[patrolIndex].position);
+            }
+            else
+            {
+                StartCoroutine(IdleTurn());
+            }
+        }
     }
 
     private void OnEnable()

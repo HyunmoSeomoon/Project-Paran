@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -11,7 +12,11 @@ public class EnemyManager : MonoBehaviour
     private PlayerMove playerState;
     private List<EnemySearch> enemies = new List<EnemySearch>();
     private List<Transform> patrolPoints = new List<Transform>();
+    private List<Transform> corpsePositions = new List<Transform>();
+    private List<Transform> nearbyPoints = new List<Transform>();
+    private List<EnemySearch> nearbyEnemies = new List<EnemySearch>();
     private float[,] distTable;   //지점 간 adjacency matrix(사전 계산)
+    private bool corpseSearchStarted = false;
 
     private void Awake()
     {
@@ -28,6 +33,7 @@ public class EnemyManager : MonoBehaviour
         EnemySearch.OnCorpseSpotted += HandleCorpseAlert;
         EnemySearch.OnStateChanged += HandlePlayerDetected;
         EnemySearch.OnEnemyDied += HandleEnemyDeath;
+        EnemyMove.OnCorpseArrived += HandleCorpseSearch;
     }
 
     private void OnDisable()
@@ -36,6 +42,7 @@ public class EnemyManager : MonoBehaviour
         EnemySearch.OnCorpseSpotted -= HandleCorpseAlert;
         EnemySearch.OnStateChanged -= HandlePlayerDetected;
         EnemySearch.OnEnemyDied -= HandleEnemyDeath;
+        EnemyMove.OnCorpseArrived -= HandleCorpseSearch;
     }
 
     private void Start()
@@ -196,24 +203,41 @@ public class EnemyManager : MonoBehaviour
     // ──────────────────────────────────────────────
     private void HandleCorpseAlert(EnemySearch spotter, Transform corpse)
     {
+        corpseSearchStarted = false;
         Debug.Log($"[EnemyManager] {spotter.name}이(가) 시체 {corpse.name}을 발견했습니다.");
 
         // 20미터 내 포인트, 10미터 내 적들로 각 리스트 생성
-        var nearbyCorpse = patrolPoints.Where(p => Vector3.Distance(p.position, corpse.position) <= 20f).ToList();
-        var enemyCorpse = enemies.Where(e => e != null && e != spotter && e.GetState() != EnemySearch.EnemyState.Died).Where(q => Vector3.Distance(q.transform.position, corpse.position) <= 10f).ToList();
+        nearbyPoints = patrolPoints.Where(p => Vector3.Distance(p.position, corpse.position) <= 20f).ToList();
+        nearbyEnemies = enemies.Where(e => e != null && e.GetState() != EnemySearch.EnemyState.Died).Where(q => Vector3.Distance(q.transform.position, corpse.position) <= 10f).ToList();
 
-        List<List<Transform>> clusters = KMeansClusterWithCache(nearbyCorpse, enemyCorpse.Count);
+        foreach (var e in nearbyEnemies)
+        {
+            if (e.GetState() == EnemySearch.EnemyState.Idle) e.SetState(EnemySearch.EnemyState.Warning);
+            EnemyMove mover = e.GetComponent<EnemyMove>();
+            if (mover != null) mover.MoveToCorpse(corpse);
+        } 
+    }
+    private void HandleCorpseSearch(EnemyMove mover, Transform corpse)
+    {
+        if (corpseSearchStarted) return;
 
-        for (int i = 0; i < enemyCorpse.Count; i++)
+        bool allArrived = nearbyEnemies.All(e => Vector3.Distance(e.transform.position, corpse.position) <= 3f);
+        if (!allArrived) return;
+        corpseSearchStarted = true;
+        
+        List<List<Transform>> clusters = KMeansClusterWithCache(nearbyPoints, nearbyEnemies.Count);
+
+        for (int i = 0; i < nearbyEnemies.Count; i++)
         {
             var cluster = clusters[i];
-            var enemy = enemyCorpse[i];
+            var enemy = nearbyEnemies[i];
 
             enemy.SetState(EnemySearch.EnemyState.Warning);
-            EnemyMove mover = enemy.GetComponent<EnemyMove>();
+            mover = enemy.GetComponent<EnemyMove>();
             if (mover != null && cluster.Count > 0)
             {
-                //mover.찾아라(cluster);
+                mover.StopAllCoroutines();
+                mover.StartCoroutine(mover.Search(cluster));
                 Debug.Log($"[EnemyManager] {enemy.name}이 {cluster.Count}개 포인트 수색 시작");
             }
         }
@@ -244,7 +268,12 @@ public class EnemyManager : MonoBehaviour
         if (enemies.Contains(deadEnemy))
         {
             enemies.Remove(deadEnemy);
+            corpsePositions.Add(deadEnemy.transform);
             Debug.Log($"[EnemyManager] {deadEnemy.name}이 사망하여 리스트에서 제거됨.");
         }
+    }
+    public List<Transform> GetCorpsePositions()
+    {
+        return corpsePositions;
     }
 }

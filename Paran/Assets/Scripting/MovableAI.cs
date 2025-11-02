@@ -44,7 +44,6 @@ public abstract class MovableAI : MonoBehaviour
     {
         agent.isStopped = true;
         agent.updateRotation = false;
-        agent.ResetPath();
 
         Vector3 to = (targetPos - transform.position).normalized;
         to.y = 0f;
@@ -52,18 +51,6 @@ public abstract class MovableAI : MonoBehaviour
 
         Quaternion rotation = Quaternion.LookRotation(to);
         Quaternion rotValue = Quaternion.RotateTowards(transform.rotation, rotation, rotSpeed * Time.deltaTime);
-        //Quaternion 대신 SingedAngle 사용 - 회전방향 직접 조정
-        // float angle = Vector3.SignedAngle(transform.forward, to.normalized, Vector3.up);
-
-        // // 각도의 절댓값이 작으면 회전 완료
-        // if (Mathf.Abs(angle) < 0.5f)
-        // {
-        //     agent.updateRotation = true;
-        //     agent.isStopped = false;
-        //     return;
-        // }
-
-        //float step = Mathf.Sign(angle) * rotSpeed * Time.deltaTime;
 
         transform.rotation = rotValue;
     }

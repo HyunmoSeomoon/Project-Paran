@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private GameObject interactionUI;
     [SerializeField] private UIManager uIManager;
     [SerializeField] private Transform Camera;
+    [SerializeField] private CinemachineCamera cinemachineCamera;
     public bool finished = false;
     private CameraMove cameraMove;
 
@@ -19,6 +21,7 @@ public class DialogueController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        cinemachineCamera.gameObject.SetActive(false);
         cameraMove = Camera.gameObject.GetComponent<CameraMove>();
     }
 
@@ -38,6 +41,7 @@ public class DialogueController : MonoBehaviour
             interactionUI.transform.forward = Camera.forward;
             if (Input.GetKeyDown(KeyCode.E))
             {
+                cinemachineCamera.gameObject.SetActive(true);
                 StartCoroutine(Dialogue());
             }
                 
@@ -75,7 +79,7 @@ public class DialogueController : MonoBehaviour
         uIManager.TurnOnUI(UIManager.UITypes.Dialogue); // 대화 ui 키기
         if (uIManager.GetUIPanel(UIManager.UITypes.Dialogue) is DialogueUI dialogueUI)
         {
-            dialogueUI.StartDialogue(dialogues); // 대화 ui 진행 시작하기
+            dialogueUI.StartDialogue(dialogues,cinemachineCamera); // 대화 ui 진행 시작하기
         }
         yield break;
     }

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class DialogueUI : IUIPanel
@@ -9,6 +10,7 @@ public class DialogueUI : IUIPanel
     public int size = 0;
     private int count = 0;
     private string[] newDialogues = null;
+    private CinemachineCamera currentCinemachine;
     public override void Show()
     {
         if(dialogueUI!=null)
@@ -21,13 +23,14 @@ public class DialogueUI : IUIPanel
             dialogueUI.SetActive(false);
     }
 
-    public void StartDialogue(string[] dialogues)
+    public void StartDialogue(string[] dialogues, CinemachineCamera cinemachineCamera)
     {
         size = dialogues.Length;
         if (size != 0)
         {
             newDialogues = dialogues;
             textMeshPro.text = newDialogues[0];
+            currentCinemachine = cinemachineCamera;
         }
         else
             Debug.Log("대화 내용이 없습니다.");
@@ -44,6 +47,7 @@ public class DialogueUI : IUIPanel
         {
             playerMove.MoveEnable(true);
             playerMove.currentState = PlayerMove.PlayerState.Stand;
+            currentCinemachine.gameObject.SetActive(false);
             Hide();
         }
     }

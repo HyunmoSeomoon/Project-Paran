@@ -21,6 +21,7 @@ public class DialogueController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        interactionUI.SetActive(false);
         cinemachineCamera.gameObject.SetActive(false);
         cameraMove = Camera.gameObject.GetComponent<CameraMove>();
     }

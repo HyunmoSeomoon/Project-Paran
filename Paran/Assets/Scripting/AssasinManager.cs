@@ -7,6 +7,7 @@ public class AssasinManager : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float alignDistance = 0.5f; // 암살 애니메이션 정렬 거리
     [SerializeField] private Vector3 positionOffset = Vector3.zero;
+    [SerializeField] private PlayerMove playerMove;
 
     void Update()
     {
@@ -63,5 +64,10 @@ public class AssasinManager : MonoBehaviour
         Gizmos.color = Color.red;
         Vector3 sphereCenter = transform.position + transform.forward * alignDistance;
         Gizmos.DrawWireSphere(sphereCenter, alignDistance);
+    }
+
+    public void PlayerAssassin()
+    {
+        playerMove.currentState = PlayerMove.PlayerState.Attack;
     }
 }

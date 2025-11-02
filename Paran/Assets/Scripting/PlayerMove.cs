@@ -59,11 +59,6 @@ public class PlayerMove : MonoBehaviour
                     currentState = PlayerState.Crawl;
                 else currentState = PlayerState.Stand;
             }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                currentState = PlayerState.Attack;
-            }
         }
 
         if (currentState != PlayerState.Crawl && currentState != PlayerState.Carry && currentState != PlayerState.Attack)
@@ -185,7 +180,7 @@ public class PlayerMove : MonoBehaviour
     IEnumerator MakeAttackDelay()
     {
         currentState = PlayerState.Stand;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(6.5f);
         MoveEnable(true);
         yield break;
     }

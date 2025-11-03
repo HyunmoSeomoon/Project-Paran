@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    enum GamePhase
+    public enum GamePhase
     {
         Prologue, //프롤로그 컷씬
         Phase1, //페이즈1. 단서 및 도구 수집
@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
         Retry, // PlayerKilled, 재도전 씬
         Ending //
     }
+
+    public GamePhase gamePhase;
 
     [SerializeField] private UIManager uIManager;
 

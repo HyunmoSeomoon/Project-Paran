@@ -283,8 +283,14 @@ public class EnemySearch : MonoBehaviour
     public void SetState(EnemyState newState)
     {
         if (_currentState == newState || _currentState == EnemyState.Died)
+        {
             return;
-        if (newState == EnemyState.Died) OnEnemyDied?.Invoke(this);
+        }
+        if (newState == EnemyState.Died)
+        {
+            OnEnemyDied?.Invoke(this);
+            agent.enabled = false;
+        }
         else OnStateChanged?.Invoke(this, _currentState);
         _currentState = newState;
     }

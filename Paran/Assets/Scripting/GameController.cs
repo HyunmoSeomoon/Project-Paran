@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    enum GamePhase
+    public enum GamePhase
     {
         Prologue, //프롤로그 컷씬
         Phase1, //페이즈1. 단서 및 도구 수집
@@ -15,7 +15,10 @@ public class GameController : MonoBehaviour
         Ending //
     }
 
+    public GamePhase gamePhase;
+
     [SerializeField] private UIManager uIManager;
+    [SerializeField] private CameraMove cameraMove;
 
     //For SingleTon pattern
     public static GameController Instance { get; private set; }
@@ -37,7 +40,26 @@ public class GameController : MonoBehaviour
     void Start()
     {
         currentTime = startTime;
-        uIManager.SetClockTime(currentTime.Hour,currentTime.Minute);
+        uIManager.SetClockTime(currentTime.Hour, currentTime.Minute);
+    }
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (uIManager.GetUITypes() == UIManager.UITypes.Menu)
+            {
+                uIManager.TurnOffUI(UIManager.UITypes.Menu);
+                cameraMove.isLocked = false;
+                Time.timeScale = 1;
+            }
+            else
+            {
+                uIManager.TurnOnUI(UIManager.UITypes.Menu);
+                cameraMove.isLocked = true;
+                Time.timeScale = 0;
+            }
+        }
     }
     void FixedUpdate()
     {

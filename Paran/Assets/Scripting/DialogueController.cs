@@ -15,6 +15,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private CinemachineCamera cinemachineCamera;
     public bool finished = false;
     private CameraMove cameraMove;
+    private bool canDialogue = false;
 
     public float dialogueDistance =1f;
 
@@ -29,7 +30,12 @@ public class DialogueController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(canDialogue)
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                cinemachineCamera.gameObject.SetActive(true);
+                StartCoroutine(Dialogue());
+            }
     }
 
     void OnTriggerStay(Collider other)
@@ -40,19 +46,17 @@ public class DialogueController : MonoBehaviour
         {
             interactionUI.SetActive(true);
             interactionUI.transform.forward = Camera.forward;
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                cinemachineCamera.gameObject.SetActive(true);
-                StartCoroutine(Dialogue());
-            }
-                
+            canDialogue = true;        
         }
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
+            canDialogue = false;
             interactionUI.SetActive(false);
+        }
     }
 
     IEnumerator Dialogue()
@@ -67,12 +71,10 @@ public class DialogueController : MonoBehaviour
         Vector3 targetPosition = transform.position + transform.forward * dialogueDistance;
         targetPosition.y = player.transform.position.y;
 
-        //여기에 카메라 이동
-
         while (Vector3.Distance(player.transform.position, targetPosition) > 0.01f)
         {
             // 현재 위치에서 targetPosition으로 moveSpeed의 속도로 이동
-            player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, 1 * Time.deltaTime);
+            player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, 2 * Time.deltaTime);
             yield return null;
         }
         player.transform.position = targetPosition;

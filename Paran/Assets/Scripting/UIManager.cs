@@ -12,14 +12,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject hourUI;
 
     public EventHandler turnOnSpecificUI;
+
     public enum UITypes
     {
         Menu,
-        Inventory,
+        Dialogue,
         ItemInfo,
-        Map,
-        Dialogue
+        Idle
     }
+
+    private UITypes currentUIType = UITypes.Idle;
 
     // 각 UI 타입에 맞는 패널들을 등록할 딕셔너리
     private Dictionary<UITypes, IUIPanel> uiPanels = new Dictionary<UITypes, IUIPanel>();
@@ -53,22 +55,24 @@ public class UIManager : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.I))
-        {
-            TurnOnUI(UITypes.Inventory);
-        }
-    }
-
     public void TurnOnUI(UITypes uITypes)
     {
         if (uiPanels.TryGetValue(uITypes, out IUIPanel uiPanel))
         {
             HideAll();
             uiPanel.Show();
+            currentUIType = uITypes;
         }
         else Debug.Log("uiTypes error");
+    }
+
+    public void TurnOffUI(UITypes uITypes)
+    {
+        if (uiPanels.TryGetValue(uITypes, out IUIPanel uiPanel))
+        {
+            uiPanel.Hide();
+            currentUIType = UITypes.Idle;
+        }
     }
 
     public IUIPanel GetUIPanel(UITypes uITypes)
@@ -86,6 +90,11 @@ public class UIManager : MonoBehaviour
         {
             panel.Value.Hide();
         }
+    }
+
+    public UITypes GetUITypes()
+    {
+        return currentUIType;
     }
 
     public void SetClockTime(int hour, int minute)

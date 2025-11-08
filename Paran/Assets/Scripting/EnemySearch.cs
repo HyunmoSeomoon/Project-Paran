@@ -277,23 +277,22 @@ public class EnemySearch : MonoBehaviour
     {
         return Mathf.Clamp01(playerInSightTimer / timeToSwitchState);
     }
-    
+
     public void SetState(EnemyState newState)
     {
-        if (_currentState == newState || _currentState == EnemyState.Died)
-        {
-            return;
-        if (newState == EnemyState.Died)
-        {
-            OnEnemyDied?.Invoke(this);
+        if (_currentState == newState || _currentState == EnemyState.Died) return;
+        if (newState == EnemyState.Died){
+            {
+                OnEnemyDied?.Invoke(this);
+                _currentState = newState;
+                enabled = false;
+                playerVisible = false;
+                checkSound = false;
+                GetComponent<EnemyMove>()?.OnDeath();
+            }
             _currentState = newState;
-            enabled = false;
-            playerVisible = false;
-            checkSound = false;
-            GetComponent<EnemyMove>()?.OnDeath();
+            if (newState != EnemyState.Died) OnStateChanged?.Invoke(this, _currentState);
         }
-        _currentState = newState;
-        if (newState != EnemyState.Died) OnStateChanged?.Invoke(this, _currentState);
     }
 
     // 외부에서 상태를 확인

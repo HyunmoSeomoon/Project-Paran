@@ -33,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     public float targetSpeed; // 가속 감속을 위한 목표 속도
     //private bool attackFlag = false;
     public bool isMoved = true;
+    public static event Action<Vector3> OnDecoyEnemies;
 
     void Start()
     {
@@ -80,6 +81,12 @@ public class PlayerMove : MonoBehaviour
                 currentState = PlayerState.Run;
         }
 
+        //유인 입력
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Vector3 decoyPos = transform.position;
+            Decoy(decoyPos);
+        }
 
         // 상태에 따라 속도 설정
         switch (currentState)
@@ -188,5 +195,9 @@ public class PlayerMove : MonoBehaviour
     public void MoveEnable(bool b)
     {
         isMoved = b;
+    }
+    void Decoy(Vector3 decoyPos)
+    {
+        OnDecoyEnemies?.Invoke(decoyPos);
     }
 }

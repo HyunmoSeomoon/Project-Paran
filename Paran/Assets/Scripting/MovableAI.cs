@@ -34,9 +34,9 @@ public abstract class MovableAI : MonoBehaviour
 
     protected virtual void Tracking(Vector3 target)
     {
+        //agent.ResetPath();
         agent.isStopped = false;
         agent.updateRotation = true;
-        agent.ResetPath();
         agent.SetDestination(target);
     }
 

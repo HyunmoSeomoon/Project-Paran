@@ -23,6 +23,17 @@ public class VisualDetection : MonoBehaviour
     {
         if (enemySearch == null || detectionSlider == null || firstImage == null) return;
 
+        // 죽었거나 Idle 상태면 UI 전체 비활성화
+        if (enemySearch.GetState() == EnemySearch.EnemyState.Died || enemySearch.GetState() == EnemySearch.EnemyState.Idle)
+        {
+            if (detectionSlider.gameObject.activeSelf) detectionSlider.gameObject.SetActive(false);
+            if (firstImage.gameObject.activeSelf) firstImage.gameObject.SetActive(false);
+            return;
+        }
+
+        // 나머지 상태(Warning, Chase)에서는 다시 UI 활성화
+        if (!detectionSlider.gameObject.activeSelf) detectionSlider.gameObject.SetActive(true);
+
         // 감지 비율 슬라이더 업데이트
         float ratio = enemySearch.PlayerDetectRatio();
         detectionSlider.value = ratio;

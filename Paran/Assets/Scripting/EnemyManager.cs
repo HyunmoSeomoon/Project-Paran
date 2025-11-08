@@ -34,6 +34,7 @@ public class EnemyManager : MonoBehaviour
         EnemySearch.OnStateChanged += HandlePlayerDetected;
         EnemySearch.OnEnemyDied += HandleEnemyDeath;
         EnemyMove.OnCorpseArrived += HandleCorpseSearch;
+        PlayerMove.OnDecoyEnemies += HandleDecoy;
     }
 
     private void OnDisable()
@@ -43,6 +44,7 @@ public class EnemyManager : MonoBehaviour
         EnemySearch.OnStateChanged -= HandlePlayerDetected;
         EnemySearch.OnEnemyDied -= HandleEnemyDeath;
         EnemyMove.OnCorpseArrived -= HandleCorpseSearch;
+        PlayerMove.OnDecoyEnemies -= HandleDecoy;
     }
 
     private void Start()
@@ -270,6 +272,19 @@ public class EnemyManager : MonoBehaviour
             enemies.Remove(deadEnemy);
             corpsePositions.Add(deadEnemy.transform);
             Debug.Log($"[EnemyManager] {deadEnemy.name}이 사망하여 리스트에서 제거됨.");
+        }
+    }
+    private void HandleDecoy(Vector3 decoyPos)
+    {
+        foreach (var enemy in enemies)
+        {
+            if (enemy.GetState() != EnemySearch.EnemyState.Warning) continue;
+            float dist = Vector3.Distance(decoyPos, enemy.transform.position);
+            if (dist <= 500f)
+            {
+                EnemyMove mover = enemy.GetComponent<EnemyMove>();
+                mover.StartCoroutine(mover.Decoyed(decoyPos));
+            }
         }
     }
     public List<Transform> GetCorpsePositions()

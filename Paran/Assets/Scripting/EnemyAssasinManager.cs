@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyAssasinManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class EnemyAssasinManager : MonoBehaviour
     private bool inRange;
     private GameObject playerObject;
     [SerializeField] private Transform Camera;
+    [SerializeField] private EnemySearch enemyState;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,12 +47,19 @@ public class EnemyAssasinManager : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
+        if (enemyState.GetState() == EnemySearch.EnemyState.Chase || enemyState.GetState() == EnemySearch.EnemyState.Died) return;
         if (other.CompareTag("Player"))
         {
             AssassinUI.SetActive(true);
             AssassinUI.transform.forward = Camera.forward;
-            inRange = true;
-            playerObject = other.gameObject;
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                other.transform.position = transform.position;
+                other.transform.rotation = transform.rotation;
+                enemyState.SetState(EnemySearch.EnemyState.Died);
+                other.gameObject.GetComponent<PlayerMove>().currentState = PlayerMove.PlayerState.Attack;
+                enemyAnimator.SetTrigger("Assassin");
+            }
         }
     }
 

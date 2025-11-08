@@ -35,7 +35,6 @@ public class EnemySearch : MonoBehaviour
 
     [Header("감지 속도 스케일")]
     [SerializeField] private float visualBoost = 2f;     // 시야로 감지 중 가산(배수)
-    private NavMeshAgent agent;
     private float playerInSightTimer = 0f;
     private float timeToSwitchState = 10f;
     private float searchTimer = 0f;
@@ -57,7 +56,6 @@ public class EnemySearch : MonoBehaviour
     public EnemyState currentState => _currentState;
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         if (playerTransform != null) playerState = playerTransform.GetComponent<PlayerMove>();
 
         if (playerTransform != null)
@@ -106,11 +104,11 @@ public class EnemySearch : MonoBehaviour
                             searchTimer = 0f;
 
                             // 수색 돌입 시 에이전트 제어 복구 및 이동 재개
-                            if (agent != null)
-                            {
-                                agent.updateRotation = true;
-                                agent.isStopped = false;
-                            }
+                            // if (agent != null)
+                            // {
+                            //     agent.updateRotation = true;
+                            //     agent.isStopped = false;
+                            // }
                         }
                     }
                     else
@@ -285,14 +283,17 @@ public class EnemySearch : MonoBehaviour
         if (_currentState == newState || _currentState == EnemyState.Died)
         {
             return;
-        }
         if (newState == EnemyState.Died)
         {
             OnEnemyDied?.Invoke(this);
-            agent.enabled = false;
+            _currentState = newState;
+            enabled = false;
+            playerVisible = false;
+            checkSound = false;
+            GetComponent<EnemyMove>()?.OnDeath();
         }
-        else OnStateChanged?.Invoke(this, _currentState);
         _currentState = newState;
+        if (newState != EnemyState.Died) OnStateChanged?.Invoke(this, _currentState);
     }
 
     // 외부에서 상태를 확인

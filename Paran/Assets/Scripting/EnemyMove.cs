@@ -20,6 +20,7 @@ public class EnemyMove : MovableAI
     private bool isPausingAfterChase;
     private Coroutine currentRoutine; // 진행 중인 코루틴
     private bool isCollaborating = false;
+    private bool isDecoyed = false;
     public static event Action<EnemyMove, Transform> OnCorpseArrived;
     private bool isSearchingCorpse = false;
     protected override void Start()
@@ -69,6 +70,10 @@ public class EnemyMove : MovableAI
     }
     void CheckArrive()
     {
+        if (isDecoyed)
+        {
+            return;
+        }
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !arriveFlag)
         {
             Debug.Log("도착!");
@@ -241,7 +246,10 @@ public class EnemyMove : MovableAI
             pauseUntil = Time.time + 3f;
             chaseTimer = 0f;
             if (currentRoutine != null)
+            {
                 StopCoroutine(currentRoutine);
+                currentRoutine = null;   
+            }
             StartCoroutine(LookPlayerAndResume(3f));
         }
     }
@@ -273,7 +281,11 @@ public class EnemyMove : MovableAI
     public void MoveToCorpse(Transform corpse)
     {
         if (isSearchingCorpse) return;
-        StopAllCoroutines();
+        if (currentRoutine != null)
+        {
+            StopCoroutine(currentRoutine);
+            currentRoutine = null;
+        }
         StartCoroutine(MoveToCorpseRoutine(corpse));
     }
     private IEnumerator MoveToCorpseRoutine(Transform corpse)
@@ -347,7 +359,69 @@ public class EnemyMove : MovableAI
             }
         }
     }
+    public IEnumerator Decoyed(Vector3 decoyPos)
+    {
+        isDecoyed = true;
+        if (currentRoutine != null)
+        {
+            StopCoroutine(currentRoutine);
+            currentRoutine = null;
+        }
 
+        Tracking(decoyPos);
+        yield return null;
+
+        while (agent.pathPending)
+            yield return null;
+        Debug.Log($"[Decoyed] path ready. distance = {agent.remainingDistance:F2}");
+
+        float timer = 0f;
+        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+        {
+            agent.speed = 4f;
+            if (enemy.GetState() != EnemySearch.EnemyState.Warning)
+                yield break; // 상태가 바뀌면 즉시 중단
+            if (timer % 1f < Time.deltaTime) // 1초마다 로그
+            {
+                Debug.Log($@"
+                [Decoyed Debug]
+                agent.enabled={agent.enabled}
+                isOnNavMesh={agent.isOnNavMesh}
+                hasPath={agent.hasPath}
+                pathPending={agent.pathPending}
+                pathStatus={agent.pathStatus}
+                remainingDistance={agent.remainingDistance:F2}
+                isStopped={agent.isStopped}
+                SetDestination={agent.SetDestination(decoyPos)}
+                ");
+            }
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(3f);
+        isDecoyed = false;
+
+        if (enemy.GetState() != EnemySearch.EnemyState.Warning)
+        yield break;
+
+        if(enemy.GetState() == EnemySearch.EnemyState.Warning)
+        {
+            if (patrolPoints.Length == 1)
+                currentRoutine = StartCoroutine(IdleTurn());
+            else
+                currentRoutine = StartCoroutine(Patrol());   
+        }
+    }
+    public void OnDeath()
+    {
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.enabled = false;
+        }
+        StopAllCoroutines();
+        enabled = false; // Update() 자체 비활성화
+    }
     private void OnEnable()
     {
         EnemySearch.OnCorpseSpotted += HandleCorpseAlert;

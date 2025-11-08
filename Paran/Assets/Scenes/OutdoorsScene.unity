@@ -6355,6 +6355,7 @@ MonoBehaviour:
   AssassinUI: {fileID: 442743093}
   enemy: {fileID: 1801423686}
   Camera: {fileID: 1823688467}
+  enemyState: {fileID: 2014339601}
 --- !u!135 &800325500
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -15571,7 +15572,6 @@ GameObject:
   - component: {fileID: 1698001921}
   - component: {fileID: 1698001923}
   - component: {fileID: 1698001922}
-  - component: {fileID: 1698001924}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -15643,22 +15643,6 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &1698001924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698001920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b5c8f06388dff488f963f9d283fa4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1698001921}
-  alignDistance: 0.5
-  positionOffset: {x: 0, y: 0, z: 0}
-  playerMove: {fileID: 0}
 --- !u!1 &1705225465 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3697850228724478018, guid: be3af10dd66b99c4c8a85de9ec3fde5a, type: 3}

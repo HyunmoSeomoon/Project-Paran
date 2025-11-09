@@ -25,13 +25,6 @@ public abstract class MovableAI : MonoBehaviour
         
     }
 
-    protected virtual void MoveDefault()
-    {
-        if (agent.isStopped == true) agent.isStopped = false;
-        if (agent.updateRotation == false) agent.updateRotation = true;
-        // 이후 NPC, Enemy, Boss에 따라 기본 이동 세팅
-    }
-
     protected virtual void Tracking(Vector3 target)
     {
         //agent.ResetPath();

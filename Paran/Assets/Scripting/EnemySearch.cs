@@ -102,13 +102,6 @@ public class EnemySearch : MonoBehaviour
                             SetState(EnemyState.Chase);
                             OnPlayerDetected?.Invoke(this, transform);
                             searchTimer = 0f;
-
-                            // 수색 돌입 시 에이전트 제어 복구 및 이동 재개
-                            // if (agent != null)
-                            // {
-                            //     agent.updateRotation = true;
-                            //     agent.isStopped = false;
-                            // }
                         }
                     }
                     else
@@ -280,19 +273,27 @@ public class EnemySearch : MonoBehaviour
 
     public void SetState(EnemyState newState)
     {
-        if (_currentState == newState || _currentState == EnemyState.Died) return;
-        if (newState == EnemyState.Died){
-            {
-                OnEnemyDied?.Invoke(this);
-                _currentState = newState;
-                enabled = false;
-                playerVisible = false;
-                checkSound = false;
-                GetComponent<EnemyMove>()?.OnDeath();
-            }
+        // 상태 변경 불필요하거나 이미 죽은 경우 리턴
+        if (_currentState == newState || _currentState == EnemyState.Died) 
+            return;
+
+        // 사망 상태 처리
+        if (newState == EnemyState.Died)
+        {
+            OnEnemyDied?.Invoke(this);
             _currentState = newState;
-            if (newState != EnemyState.Died) OnStateChanged?.Invoke(this, _currentState);
+
+            enabled = false;
+            playerVisible = false;
+            checkSound = false;
+
+            GetComponent<EnemyMove>()?.OnDeath();
+            return; // 🔹 사망은 여기서 완전히 종료
         }
+
+        // 일반 상태 변경
+        _currentState = newState;
+        OnStateChanged?.Invoke(this, _currentState);
     }
 
     // 외부에서 상태를 확인

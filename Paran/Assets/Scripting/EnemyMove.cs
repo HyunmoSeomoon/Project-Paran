@@ -11,16 +11,16 @@ public class EnemyMove : MovableAI
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private int patrolIndex = 0;
     [SerializeField] private float idleRotSpeed = 60f;
-    bool arriveFlag = false;
-    private float soundTimer = 0f, chaseTimer = 0f, pauseUntil = 0f; //pauseUntilW = 0f;
+    private float soundTimer = 0f, chaseTimer = 0f, pauseUntil = 0f;
     private float chaseDuration = 5f;
     private bool soundRecentlyHeard = false;
     private EnemySearch enemy;
     private Vector3 lastPlayerPos, lastKnownPlayerPos;
     private bool isPausingAfterChase;
-    private Coroutine currentRoutine; // 진행 중인 코루틴
+    public Coroutine currentRoutine; // 진행 중인 코루틴
     private bool isCollaborating = false;
     private bool isDecoyed = false;
+    private Coroutine decoyRoutine; // 유인 독립성 위한 전역 변수
     public static event Action<EnemyMove, Transform> OnCorpseArrived;
     private bool isSearchingCorpse = false;
     protected override void Start()
@@ -33,8 +33,6 @@ public class EnemyMove : MovableAI
     }
     protected override void Update()
     {
-        //도착 판정은 update에서 상시 체크
-        CheckArrive();
         switch (enemy.currentState)
         {
             case EnemySearch.EnemyState.Idle:
@@ -57,47 +55,26 @@ public class EnemyMove : MovableAI
         agent.updateRotation = true;
         agent.isStopped = false;
 
-        if (newState == EnemySearch.EnemyState.Warning)
+        if (newState == EnemySearch.EnemyState.Warning && !isDecoyed)
         {
-            arriveFlag = false;
             if (patrolPoints.Length > 0)
-            agent.SetDestination(patrolPoints[patrolIndex].position);
+                agent.SetDestination(patrolPoints[patrolIndex].position);
+            if (currentRoutine == null)
+                currentRoutine = StartCoroutine(Patrol());
         }
     }
     private void HandleCorpseAlert(EnemySearch spotter, Transform corpse)
     {
         Debug.Log($"[이벤트 송신] {spotter.name}이 {corpse.name}을 발견했다!");
     }
-    void CheckArrive()
-    {
-        if (isDecoyed)
-        {
-            return;
-        }
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !arriveFlag)
-        {
-            Debug.Log("도착!");
-            arriveFlag = true;
-            patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
-            if (currentRoutine != null)
-                StopCoroutine(currentRoutine);
-            if (patrolPoints.Length == 1) currentRoutine = StartCoroutine(IdleTurn());
-            else currentRoutine = StartCoroutine(Patrol());
-        }
-    }
-    protected override void MoveDefault()
-    {
-        base.MoveDefault();
-    }
     IEnumerator IdleTurn()
     {
-        // NavMesh 정지 - 도착
         agent.isStopped = true;
         agent.updateRotation = false;
 
         while (true)
         {
-            // 90도씩 회전
+            if (patrolPoints.Length == 1) yield break;
             Quaternion startRot = transform.rotation;
             Quaternion targetRot = Quaternion.Euler(0f, 90f, 0f) * startRot;
 
@@ -105,6 +82,9 @@ public class EnemyMove : MovableAI
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
                 yield return null;
+
+                if (enemy.currentState != EnemySearch.EnemyState.Idle)
+                    yield break;
             }
 
             yield return new WaitForSeconds(5f);
@@ -112,34 +92,70 @@ public class EnemyMove : MovableAI
     }
     IEnumerator Patrol()
     {
-        // NavMesh 정지 - 도착
-        agent.isStopped = true;
-        agent.updateRotation = false;
-        // 다음 포인트 방향 계산
-        Vector3 dirToNext = patrolPoints[patrolIndex].position - transform.position;
-        dirToNext.y = 0f;
-        if (dirToNext.sqrMagnitude > 0.001f)
+        while (true)
         {
-            Quaternion targetRot = Quaternion.LookRotation(dirToNext.normalized, Vector3.up);
+            // 목적지 설정
+            if (isDecoyed)
+                yield break;
+            
+            if (patrolPoints.Length < 1)
+                yield break;
 
-            while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
+            Transform target = patrolPoints[patrolIndex];
+            agent.isStopped = false;
+            agent.updateRotation = true;
+            agent.SetDestination(target.position);
+
+            // 이동 완료 대기
+            while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
             {
-                transform.rotation = Quaternion.RotateTowards(
-                    transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
                 yield return null;
-            }
-        }
-        yield return new WaitForSeconds(3f); // 3초 대기
 
-        agent.isStopped = false;
-        agent.updateRotation = true;
-        agent.SetDestination(patrolPoints[patrolIndex].position);
-        arriveFlag = false;
+                // 추격 / 죽음 상태로 바뀌면 즉시 루프 중단
+                if (enemy.currentState != EnemySearch.EnemyState.Warning &&
+                    enemy.currentState != EnemySearch.EnemyState.Idle)
+                    yield break;
+            }
+
+            // 도착 처리
+            Debug.Log($"[{name}] 순찰 포인트 {patrolIndex} 도착");
+
+            agent.isStopped = true;
+            agent.updateRotation = false;
+
+            // 도착 후 회전
+            Vector3 dirToNext = Vector3.zero;
+            if (patrolPoints.Length > 1)
+            {
+                int nextIndex = (patrolIndex + 1) % patrolPoints.Length;
+                dirToNext = patrolPoints[nextIndex].position - transform.position;
+                dirToNext.y = 0f;
+            }
+
+            if (dirToNext.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(dirToNext.normalized, Vector3.up);
+                while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
+                {
+                    transform.rotation = Quaternion.RotateTowards(
+                        transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
+                    yield return null;
+                }
+            }
+
+            // 도착 후 대기
+            yield return new WaitForSeconds(3f);
+
+            // 다음 포인트로
+            patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+        }
     }
     IEnumerator LookPlayerAndResume(float sec)
     {
         agent.isStopped = true;
         agent.updateRotation = false;
+
+        yield return new WaitForSeconds(2f);
 
         // 마지막으로 플레이어가 있던 방향 계산
         Vector3 lastDir = enemy.playerTransform.position - transform.position;
@@ -150,8 +166,7 @@ public class EnemyMove : MovableAI
 
             while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
             {
-                transform.rotation = Quaternion.RotateTowards(
-                    transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, idleRotSpeed * Time.deltaTime);
                 yield return null;
             }
         }
@@ -194,6 +209,29 @@ public class EnemyMove : MovableAI
 
         bool lookBySound = !enemy.playerVisible && soundRecentlyHeard;
 
+        if (isDecoyed)
+        {
+            if (enemy.playerVisible || lookBySound)
+            {
+                // 플레이어가 보이거나 소리가 들리면 고개만
+                Debug.Log("[Warning] Decoy 중 플레이어 감지 → Decoy 중단");
+
+                isDecoyed = false;
+
+                if (decoyRoutine != null)
+                {
+                    StopCoroutine(decoyRoutine);
+                    decoyRoutine = null;
+                }
+                RotToward(enemy.playerTransform.position);
+                return;
+            }
+            else
+            {
+                return;
+            }
+            // 여기서 절대 currentRoutine, agent.isStopped, SetDestination 등을 건드리지 않는다
+        }
         if (enemy.playerVisible || lookBySound)
         {
             if (currentRoutine != null)
@@ -361,55 +399,49 @@ public class EnemyMove : MovableAI
     }
     public IEnumerator Decoyed(Vector3 decoyPos)
     {
+        Debug.Log("Decoy 시작");
         isDecoyed = true;
+
         if (currentRoutine != null)
         {
+            agent.isStopped = true;
+            agent.ResetPath();
             StopCoroutine(currentRoutine);
             currentRoutine = null;
         }
 
+        // 강제 정지 해제 및 유인 이동
+        agent.isStopped = false;
+        agent.updateRotation = false;
+
+        yield return new WaitForSeconds(3f);
+
         Tracking(decoyPos);
-        yield return null;
 
         while (agent.pathPending)
             yield return null;
-        Debug.Log($"[Decoyed] path ready. distance = {agent.remainingDistance:F2}");
 
-        float timer = 0f;
-        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+        Debug.Log($"[Decoyed] path ready. distance = {agent.remainingDistance:F2}");
+        Debug.Log($"[Decoyed] hasPath={agent.hasPath}, pathStatus={agent.pathStatus}");
+
+        while (isDecoyed && enemy.GetState() == EnemySearch.EnemyState.Warning && (agent.pathPending || agent.remainingDistance > agent.stoppingDistance))
         {
             agent.speed = 4f;
-            if (enemy.GetState() != EnemySearch.EnemyState.Warning)
-                yield break; // 상태가 바뀌면 즉시 중단
-            if (timer % 1f < Time.deltaTime) // 1초마다 로그
-            {
-                Debug.Log($@"
-                [Decoyed Debug]
-                agent.enabled={agent.enabled}
-                isOnNavMesh={agent.isOnNavMesh}
-                hasPath={agent.hasPath}
-                pathPending={agent.pathPending}
-                pathStatus={agent.pathStatus}
-                remainingDistance={agent.remainingDistance:F2}
-                isStopped={agent.isStopped}
-                SetDestination={agent.SetDestination(decoyPos)}
-                ");
-            }
             yield return null;
         }
 
-        yield return new WaitForSeconds(3f);
+        Debug.Log("Decoy 종료");
         isDecoyed = false;
+        decoyRoutine = null;
 
-        if (enemy.GetState() != EnemySearch.EnemyState.Warning)
-        yield break;
-
-        if(enemy.GetState() == EnemySearch.EnemyState.Warning)
+        if (enemy.GetState() == EnemySearch.EnemyState.Warning && !enemy.playerVisible && !enemy.checkSound)
         {
+            patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+
             if (patrolPoints.Length == 1)
                 currentRoutine = StartCoroutine(IdleTurn());
             else
-                currentRoutine = StartCoroutine(Patrol());   
+                currentRoutine = StartCoroutine(Patrol());
         }
     }
     public void OnDeath()

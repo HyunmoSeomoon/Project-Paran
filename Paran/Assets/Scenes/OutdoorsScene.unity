@@ -16365,6 +16365,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
+      propertyPath: _currentState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1698001921}

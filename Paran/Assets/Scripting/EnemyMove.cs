@@ -147,7 +147,7 @@ public class EnemyMove : MovableAI
             }
 
             // 도착 후 대기
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
 
             // 다음 포인트로
             patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
@@ -433,6 +433,8 @@ public class EnemyMove : MovableAI
             agent.speed = 4f;
             yield return null;
         }
+
+        yield return new WaitForSeconds(3f);
 
         Debug.Log("Decoy 종료");
         isDecoyed = false;

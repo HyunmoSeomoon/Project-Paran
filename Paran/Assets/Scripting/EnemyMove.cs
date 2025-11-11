@@ -55,6 +55,9 @@ public class EnemyMove : MovableAI
         agent.updateRotation = true;
         agent.isStopped = false;
 
+        isPausingAfterChase = false;
+        chaseTimer = 0f;
+
         if (newState == EnemySearch.EnemyState.Warning && !isDecoyed)
         {
             if (patrolPoints.Length > 0)
@@ -152,6 +155,7 @@ public class EnemyMove : MovableAI
     }
     IEnumerator LookPlayerAndResume(float sec)
     {
+        Debug.Log("LookResume 호출");
         agent.isStopped = true;
         agent.updateRotation = false;
 

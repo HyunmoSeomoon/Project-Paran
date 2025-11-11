@@ -23,6 +23,7 @@ public class EnemyMove : MovableAI
     private Coroutine decoyRoutine; // 유인 독립성 위한 전역 변수
     public static event Action<EnemyMove, Transform> OnCorpseArrived;
     private bool isSearchingCorpse = false;
+    [SerializeField] private Animator enemyAnimator;
     protected override void Start()
     {
         base.Start();
@@ -30,6 +31,9 @@ public class EnemyMove : MovableAI
         // 초기 위치로 이동
         if (patrolPoints.Length > 0)
             agent.SetDestination(patrolPoints[patrolIndex].position);
+
+        if (enemyAnimator == null)
+            enemyAnimator = gameObject.GetComponent<Animator>();
     }
     protected override void Update()
     {
@@ -74,6 +78,7 @@ public class EnemyMove : MovableAI
     {
         agent.isStopped = true;
         agent.updateRotation = false;
+        enemyAnimator.SetTrigger("Turn");
 
         while (true)
         {
@@ -108,6 +113,7 @@ public class EnemyMove : MovableAI
             agent.isStopped = false;
             agent.updateRotation = true;
             agent.SetDestination(target.position);
+            enemyAnimator.SetFloat("Enemy_Speed", 2.5f);
 
             // 이동 완료 대기
             while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
@@ -122,6 +128,7 @@ public class EnemyMove : MovableAI
 
             // 도착 처리
             Debug.Log($"[{name}] 순찰 포인트 {patrolIndex} 도착");
+            enemyAnimator.SetFloat("Enemy_Speed", 0);
 
             agent.isStopped = true;
             agent.updateRotation = false;
@@ -138,6 +145,7 @@ public class EnemyMove : MovableAI
             if (dirToNext.sqrMagnitude > 0.001f)
             {
                 Quaternion targetRot = Quaternion.LookRotation(dirToNext.normalized, Vector3.up);
+                enemyAnimator.SetTrigger("Turn");
                 while (Quaternion.Angle(transform.rotation, targetRot) > 0.5f)
                 {
                     transform.rotation = Quaternion.RotateTowards(
@@ -158,6 +166,7 @@ public class EnemyMove : MovableAI
         Debug.Log("LookResume 호출");
         agent.isStopped = true;
         agent.updateRotation = false;
+        enemyAnimator.SetFloat("Enemy_Speed", 0);
 
         yield return new WaitForSeconds(2f);
 
@@ -262,6 +271,7 @@ public class EnemyMove : MovableAI
         // 시야에 있을 때
         if (enemy.playerVisible)
         {
+            enemyAnimator.SetFloat("Enemy_Speed", 4f);
             lastPlayerPos = enemy.playerTransform.position;
             lastKnownPlayerPos = lastPlayerPos;
 
@@ -283,6 +293,7 @@ public class EnemyMove : MovableAI
         // 추적 종료(5초) 후 의심 중
         if (chaseTimer >= chaseDuration && !enemy.playerVisible && !isPausingAfterChase)
         {
+            enemyAnimator.SetFloat("Enemy_Speed", 0);
             Debug.Log("의심중");
             isPausingAfterChase = true;
             pauseUntil = Time.time + 3f;
@@ -428,12 +439,15 @@ public class EnemyMove : MovableAI
         Debug.Log($"[Decoyed] path ready. distance = {agent.remainingDistance:F2}");
         Debug.Log($"[Decoyed] hasPath={agent.hasPath}, pathStatus={agent.pathStatus}");
 
+        enemyAnimator.SetFloat("Enemy_Speed", 2.5f);
+
         while (isDecoyed && enemy.GetState() == EnemySearch.EnemyState.Warning && (agent.pathPending || agent.remainingDistance > agent.stoppingDistance))
         {
-            agent.speed = 4f;
+            agent.speed = 2.5f;
             yield return null;
         }
 
+        enemyAnimator.SetFloat("Enemy_Speed", 0);
         yield return new WaitForSeconds(3f);
 
         Debug.Log("Decoy 종료");

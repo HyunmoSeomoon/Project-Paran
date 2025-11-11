@@ -1,19 +1,22 @@
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueUI : IUIPanel
 {
     [SerializeField] private GameObject dialogueUI;
     [SerializeField] private TextMeshProUGUI textMeshPro;
+    [SerializeField] private Button[] choiceButtons;
+    [SerializeField] private Button nextButton;
     [SerializeField] PlayerMove playerMove;
     public int size = 0;
     private int count = 0;
-    private string[] newDialogues = null;
+    private DialogueNode[] newDialogues = null;
     private CinemachineCamera currentCinemachine;
     public override void Show()
     {
-        if(dialogueUI!=null)
+        if (dialogueUI != null)
             dialogueUI.SetActive(true);
     }
 
@@ -23,25 +26,59 @@ public class DialogueUI : IUIPanel
             dialogueUI.SetActive(false);
     }
 
-    public void StartDialogue(string[] dialogues, CinemachineCamera cinemachineCamera)
+    public void StartDialogue(DialogueNode[] dialogues, CinemachineCamera cinemachineCamera)
     {
+        for (int i = 0; i < 4; i++)
+        {
+            choiceButtons[i].gameObject.SetActive(false);
+        }
         size = dialogues.Length;
         if (size != 0)
         {
             newDialogues = dialogues;
-            textMeshPro.text = newDialogues[0];
+            if (newDialogues[0].dialogueText != "")
+            {
+                textMeshPro.text = newDialogues[0].dialogueText;
+                textMeshPro.gameObject.SetActive(true);
+            }
+            else
+            {
+                textMeshPro.gameObject.SetActive(false);
+                for (int i = 0; i < newDialogues[0].choices.Length; i++)
+                {
+                    if (newDialogues[0].choices[i].choiceText != null)
+                    {
+                        choiceButtons[i].transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = newDialogues[0].choices[i].choiceText;
+                        choiceButtons[i].gameObject.SetActive(true);
+                    }
+                }
+            }
             currentCinemachine = cinemachineCamera;
         }
         else
             Debug.Log("대화 내용이 없습니다.");
     }
-    
+
     public void UpdateDialogue()
     {
-        count++;
-        if (count < size)
+        if (count+1 < size && !newDialogues[count].dialogueEnd)
         {
-            textMeshPro.text = newDialogues[count];
+            count++;
+            if (newDialogues[count].dialogueText != "")
+                textMeshPro.text = newDialogues[count].dialogueText;
+            else
+            {
+                for (int i = 0; i < newDialogues[count].choices.Length; i++)
+                {
+                    if (newDialogues[count].choices[i].choiceText != null)
+                    {
+                        choiceButtons[i].transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = newDialogues[count].choices[i].choiceText;
+                        choiceButtons[i].gameObject.SetActive(true);
+                    }
+                }
+                nextButton.gameObject.SetActive(false);
+                
+            }
         }
         else
         {
@@ -50,5 +87,16 @@ public class DialogueUI : IUIPanel
             currentCinemachine.gameObject.SetActive(false);
             Hide();
         }
+    }
+
+    public void ChoiceUpdate(int index)
+    {
+        for (int i = 0; i < newDialogues[count].choices.Length; i++)
+        {
+            choiceButtons[i].gameObject.SetActive(false);
+        }
+        count = newDialogues[count].choices[index].nextDialogueIndex - 1;
+        UpdateDialogue();
+        nextButton.gameObject.SetActive(true);
     }
 }

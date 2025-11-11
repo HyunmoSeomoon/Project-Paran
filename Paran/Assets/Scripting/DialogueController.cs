@@ -8,7 +8,7 @@ using UnityEngine;
 public class DialogueController : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private string[] dialogues;
+    [SerializeField] private DialogueNode[] dialogues;
     [SerializeField] private GameObject interactionUI;
     [SerializeField] private UIManager uIManager;
     [SerializeField] private Transform Camera;
@@ -17,7 +17,7 @@ public class DialogueController : MonoBehaviour
     private CameraMove cameraMove;
     private bool canDialogue = false;
 
-    public float dialogueDistance =1f;
+    public float dialogueDistance = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,7 +30,7 @@ public class DialogueController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canDialogue)
+        if (canDialogue)
             if (Input.GetKeyDown(KeyCode.E))
             {
                 cinemachineCamera.gameObject.SetActive(true);
@@ -46,7 +46,7 @@ public class DialogueController : MonoBehaviour
         {
             interactionUI.SetActive(true);
             interactionUI.transform.forward = Camera.forward;
-            canDialogue = true;        
+            canDialogue = true;
         }
     }
 
@@ -78,14 +78,31 @@ public class DialogueController : MonoBehaviour
             yield return null;
         }
         player.transform.position = targetPosition;
-        
+
         uIManager.TurnOnUI(UIManager.UITypes.Dialogue); // 대화 ui 키기
         if (uIManager.GetUIPanel(UIManager.UITypes.Dialogue) is DialogueUI dialogueUI)
         {
-            dialogueUI.StartDialogue(dialogues,cinemachineCamera); // 대화 ui 진행 시작하기
+            dialogueUI.StartDialogue(dialogues, cinemachineCamera); // 대화 ui 진행 시작하기
         }
         yield break;
     }
-    
-    
+
+
+}
+
+[System.Serializable]
+public class Choice
+{
+    [TextArea(2, 3)]
+    public string choiceText;     // 버튼에 표시될 텍스트
+    public int nextDialogueIndex; // 이 선택지를 골랐을 때 점프할 'allDialogues' 배열의 인덱스
+}
+
+[System.Serializable]
+public class DialogueNode
+{
+    [TextArea(3, 5)]
+    public string dialogueText;  // 현재 띄울 대사
+    public Choice[] choices;     // 이 대사에 붙어있는 선택지들 (0개 ~ 4개)
+    public bool dialogueEnd = false;
 }

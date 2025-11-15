@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private UIManager uIManager;
     [SerializeField] private CameraMove cameraMove;
+    [SerializeField] private MissionManager missionManager;
 
     //For SingleTon pattern
     public static GameController Instance { get; private set; }
@@ -28,13 +30,18 @@ public class GameController : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            
+
         }
         else Destroy(gameObject);
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += checkcurrentPhase;
+    }
+
     public bool timeFlag = true;
-    private DateTime startTime = new DateTime(1939,11,11,9,15,00);
+    private DateTime startTime = new DateTime(1939, 11, 11, 9, 15, 00);
     private DateTime currentTime;
     private int a = 0;
     void Start()
@@ -42,7 +49,7 @@ public class GameController : MonoBehaviour
         currentTime = startTime;
         uIManager.SetClockTime(currentTime.Hour, currentTime.Minute);
     }
-    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -69,6 +76,15 @@ public class GameController : MonoBehaviour
             currentTime = currentTime.AddMinutes(1);
             uIManager.NormalClockTime();
             a = 0;
+        }
+    }
+
+    void checkcurrentPhase(Scene scene, LoadSceneMode mode)
+    {
+        if (gamePhase == GamePhase.Phase1 && scene.name == "OutdoorsScene")
+        {
+            missionManager.StartMissionList("Main Mission");
+            Debug.Log("start Phase1");
         }
     }
 }

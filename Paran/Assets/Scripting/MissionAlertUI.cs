@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic; // List 사용
 using TMPro;
 using System.Collections;
-using GLTF.Schema;
+//using GLTF.Schema;
 
 public class MissionAlertUI : MonoBehaviour
 {

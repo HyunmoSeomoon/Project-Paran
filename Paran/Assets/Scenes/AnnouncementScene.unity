@@ -374,7 +374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFadeIn: 1
   isFadeOut: 1
-  nextScene: OutdoorsScene
+  nextScene: OpeningScene
   panel: {fileID: 2114159272}
 --- !u!1 &1296688703
 GameObject:

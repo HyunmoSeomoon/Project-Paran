@@ -472,7 +472,7 @@ public class EnemyMove : MovableAI
             agent.enabled = false;
         }
         StopAllCoroutines();
-        enabled = false; // Update() 자체 비활성화
+        //enabled = false; // Update() 자체 비활성화
     }
     private void OnEnable()
     {

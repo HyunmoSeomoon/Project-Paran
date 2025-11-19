@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
         Menu,
         Dialogue,
         ItemInfo,
+        Mission,
         Idle
     }
 

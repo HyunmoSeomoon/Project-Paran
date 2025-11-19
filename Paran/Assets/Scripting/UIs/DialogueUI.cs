@@ -64,6 +64,8 @@ public class DialogueUI : IUIPanel
         if (count+1 < size && !newDialogues[count].dialogueEnd)
         {
             count++;
+            newDialogues[count].OnDialogueNodeEnd?.Invoke(); 
+
             if (newDialogues[count].dialogueText != "")
                 textMeshPro.text = newDialogues[count].dialogueText;
             else
@@ -77,7 +79,6 @@ public class DialogueUI : IUIPanel
                     }
                 }
                 nextButton.gameObject.SetActive(false);
-                
             }
         }
         else
@@ -91,6 +92,7 @@ public class DialogueUI : IUIPanel
 
     public void ChoiceUpdate(int index)
     {
+        newDialogues[count].choices[index].OnDialogueNodeEnd?.Invoke(); 
         for (int i = 0; i < newDialogues[count].choices.Length; i++)
         {
             choiceButtons[i].gameObject.SetActive(false);

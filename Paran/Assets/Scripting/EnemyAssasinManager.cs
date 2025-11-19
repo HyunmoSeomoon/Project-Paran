@@ -24,6 +24,9 @@ public class EnemyAssasinManager : MonoBehaviour
         }
         enemyAnimator = enemy.GetComponent<Animator>();
         enemySearch = enemy.GetComponent<EnemySearch>();
+
+        if (enemyState == null)
+        enemyState = enemy.GetComponent<EnemySearch>();
     }
 
     void Update()
@@ -35,12 +38,12 @@ public class EnemyAssasinManager : MonoBehaviour
                 playerObject.GetComponent<CharacterController>().enabled = false;
                 playerObject.transform.position = transform.position;
                 playerObject.transform.rotation = transform.rotation;
-                enemySearch.SetState(EnemySearch.EnemyState.Died);
                 playerObject.GetComponent<PlayerMove>().currentState = PlayerMove.PlayerState.Attack;
                 enemyAnimator.SetTrigger("Assassin");
                 playerObject.GetComponent<CharacterController>().enabled = true;
                 AssassinUI.SetActive(false);
                 gameObject.SetActive(false);
+                enemySearch.SetState(EnemySearch.EnemyState.Died);
             }
         }
     }

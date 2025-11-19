@@ -52,7 +52,6 @@ public class EnemyManager : MonoBehaviour
         RegisterAllEnemies();
         RegisterAllPatrolPoints();
         ComputePatPointDist();
-        TestKMeansClustering();
         if (playerTransform != null) playerState = playerTransform.GetComponent<PlayerMove>();
     }
 

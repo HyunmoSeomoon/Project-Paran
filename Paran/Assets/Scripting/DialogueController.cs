@@ -4,6 +4,7 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogueController : MonoBehaviour
 {
@@ -87,7 +88,6 @@ public class DialogueController : MonoBehaviour
         yield break;
     }
 
-
 }
 
 [System.Serializable]
@@ -96,6 +96,7 @@ public class Choice
     [TextArea(2, 3)]
     public string choiceText;     // 버튼에 표시될 텍스트
     public int nextDialogueIndex; // 이 선택지를 골랐을 때 점프할 'allDialogues' 배열의 인덱스
+    public UnityEvent OnDialogueNodeEnd;
 }
 
 [System.Serializable]
@@ -105,4 +106,5 @@ public class DialogueNode
     public string dialogueText;  // 현재 띄울 대사
     public Choice[] choices;     // 이 대사에 붙어있는 선택지들 (0개 ~ 4개)
     public bool dialogueEnd = false;
+    public UnityEvent OnDialogueNodeEnd;
 }

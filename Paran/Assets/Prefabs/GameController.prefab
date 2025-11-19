@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1154004257680632491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6645469554060652145}
+  - component: {fileID: 3007973083166905083}
+  - component: {fileID: 1958374909053204584}
+  - component: {fileID: 5584384124215454424}
+  - component: {fileID: 8842608683419402937}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6645469554060652145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154004257680632491}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.559114, y: 1.8657974, z: 1.0386626}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3007973083166905083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154004257680632491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fd916f02fdca0429cc6a9ef6555150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePhase: 1
+  uIManager: {fileID: 1958374909053204584}
+  cameraMove: {fileID: 0}
+  missionManager: {fileID: 8842608683419402937}
+  timeFlag: 1
+--- !u!114 &1958374909053204584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154004257680632491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f530801f046bc6141a75c1fffa0d84a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemUI: {fileID: 0}
+  clockUI: {fileID: 0}
+  minuteUI: {fileID: 0}
+  hourUI: {fileID: 0}
+  uiPanelPairs:
+  - uiType: 1
+    panelScript: {fileID: 0}
+  - uiType: 0
+    panelScript: {fileID: 0}
+--- !u!114 &5584384124215454424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154004257680632491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93223dfe43253ba42a9ef40509235fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8842608683419402937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154004257680632491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613a4165b92dc84881fadb50e117b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionLists:
+  - missionList:
+    - missionName: find item
+      missionDescription: "\uC218\uC0C9\uD558\uACE0 \uC788\uB294 \uC21C\uACBD\uC744
+        \uC8FD\uC774\uC2ED\uC2DC\uC624."
+      isEnded: 0
+    missionListName: Cop_side_mission
+    isStarted: 0
+    isCompleted: 0
+  - missionList:
+    - missionName: kill main
+      missionDescription: "\uC870\uC120\uCD1D\uB3C5\uC744 \uC554\uC0B4\uD558\uC2DC\uC624"
+      isEnded: 0
+    - missionName: kill main2
+      missionDescription: "\uC815\uBB34\uCD1D\uAC10\uC744 \uC554\uC0B4\uD558\uC2DC\uC624"
+      isEnded: 0
+    - missionName: kill main3
+      missionDescription: "\uC724\uC900\uC6A9\uC744 \uC554\uC0B4\uD558\uC2DC\uC624"
+      isEnded: 0
+    missionListName: Main Mission
+    isStarted: 0
+    isCompleted: 0

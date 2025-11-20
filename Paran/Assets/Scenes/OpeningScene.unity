@@ -154,7 +154,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.16, y: 0.16}
+  m_SizeDelta: {x: 0.16, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7068900
 MonoBehaviour:
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 49bbb503afe989947a570096cfe17058, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 10872094}
   - component: {fileID: 10872095}
   m_Layer: 0
-  m_Name: CinemachineCamera (12)
+  m_Name: MapDetail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,13 +219,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10872093}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21438488, y: 0.14237888, z: -0.03160478, w: 0.96579945}
-  m_LocalPosition: {x: 0.271, y: 1.071, z: 3.585}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.016, y: 1.237, z: 3.154}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 25.031, y: 16.772, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &10872095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 45.7
+    FieldOfView: 30
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 101008946}
   - component: {fileID: 101008947}
   m_Layer: 0
-  m_Name: CinemachineCamera (7)
+  m_Name: Chinill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 50
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bb025a8c9d09ecb4cae45bfcd86c077c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7dc2109436a0d14a9e484a1951ca823, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7151,6 +7151,7 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: e47188c58f8757b4a875ab1bd6c20799, type: 2}
+    - {fileID: 11400000, guid: 20117ccd0b7f1d2449d5e483c79c0928, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -7159,7 +7160,33 @@ MonoBehaviour:
           m_MethodName: set_clip
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 8300000, guid: bf1af6cda3e72aa40b8f500b30cb4f5b, type: 3}
+            m_ObjectArgument: {fileID: 8300000, guid: cabc96b6cd81e1849b6e34e9964c11de, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 115882694}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 115882694}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: set_clip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0a3fbf3aa9657254eb807a10294cdd2f, type: 3}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -7274,7 +7301,7 @@ GameObject:
   - component: {fileID: 238028756}
   - component: {fileID: 238028757}
   m_Layer: 0
-  m_Name: CinemachineCamera (1)
+  m_Name: External_Yang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7288,13 +7315,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238028755}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.353, z: 3.521}
+  m_LocalRotation: {x: 0.0009409761, y: -0.76632416, z: 0.00042959084, w: 0.6424532}
+  m_LocalPosition: {x: 3.838, y: 1.195, z: 4.559}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.107, y: -100.05, z: -0.051}
 --- !u!114 &238028757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7320,81 +7347,6 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 10
-    OrthographicSize: 5
-    NearClipPlane: 0.1
-    FarClipPlane: 1000
-    Dutch: 0
-    ModeOverride: 0
-    PhysicalProperties:
-      GateFit: 2
-      SensorSize: {x: 21.946, y: 16.002}
-      LensShift: {x: 0, y: 0}
-      FocusDistance: 10
-      Iso: 200
-      ShutterSpeed: 0.005
-      Aperture: 16
-      BladeCount: 5
-      Curvature: {x: 2, y: 11}
-      BarrelClipping: 0.25
-      Anamorphism: 0
-  BlendHint: 0
---- !u!1 &239194204
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 239194205}
-  - component: {fileID: 239194206}
-  m_Layer: 0
-  m_Name: CinemachineCamera (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &239194205
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239194204}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.262481, y: 0.65658486, z: -0.2624811, w: 0.65658486}
-  m_LocalPosition: {x: -0.946, y: 1.384, z: 3.629}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 43.58, y: 90, z: 0}
---- !u!114 &239194206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239194204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Priority:
-    Enabled: 1
-    m_Value: 5
-  OutputChannel: 1
-  StandbyUpdate: 2
-  m_StreamingVersion: 20241001
-  m_LegacyPriority: 0
-  Target:
-    TrackingTarget: {fileID: 0}
-    LookAtTarget: {fileID: 0}
-    CustomLookAtTarget: 0
-  Lens:
-    FieldOfView: 50
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -7778,7 +7730,7 @@ GameObject:
   - component: {fileID: 629892198}
   - component: {fileID: 629892199}
   m_Layer: 0
-  m_Name: CinemachineCamera (11)
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7792,13 +7744,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629892197}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.246, z: 3.934}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.613, z: 4.656}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &629892199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8066,7 +8018,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.16, y: 0.16}
+  m_SizeDelta: {x: 0.16, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &670524240
 MonoBehaviour:
@@ -8088,7 +8040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 71bde3e1db9410c4abba63bebc74daa8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6bb5b24d5fe2b14e9a621e06b9560f5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8131,16 +8083,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675805571}
-  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: -0.5}
   m_LocalPosition: {x: 0, y: 0, z: -0.678}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 749809213}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
+  m_LocalEulerAnglesHint: {x: 180, y: -90, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.129, y: 0.5}
+  m_AnchoredPosition: {x: 1.122, y: 0.5}
   m_SizeDelta: {x: 2, y: 1.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675805573
@@ -8246,7 +8198,7 @@ GameObject:
   - component: {fileID: 748887842}
   - component: {fileID: 748887843}
   m_Layer: 0
-  m_Name: CinemachineCamera (6)
+  m_Name: Dorazi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8291,7 +8243,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 50
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -8346,6 +8298,7 @@ RectTransform:
   - {fileID: 1823167078}
   - {fileID: 1372228702}
   - {fileID: 675805572}
+  - {fileID: 957355353}
   m_Father: {fileID: 1567906831}
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8966,7 +8919,7 @@ Transform:
   m_GameObject: {fileID: 850062866}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17370695, y: 0.09735123, z: -0.018610701, w: 0.9797971}
-  m_LocalPosition: {x: 0.93, y: 1.515, z: 1.891}
+  m_LocalPosition: {x: 0.93, y: 1.515, z: 2.512}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9030,6 +8983,112 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &957355352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 957355353}
+  - component: {fileID: 957355355}
+  - component: {fileID: 957355354}
+  - component: {fileID: 957355356}
+  m_Layer: 5
+  m_Name: Black Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &957355353
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957355352}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 749809213}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.29, y: 0.457}
+  m_SizeDelta: {x: 2, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &957355354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957355352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &957355355
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957355352}
+  m_CullTransparentMesh: 1
+--- !u!114 &957355356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957355352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: d7a7f6d16b775a544a99c5fbc52a7bd0, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 957355352}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &963133355
 GameObject:
   m_ObjectHideFlags: 0
@@ -15799,6 +15858,9 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: e47188c58f8757b4a875ab1bd6c20799, type: 2}
+    - {fileID: 11400000, guid: 20117ccd0b7f1d2449d5e483c79c0928, type: 2}
+    - {fileID: 11400000, guid: 7f468eb8bb22c5e4da1de5d7972c7782, type: 2}
+    - {fileID: 11400000, guid: 48b79da8679a1194b92109e7cbe4be5b, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -15807,7 +15869,85 @@ MonoBehaviour:
           m_MethodName: set_clip
           m_Mode: 2
           m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: ca5423a4408dc824e9d9d9566b2efa1d, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 986391592}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 986391592}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: set_clip
+          m_Mode: 2
+          m_Arguments:
             m_ObjectArgument: {fileID: 8300000, guid: cd877df37b825874097d98d4b26462a6, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 986391592}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 986391592}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: set_clip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: c173b4c446e39544fa0d1abb555030f3, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 986391592}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 986391592}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: set_clip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 659ec07e1612274448993b02b3f67bd5, type: 3}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -16024,13 +16164,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038207035}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.45, z: 5}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.45, z: 2.525}
   m_LocalScale: {x: 10, y: 3, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 963133356}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!65 &1038207037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16248,15 +16388,14 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2098926771}
+  - {fileID: 1522377267}
   - {fileID: 238028756}
-  - {fileID: 1728234126}
   - {fileID: 1740641861}
-  - {fileID: 239194205}
+  - {fileID: 1728234126}
   - {fileID: 1344113026}
   - {fileID: 1190298408}
   - {fileID: 748887842}
   - {fileID: 101008946}
-  - {fileID: 1522377267}
   - {fileID: 1694557910}
   - {fileID: 629892198}
   - {fileID: 10872094}
@@ -16273,7 +16412,7 @@ GameObject:
   - component: {fileID: 1190298408}
   - component: {fileID: 1190298409}
   m_Layer: 0
-  m_Name: CinemachineCamera (5)
+  m_Name: Chiro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16318,7 +16457,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 50
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -16707,7 +16846,7 @@ GameObject:
   - component: {fileID: 1344113026}
   - component: {fileID: 1344113027}
   m_Layer: 0
-  m_Name: CinemachineCamera (4)
+  m_Name: Ziro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16752,7 +16891,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 50
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -17123,7 +17262,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 45.7
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -17149,8 +17288,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465398881}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21438488, y: 0.14237888, z: -0.03160478, w: 0.96579945}
-  m_LocalPosition: {x: 0.271, y: 1.071, z: 3.585}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.0399, z: 5.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17358,6 +17497,8 @@ PlayableDirector:
     value: {fileID: 986391600}
   - key: {fileID: -2396622183066593785, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
     value: {fileID: 115882702}
+  - key: {fileID: 4669991992388144282, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
+    value: {fileID: 957355356}
   m_ExposedReferences:
     m_References:
     - 0e995114fd410544db774d0472e8d534: {fileID: 1344113027}
@@ -17366,6 +17507,7 @@ PlayableDirector:
     - c6e8646e06c182041929d36a0624c7d5: {fileID: 1694557911}
     - d91f23fa3f252154584d06fe38a62f65: {fileID: 748887843}
     - e19fffa3b6395824e8769525f820ca1c: {fileID: 1190298409}
+    - 8bcd968f51d287a43ade605337e2a3b9: {fileID: 2098926772}
     - b7b3f344e10a8534994569cdec055eef: {fileID: 1522377268}
     - 9a2f559b7840c1245bd00be7580e7f8a: {fileID: 238028757}
     - bae3bf751be5584409e569487c875dd2: {fileID: 1740641862}
@@ -17375,11 +17517,11 @@ PlayableDirector:
     - 95a7f5470c59c9749a63e1863b8e94e9: {fileID: 1728234125}
     - 19fe074e9c2beb44f8c1103b46207bd7: {fileID: 101008947}
     - 1179c5b867d262f4cab644ceafbe8356: {fileID: 238028757}
-    - a209d0fa671381c4995b7d626ffb811a: {fileID: 239194206}
+    - a209d0fa671381c4995b7d626ffb811a: {fileID: 0}
     - 6334de833734ba74a8a23dc6aa7ca7b0: {fileID: 2098926772}
     - 3568fcd2e438f1a4087736de849ae343: {fileID: 629892199}
     - 60d1ab7d8c8d870428e2648774e34e6e: {fileID: 1728234125}
-    - 10882526bce953c419c7e8a0e618cda8: {fileID: 239194206}
+    - 10882526bce953c419c7e8a0e618cda8: {fileID: 0}
 --- !u!4 &1477899569 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -68789770501889191, guid: a3d6daa13646f7e46b3132c7fa30bcaf, type: 3}
@@ -19532,7 +19674,7 @@ GameObject:
   - component: {fileID: 1522377267}
   - component: {fileID: 1522377268}
   m_Layer: 0
-  m_Name: CinemachineCamera (8)
+  m_Name: Internal_Song
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19546,13 +19688,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522377266}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0026253776, y: 0.6181791, z: -0.0020647594, w: 0.7860302}
-  m_LocalPosition: {x: -1.109, y: 1.175, z: 3.192}
+  m_LocalRotation: {x: -0.017741134, y: 0.8520978, z: 0.03652212, w: 0.52180517}
+  m_LocalPosition: {x: -0.789, y: 1.071, z: 4.539}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 0.383, y: 76.367, z: 0}
+  m_LocalEulerAnglesHint: {x: -4.632, y: 117.017, z: 0.453}
 --- !u!114 &1522377268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19577,7 +19719,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 30
+    FieldOfView: 20
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -21741,7 +21883,7 @@ GameObject:
   - component: {fileID: 1694557910}
   - component: {fileID: 1694557911}
   m_Layer: 0
-  m_Name: CinemachineCamera (9)
+  m_Name: AllTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21755,13 +21897,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694557909}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.593, z: 3.206}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -0.376, y: 1.593, z: 3.604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
 --- !u!114 &1694557911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21786,7 +21928,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60
+    FieldOfView: 50
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -21931,7 +22073,7 @@ GameObject:
   - component: {fileID: 1728234124}
   - component: {fileID: 1728234127}
   m_Layer: 0
-  m_Name: CinemachineCamera
+  m_Name: MasterShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21986,8 +22128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 50
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -21997,7 +22139,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 30
+    FieldOfView: 40
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -22024,13 +22166,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728234122}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.0399, z: 3.052}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.00000011920929, y: 1.0399, z: 6.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &1728234127
 Animator:
   serializedVersion: 7
@@ -22064,7 +22206,7 @@ GameObject:
   - component: {fileID: 1740641861}
   - component: {fileID: 1740641862}
   m_Layer: 0
-  m_Name: CinemachineCamera (2)
+  m_Name: External_Song
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22078,13 +22220,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740641860}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.3792, z: 3.521}
+  m_LocalRotation: {x: -0.0065461393, y: 0.76628876, z: 0.0071137995, w: 0.64242357}
+  m_LocalPosition: {x: -3.538, y: 1.195, z: 4.559}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.107, y: 100.05, z: -0.051}
 --- !u!114 &1740641862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22283,13 +22425,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805924482}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.0399, z: 3.052}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.0399, z: 5.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1823167077
 GameObject:
   m_ObjectHideFlags: 0
@@ -23001,7 +23143,7 @@ GameObject:
   - component: {fileID: 2098926771}
   - component: {fileID: 2098926772}
   m_Layer: 0
-  m_Name: CinemachineCamera(10)
+  m_Name: Internal_Yang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23015,13 +23157,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098926770}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.013603855, y: -0.004472427, z: 0.00074862357, w: -0.9998972}
-  m_LocalPosition: {x: 1.087, y: 1.376, z: 3.169}
+  m_LocalRotation: {x: -0.024477823, y: -0.85193163, z: -0.032392945, w: 0.5220766}
+  m_LocalPosition: {x: 0.789, y: 1.071, z: 4.539}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176075096}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -4.632, y: -117.017, z: 0.453}
 --- !u!114 &2098926772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23035,8 +23177,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 15
+    Enabled: 1
+    m_Value: -5
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -23046,7 +23188,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 30
+    FieldOfView: 20
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -23131,7 +23273,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.16, y: 0.16}
+  m_SizeDelta: {x: 0.16, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2120081338
 MonoBehaviour:
@@ -23153,7 +23295,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 376473e8dd01ed247bf1d20c533108b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47b1a27f1a6c6574ebb7db33ddc58e42, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

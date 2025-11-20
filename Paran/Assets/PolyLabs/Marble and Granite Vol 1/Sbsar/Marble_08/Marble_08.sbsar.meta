@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d0464069121304a3f8811691c07e99c4
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: efd914b751ed14dba9c0cb9b0f48965e, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/PolyLabs/Marble and Granite/Sbsar/Marble_08/Marble_08.sbsar
+AssetOrigin:
+  serializedVersion: 1
+  productId: 70243
+  packageName: Marble and Granite Substances & Materials
+  packageVersion: 2.0.0
+  assetPath: Assets/PolyLabs/Marble and Granite Vol 1/Sbsar/Marble_08/Marble_08.sbsar
+  uploadId: 550891

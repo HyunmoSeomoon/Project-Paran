@@ -14,6 +14,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private UIManager uIManager;
     [SerializeField] private Transform Camera;
     [SerializeField] private CinemachineCamera cinemachineCamera;
+    [SerializeField] private MissionManager missionManager;
+    public string missionName;
     public bool finished = false;
     private CameraMove cameraMove;
     private bool canDialogue = false;
@@ -84,6 +86,10 @@ public class DialogueController : MonoBehaviour
         if (uIManager.GetUIPanel(UIManager.UITypes.Dialogue) is DialogueUI dialogueUI)
         {
             dialogueUI.StartDialogue(dialogues, cinemachineCamera); // 대화 ui 진행 시작하기
+            if(missionName!=null && missionName != "")
+            {
+                missionManager.CompleteMission(missionName);
+            }
         }
         yield break;
     }

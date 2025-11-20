@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour
 
     void checkcurrentPhase(Scene scene, LoadSceneMode mode)
     {
-        if (gamePhase == GamePhase.Phase1 && scene.name == "OutdoorsScene")
+        if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2")
         {
             missionManager.StartMissionList("Main Mission");
             Debug.Log("start Phase1");

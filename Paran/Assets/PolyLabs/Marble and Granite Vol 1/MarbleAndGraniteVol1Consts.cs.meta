@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3c7ce721249b24cce99bc56c06530e1a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 70243
+  packageName: Marble and Granite Substances & Materials
+  packageVersion: 2.0.0
+  assetPath: Assets/PolyLabs/Marble and Granite Vol 1/MarbleAndGraniteVol1Consts.cs
+  uploadId: 550891

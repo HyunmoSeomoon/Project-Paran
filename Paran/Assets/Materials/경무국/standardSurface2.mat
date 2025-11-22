@@ -303,7 +303,7 @@ Material:
     - _SPECULAR_IOR: 1.52
     - _SPECULAR_ROTATION: 0
     - _SPECULAR_ROUGHNESS: 1
-    - _SPECULAR_WEIGHT: 0
+    - _SPECULAR_WEIGHT: 0.319
     - _Smoothness: 0
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -349,7 +349,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _BASE_COLOR: {r: 0.54088044, g: 0.47463056, b: 0.32827017, a: 0}
+    - _BASE_COLOR: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _COAT_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 using GLTF.Schema;
+using UnityEngine.Events;
 
 public class MissionManager : MonoBehaviour
 {
@@ -45,6 +46,8 @@ public class MissionManager : MonoBehaviour
 
             // [발송 1] 새 미션 팝업(Alert) 이벤트 발송
             OnMissionStarted?.Invoke(firstMission);
+            firstMission.MissionStartMethod?.Invoke();
+
             
             // [발송 2] 임무 기록(Log) 갱신 이벤트 발송
             TriggerFullListUpdate();
@@ -74,6 +77,7 @@ public class MissionManager : MonoBehaviour
             
             // [발송 3] 미션 완료 팝업(Alert) 이벤트 발송
             OnMissionCompleted?.Invoke(completedMission);
+            completedMission.MissionCompleteMethod?.Invoke();
             
             // 2. 다음 미션으로 인덱스 이동
             Mission nextMission = targetList.GoToNextMission();
@@ -82,6 +86,8 @@ public class MissionManager : MonoBehaviour
             if (nextMission != null)
             {
                 OnMissionStarted?.Invoke(nextMission);
+                nextMission.MissionStartMethod?.Invoke();
+
             }
             
             // 4. [발송 4] 임무 기록(Log) 갱신 (완료 표시를 위해)
@@ -110,13 +116,6 @@ public class MissionManager : MonoBehaviour
         // 이 "활성 미션" 목록을 UI로 보냅니다.
         OnActiveMissionsUpdated?.Invoke(allCurrentActiveMissions);
     }
-
-    public void SetMissionPoint(Mission mission) //맵에 가야 할 위치 생성
-    {
-        if (mission.missionPoint == null) return;
-
-        mission.missionPoint.SetActive(true);
-    }
 }
 
 [System.Serializable]
@@ -125,7 +124,8 @@ public class Mission
     public string missionName;
     public string missionDescription;
     public bool isEnded;
-    public GameObject missionPoint;
+    public UnityEvent MissionStartMethod;
+    public UnityEvent MissionCompleteMethod;
 }
 
 [System.Serializable]

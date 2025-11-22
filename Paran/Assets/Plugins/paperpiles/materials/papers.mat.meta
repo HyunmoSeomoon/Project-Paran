@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3dbc5d1ee5e287147a075a3301a6879c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 263344
+  packageName: Paper Piles
+  packageVersion: 1.0
+  assetPath: Assets/paperpiles/materials/papers.mat
+  uploadId: 608013

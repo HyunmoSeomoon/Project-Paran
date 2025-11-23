@@ -17515,6 +17515,7 @@ PlayableDirector:
     - 4e0d3f69242a7b349aba5e41f8a59ebb: {fileID: 10872095}
     - 0c3e6dc54c9514643bc960b0a32ceb57: {fileID: 2098926772}
     - 95a7f5470c59c9749a63e1863b8e94e9: {fileID: 1728234125}
+    - e53e53625f60bc54fa2dd1b064d36f32: {fileID: 1728234125}
     - 19fe074e9c2beb44f8c1103b46207bd7: {fileID: 101008947}
     - 1179c5b867d262f4cab644ceafbe8356: {fileID: 238028757}
     - a209d0fa671381c4995b7d626ffb811a: {fileID: 0}
@@ -22167,7 +22168,7 @@ Transform:
   m_GameObject: {fileID: 1728234122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.00000011920929, y: 1.0399, z: 6.279}
+  m_LocalPosition: {x: 0, y: 1.0399, z: 5.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

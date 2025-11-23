@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
-using GLTF.Schema;
+//using GLTF.Schema;
 
 public class MissionManager : MonoBehaviour
 {

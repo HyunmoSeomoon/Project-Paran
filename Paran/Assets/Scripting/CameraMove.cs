@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
-public class CameraOrbit : MonoBehaviour
+public class CameraMove : MonoBehaviour
 {
     public Transform player;
-    
+
     [SerializeField] float yaw = 0f, pitch = 20f;
     [SerializeField] float sensitivityX = 2f, sensitivityY = 2f;
     [SerializeField] float pitchMin = -30f, pitchMax = 60f;
@@ -13,6 +14,7 @@ public class CameraOrbit : MonoBehaviour
     [SerializeField] float zoomSpeed = 2f;
 
     [SerializeField] float collisionBuffer = 0.9f;
+    public bool isLocked = false;
 
     void Update()
     {
@@ -32,6 +34,8 @@ public class CameraOrbit : MonoBehaviour
 
     void LateUpdate()
     {
+        if (isLocked) return;
+
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
         Vector3 targetOffset = rotation * new Vector3(0, 0, -distance);
         Vector3 targetPos = player.position + targetOffset;

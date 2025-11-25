@@ -1,5 +1,10 @@
+using System;
+using JetBrains.Annotations;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class EnemySearch : MonoBehaviour
 {
@@ -30,9 +35,6 @@ public class EnemySearch : MonoBehaviour
 
     [Header("감지 속도 스케일")]
     [SerializeField] private float visualBoost = 2f;     // 시야로 감지 중 가산(배수)
-    [SerializeField] private float soundBoost = 1f;     // 청각으로 감지 중 가산(배수)
-    public EnemyState currentState = EnemyState.Warning;
-    private NavMeshAgent agent;
     private float playerInSightTimer = 0f;
     private float timeToSwitchState = 10f;
     private float searchTimer = 0f;
@@ -41,9 +43,19 @@ public class EnemySearch : MonoBehaviour
     public bool playerVisible = false;
     public bool checkSound = false;
     private LosResult lastLos;
+    // ✅ 시체 감지 관련 변수
+    private float corpseCheckInterval = 0.5f;
+    private float corpseCheckTimer = 0f;
+    public Vector3 corpseVec;
+    public static event Action<EnemySearch, Transform> OnCorpseSpotted;
+    public static event Action<EnemySearch, Transform> OnPlayerDetected;
+    public static event Action<EnemySearch> OnEnemyDied;
+    public static event Action<EnemySearch, EnemyState> OnStateChanged;
+    // 상태 바뀔 때 이벤트 발생
+    private EnemyState _currentState;
+    public EnemyState currentState => _currentState;
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         if (playerTransform != null) playerState = playerTransform.GetComponent<PlayerMove>();
 
         if (playerTransform != null)
@@ -55,64 +67,66 @@ public class EnemySearch : MonoBehaviour
                                  "Player, Wall, Window 레이어를 포함하도록 설정하세요.", this);
             }
         }
+        SetState(EnemyState.Warning);
     }
-private void Update()
-{
-    if (playerTransform == null) return;
-
-    lastLos = UpdateSharedRaycast(playerTransform);
-
-    playerVisible = IsPlayerInFOV(lastLos);
-    checkSound    = AuditoryCheck(lastLos);
-
-    switch (currentState)
+    private void Update()
     {
-        case EnemyState.Warning:
-        {         
-            bool sensed = playerVisible || checkSound;
-            if (sensed)
-            {
-                float detectRate = ComputeDetectRate(playerVisible, checkSound);
-                playerInSightTimer += Time.deltaTime * detectRate;
+        if (playerTransform == null) return;
+        if (currentState == EnemyState.Died) return;
 
-                if (playerInSightTimer >= timeToSwitchState)
-                {
-                    Debug.Log($"플레이어 감지 (rate x{detectRate:F2})");
-                    currentState = EnemyState.Chase;
-                    searchTimer = 0f;
+        lastLos = UpdateSharedRaycast(playerTransform);
+        playerVisible = IsPlayerInFOV(lastLos);
+        checkSound = AuditoryCheck(lastLos);
 
-                    // 수색 돌입 시 에이전트 제어 복구 및 이동 재개
-                    if (agent != null)
-                    {
-                        agent.updateRotation = true;
-                        agent.isStopped = false;
-                    }
-                }
-            }
-            else
-            {
-                playerInSightTimer = 0f;
-            }
-            break;
+        // ✅ 시체 감지는 모든 상태(Dead 제외)에서 수행
+        corpseCheckTimer += Time.deltaTime;
+        if (corpseCheckTimer >= corpseCheckInterval)
+        {
+            corpseCheckTimer = 0f;
+            TryDetectDeadBody();
         }
 
-        case EnemyState.Chase:
+        switch (currentState)
         {
-            if (playerVisible || checkSound)
-            {
-                Debug.Log("플레이어 재감지");
-                searchTimer = 0f;
-            }
-            else
-            {
-                searchTimer += Time.deltaTime;
-            }
-            break;
+            case EnemyState.Warning:
+                {
+                    bool sensed = playerVisible || checkSound;
+                    if (sensed)
+                    {
+                        float detectRate = ComputeDetectRate(playerVisible);
+                        playerInSightTimer += Time.deltaTime * detectRate;
+
+                        if (playerInSightTimer >= timeToSwitchState)
+                        {
+                            Debug.Log($"플레이어 감지 (rate x{detectRate:F2})");
+                            SetState(EnemyState.Chase);
+                            OnPlayerDetected?.Invoke(this, transform);
+                            searchTimer = 0f;
+                        }
+                    }
+                    else
+                    {
+                        playerInSightTimer -= 2f * Time.deltaTime;
+                        if (playerInSightTimer < 0f) playerInSightTimer = 0f;
+                    }
+                    break;
+                }
+
+            case EnemyState.Chase:
+                {
+                    if (playerVisible || checkSound)
+                    {
+                        searchTimer = 0f;
+                    }
+                    else
+                    {
+                        searchTimer += Time.deltaTime;
+                    }
+                    break;
+                }
         }
     }
-}
-
-    private LosResult UpdateSharedRaycast(Transform target)
+    public LosResult UpdateSharedRaycast(Transform target)
     {
         if (target == null) return LosResult.None;
 
@@ -168,7 +182,7 @@ private void Update()
         if (result == LosResult.Window)
             return playerState == null || playerState.currentState != PlayerMove.PlayerState.Crawl;
         return false;
-}
+    }
 
     private bool AuditoryCheck(LosResult result)
     {
@@ -185,44 +199,101 @@ private void Update()
 
         return false;
     }
-
-    private float ComputeDetectRate(bool viaVision, bool viaSound)
+    // ✅ 다른 적 중 Died 상태를 감지
+    private void TryDetectDeadBody()
     {
-        // 감지 안 되면 0 (호출 측에서 이미 컷하지만 방어적)
-        if (!viaVision && !viaSound) return 0f;
+        var corpses = EnemyManager.Instance?.GetCorpsePositions();
+        if (corpses == null || corpses.Count == 0) return;
 
-        // 거리(XZ)
+        foreach (var corpsePos in corpses)
+        {
+            Vector3 toCorpse = corpsePos.position - transform.position;
+            float dist = new Vector2(toCorpse.x, toCorpse.z).magnitude;
+            if (dist > viewRange) continue;
+
+            float angle = Vector3.Angle(transform.forward, new Vector3(toCorpse.x, 0, toCorpse.z).normalized);
+            if (angle > viewAngle * 0.5f) continue;
+
+            // Raycast로 가림 여부만 확인
+            Vector3 origin = transform.position + Vector3.up * 1.5f;
+            Vector3 dest = corpsePos.position + Vector3.up * 0.5f;
+            if (!Physics.Linecast(origin, dest, out var hit, ~0, QueryTriggerInteraction.Ignore))
+            {
+                HandleDeadBodySpotted(corpsePos);
+                return;
+            }
+
+            int hitLayer = hit.collider.gameObject.layer;
+            if (hitLayer == LayerMask.NameToLayer("Wall")) continue;
+
+            HandleDeadBodySpotted(corpsePos);
+            return;
+        }
+    }
+
+    public void HandleDeadBodySpotted(Transform corpse)
+    {
+        Debug.Log($"{name}이(가) 시체({corpse.name})를 발견함!");
+        SetState(EnemyState.Warning); // 시체를 보면 경계 상태로
+        corpseVec = corpse.position;
+
+        OnCorpseSpotted?.Invoke(this, corpse);
+    }
+
+    private float ComputeDetectRate(bool viaVision)
+    {
+        if (!viaVision) return 0f; // 시야에 안 보이면 감지 안 함
+
+        // 거리(XZ 기준)
         Vector3 to = playerTransform.position - transform.position;
-        float d = new Vector2(to.x, to.z).magnitude;
+        float distance = new Vector2(to.x, to.z).magnitude;
 
-        // 분모: 시야만/청각만/둘 다(합)
-        float denom = viaVision && viaSound
-            ? (visualBoost + soundBoost)
-            : (viaVision ? visualBoost : soundBoost);
+        // 파라미터
+        float maxRate = 10f;      // 최대 감지율
+        float minRate = 2f;       // 최소 감지율
+        float falloffDistance = 10f; // 감지율이 떨어지기 시작하는 기준 거리
 
-        // 제안식: base - (slope * d) / denom
-        float rate = 10f - (3f * d) / denom;
+        // 거리 기반 감쇠 (선형 or 곡선적 감쇠 가능)
+        float t = Mathf.Clamp01(distance / falloffDistance);
+        float rate = Mathf.Lerp(maxRate, minRate, t); // 가까울수록 maxRate, 멀수록 minRate
 
-        return Mathf.Max(0f, rate); // 방어적 클램프
+        // 시각 배수 적용
+        rate *= visualBoost;
+
+        if (playerState.currentState == PlayerMove.PlayerState.Crawl) rate *= 0.3f;
+        if (playerState.currentState == PlayerMove.PlayerState.Run) rate *= 1.3f;
+
+        return rate;
+    }
+
+    public float PlayerDetectRatio()
+    {
+        return Mathf.Clamp01(playerInSightTimer / timeToSwitchState);
     }
 
     public void SetState(EnemyState newState)
     {
-        if (currentState == EnemyState.Died)
-        {
-            // 이미 사망한 경우, 상태 변경 무시
+        // 상태 변경 불필요하거나 이미 죽은 경우 리턴
+        if (_currentState == newState || _currentState == EnemyState.Died) 
             return;
-        }
 
-        currentState = newState;
-
+        // 사망 상태 처리
         if (newState == EnemyState.Died)
         {
-            Debug.Log("적 사망 처리됨");
-            // 필요한 경우 사망 애니메이션 재생이나 컴포넌트 비활성화 처리
-            // 예: GetComponent<Animator>().SetTrigger("Die");
-            // 또는 NavMeshAgent, AI 컴포넌트 비활성화 등
+            OnEnemyDied?.Invoke(this);
+            _currentState = newState;
+
+            enabled = false;
+            playerVisible = false;
+            checkSound = false;
+
+            GetComponent<EnemyMove>()?.OnDeath();
+            return; // 🔹 사망은 여기서 완전히 종료
         }
+
+        // 일반 상태 변경
+        _currentState = newState;
+        OnStateChanged?.Invoke(this, _currentState);
     }
 
     // 외부에서 상태를 확인

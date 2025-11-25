@@ -1,12 +1,14 @@
 {
   "dependencies": {
+    "com.soupday.cc3_unity_tools": "file:D:/Character_Creator_and_iClone_Auto_Setup_1.4.6_for_Unity_HDRP12/Character_Creator_and_iClone_Auto_Setup_1.4.6_for_Unity_HDRP12",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.8",
     "com.unity.collab-proxy": "2.8.2",
+    "com.unity.feature.cinematic": "1.0.0",
     "com.unity.feature.development": "1.0.2",
     "com.unity.multiplayer.center": "1.0.0",
     "com.unity.render-pipelines.high-definition": "17.0.3",
     "com.unity.render-pipelines.high-definition-config": "17.0.3",
-    "com.unity.timeline": "1.8.7",
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.5",
     "com.unity.modules.accessibility": "1.0.0",

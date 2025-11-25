@@ -3,7 +3,72 @@ guid: d39254e1e911f2e40bc86333c5957e06
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_aiStandardSurface12
+    second: {fileID: 2100000, guid: 8697607f049811947b3bbe232e7187cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_bottom3
+    second: {fileID: 2100000, guid: 1923c454fb75d7240be6fd646db603ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_bottom_body
+    second: {fileID: 2100000, guid: 9c81f039f405f17478e6f4b6ed6ede1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_bottom_decoration
+    second: {fileID: 2100000, guid: 6d14bd61a03ac2143b347eff6448db28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_bottom_middle
+    second: {fileID: 2100000, guid: 0e1ebf03616cf994d98ee37005a1d42b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_pillar1
+    second: {fileID: 2100000, guid: e357d206da7a2da44adda7d1fd21a23c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_pillar2
+    second: {fileID: 2100000, guid: ffaf4cb2b4b3a824489ab7279cd39264, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_pillar3
+    second: {fileID: 2100000, guid: c3e6c9629341a124b990c24349c9a2ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_pillar4
+    second: {fileID: 2100000, guid: b5adc0205bb94fb4083980910f82d0c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_pillar_bottom1
+    second: {fileID: 2100000, guid: ef60c3f8b696a2f46a7c96a88f1b5053, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_top4
+    second: {fileID: 2100000, guid: 2d2a85d85a5cb7547955b6239560295b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_top_blue
+    second: {fileID: 2100000, guid: 0a5f1c4d885a901498043182fef55f87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor2_top_gray
+    second: {fileID: 2100000, guid: 3145ceb968ac9e64886304ed681c9752, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

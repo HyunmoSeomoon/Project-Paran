@@ -1,1 +1,1 @@
-dinning_room_fin.fbx filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text

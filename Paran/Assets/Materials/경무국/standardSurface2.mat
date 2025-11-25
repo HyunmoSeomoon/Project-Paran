@@ -303,7 +303,7 @@ Material:
     - _SPECULAR_IOR: 1.52
     - _SPECULAR_ROTATION: 0
     - _SPECULAR_ROUGHNESS: 1
-    - _SPECULAR_WEIGHT: 0.319
+    - _SPECULAR_WEIGHT: 0.189
     - _Smoothness: 0
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0

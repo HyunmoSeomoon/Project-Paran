@@ -6,12 +6,12 @@ public class MissionResultSender : MonoBehaviour
     public MissionManager missionManager;
     public string missionName;
     [SerializeField] private EnemySearch enemySearch;
-    [SerializeField] private ItemsManager itemsManager;
+    [SerializeField] private ItemData itemData;
 
     void Start()
     {
         EnemySearch.OnEnemyDied += KillMissionComplete;
-        ItemsManager.OnGetItem += GetMissionComplete;
+        ItemController.OnGetItem += GetMissionComplete;
     }
 
     private void KillMissionComplete(EnemySearch eventEnemySearch)
@@ -22,9 +22,9 @@ public class MissionResultSender : MonoBehaviour
         }
     }
 
-    private void GetMissionComplete(ItemsManager eventItemsManager)
+    private void GetMissionComplete(ItemData eventItemsManager)
     {
-        if (eventItemsManager == itemsManager)
+        if (eventItemsManager == itemData)
         {
             missionManager.CompleteMission(missionName);
         }

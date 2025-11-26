@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,11 @@ public class GameController : MonoBehaviour
     [SerializeField] private UIManager uIManager;
     [SerializeField] private CameraMove cameraMove;
     [SerializeField] private MissionManager missionManager;
+
+    [Header("튜토리얼 페이즈(Phase 1)")]
+    [SerializeField] private TutorialManager tutorialManager;
+
+    private Coroutine sceneStartCoroutine; 
 
     //For SingleTon pattern
     public static GameController Instance { get; private set; }
@@ -47,7 +53,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         currentTime = startTime;
-        uIManager.SetClockTime(currentTime.Hour, currentTime.Minute);
+        //uIManager.SetClockTime(currentTime.Hour, currentTime.Minute);
     }
 
     void Update()
@@ -68,6 +74,8 @@ public class GameController : MonoBehaviour
             }
         }
     }
+
+    /*
     void FixedUpdate()
     {
         a++;
@@ -78,6 +86,7 @@ public class GameController : MonoBehaviour
             a = 0;
         }
     }
+    */
 
     void checkcurrentPhase(Scene scene, LoadSceneMode mode)
     {
@@ -85,6 +94,16 @@ public class GameController : MonoBehaviour
         {
             missionManager.StartMissionList("Main Mission");
             Debug.Log("start Phase1");
+
+            sceneStartCoroutine = StartCoroutine(StartTutorial());
         }
+    }
+
+    private IEnumerator StartTutorial()
+    {
+        yield return new WaitForSeconds(1f);
+        tutorialManager.gameObject.SetActive(true);
+        tutorialManager.StartTutorial();
+        sceneStartCoroutine = null;
     }
 }

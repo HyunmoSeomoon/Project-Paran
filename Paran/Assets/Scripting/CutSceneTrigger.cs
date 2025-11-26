@@ -1,41 +1,46 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class CutScneTrigger : MonoBehaviour
+public class CutSceneTrigger : MonoBehaviour
 {
-    public PlayableDirector timeline;
-    public GameObject cinemachineVCam;  
-    public Camera mainCam;
-    //private bool isPlayerInside = false;
-    private bool cutscenePlaying = false;
+    public PlayableDirector timelineA;
+    public PlayableDirector timelineB;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public bool sceneflag = false;
+
     void Start()
     {
-        StartCutscene();
-    }
+        timelineA.stopped += OnCutsceneFinished;
+        timelineB.stopped += OnCutsceneFinished;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StartCutscene();
     }
 
     public void StartCutscene()
     {
-        cutscenePlaying = true;
+        // 플래그로 어떤 컷씬 나올지 조정
+        if (sceneflag)
+            PlayTimelineA();
+        else
+            PlayTimelineB();
+    }
 
-        cinemachineVCam.SetActive(true);
-        
-        timeline.Play();
+    public void PlayTimelineA()
+    {
+        timelineB.Stop();
+        timelineA.time = 0;
+        timelineA.Play();
+    }
 
-        timeline.stopped += OnCutsceneFinished;
+    public void PlayTimelineB()
+    {
+        timelineA.Stop();
+        timelineB.time = 0;
+        timelineB.Play();
     }
 
     private void OnCutsceneFinished(PlayableDirector obj)
     {
-        cinemachineVCam.SetActive(false);
-        cutscenePlaying = false;
-        
+        // 끝이긴 한디
     }
 }

@@ -6,8 +6,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject itemUI;
 
-    [Header("시계 ui")]
-    [SerializeField] private GameObject clockUI;
+    //[Header("시계 ui")]
+    //[SerializeField] private GameObject clockUI;
     [SerializeField] private GameObject minuteUI;
     [SerializeField] private GameObject hourUI;
 
@@ -98,6 +98,7 @@ public class UIManager : MonoBehaviour
         return currentUIType;
     }
 
+    /*
     public void SetClockTime(int hour, int minute)
     {
         if (minuteUI == null || hourUI == null)
@@ -114,6 +115,7 @@ public class UIManager : MonoBehaviour
         minuteUI.transform.Rotate(normalMinute);
         hourUI.transform.Rotate(normalHour);
     }
+    */
 }
 
 public abstract class IUIPanel : MonoBehaviour

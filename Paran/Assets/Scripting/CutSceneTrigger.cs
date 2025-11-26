@@ -5,6 +5,7 @@ public class CutSceneTrigger : MonoBehaviour
 {
     public PlayableDirector timelineA;
     public PlayableDirector timelineB;
+    public GameObject playerCamera;
 
     public bool sceneflag = false;
 
@@ -12,8 +13,6 @@ public class CutSceneTrigger : MonoBehaviour
     {
         timelineA.stopped += OnCutsceneFinished;
         timelineB.stopped += OnCutsceneFinished;
-
-        StartCutscene();
     }
 
     public void StartCutscene()
@@ -27,6 +26,7 @@ public class CutSceneTrigger : MonoBehaviour
 
     public void PlayTimelineA()
     {
+        playerCamera.SetActive(false);
         timelineB.Stop();
         timelineA.time = 0;
         timelineA.Play();
@@ -34,6 +34,7 @@ public class CutSceneTrigger : MonoBehaviour
 
     public void PlayTimelineB()
     {
+        playerCamera.SetActive(false);
         timelineA.Stop();
         timelineB.time = 0;
         timelineB.Play();

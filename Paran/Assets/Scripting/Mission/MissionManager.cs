@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 //using GLTF.Schema;
 
 public class MissionManager : MonoBehaviour
@@ -45,6 +46,7 @@ public class MissionManager : MonoBehaviour
 
             // [발송 1] 새 미션 팝업(Alert) 이벤트 발송
             OnMissionStarted?.Invoke(firstMission);
+            SetMissionPoint(true,firstMission);
             
             // [발송 2] 임무 기록(Log) 갱신 이벤트 발송
             TriggerFullListUpdate();
@@ -71,6 +73,7 @@ public class MissionManager : MonoBehaviour
         {
             // 1. 현재 미션 완료 처리 (isEnded = true)
             targetList.CompleteCurrentMission();
+            SetMissionPoint(false,targetList.GetCurrentMission());
             
             // [발송 3] 미션 완료 팝업(Alert) 이벤트 발송
             OnMissionCompleted?.Invoke(completedMission);
@@ -82,6 +85,7 @@ public class MissionManager : MonoBehaviour
             if (nextMission != null)
             {
                 OnMissionStarted?.Invoke(nextMission);
+                SetMissionPoint(true,nextMission);
             }
             
             // 4. [발송 4] 임무 기록(Log) 갱신 (완료 표시를 위해)
@@ -111,11 +115,9 @@ public class MissionManager : MonoBehaviour
         OnActiveMissionsUpdated?.Invoke(allCurrentActiveMissions);
     }
 
-    public void SetMissionPoint(Mission mission) //맵에 가야 할 위치 생성
+    private void SetMissionPoint(bool b, Mission mission)
     {
-        if (mission.missionPoint == null) return;
-
-        mission.missionPoint.SetActive(true);
+        mission.missionPoint.SetActive(b);
     }
 }
 
@@ -125,6 +127,8 @@ public class Mission
     public string missionName;
     public string missionDescription;
     public bool isEnded;
+    public UnityEvent OnMissionStart;
+    public UnityEvent OnMissionEnd;
     public GameObject missionPoint;
 }
 

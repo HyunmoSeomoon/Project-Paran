@@ -1,12 +1,15 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MissionPoint : MonoBehaviour
 {
     public MissionManager missionManager;
     public string missionName;
+    public UnityEvent OnArrivePoint;
     public GameObject cinemachine;
     public float cameraTime;
+    private bool first = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,10 +24,12 @@ public class MissionPoint : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && first)
         {
             missionManager.CompleteMission(missionName);
+            OnArrivePoint?.Invoke();
             MissionViewChange();
+            first = false;
         }
     }
 

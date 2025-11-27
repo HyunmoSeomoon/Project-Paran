@@ -111216,6 +111216,34 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1698001921}
+    - target: {fileID: 1551463241301574869, guid: 86f39dd4815dac645b38063515757ff3, type: 3}
+      propertyPath: distance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551463241301574869, guid: 86f39dd4815dac645b38063515757ff3, type: 3}
+      propertyPath: pitchMin
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551463241301574869, guid: 86f39dd4815dac645b38063515757ff3, type: 3}
+      propertyPath: maxDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551463241301574869, guid: 86f39dd4815dac645b38063515757ff3, type: 3}
+      propertyPath: minDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551463241301574869, guid: 86f39dd4815dac645b38063515757ff3, type: 3}
+      propertyPath: standHeight
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551463241301574869, guid: 86f39dd4815dac645b38063515757ff3, type: 3}
+      propertyPath: sensitivityY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551463241301574869, guid: 86f39dd4815dac645b38063515757ff3, type: 3}
+      propertyPath: shoulderOffsetX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2631215887179414564, guid: 86f39dd4815dac645b38063515757ff3, type: 3}
       propertyPath: m_Name
       value: PlayerCamera

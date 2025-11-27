@@ -154,17 +154,9 @@ public class PlayerMove : MonoBehaviour
 
             Vector3 moveDir = (camForward * z + camRight * x).normalized;
 
-            if (currentState == PlayerState.Crawl)
-            {
-                float camY = Camera.main.transform.eulerAngles.y;
-                Quaternion crawlRot = Quaternion.Euler(0, camY, 0);
-                transform.rotation = crawlRot;
-            }
-            else
-            {
-                Quaternion targetRot = Quaternion.LookRotation(moveDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
-            }
+            Quaternion targetRot = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
+            
             cc.Move(moveDir * moveSpeed * Time.deltaTime);
         }
         animator.SetFloat("Speed", inputDir.magnitude);

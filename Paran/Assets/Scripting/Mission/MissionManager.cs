@@ -47,6 +47,7 @@ public class MissionManager : MonoBehaviour
             // [발송 1] 새 미션 팝업(Alert) 이벤트 발송
             OnMissionStarted?.Invoke(firstMission);
             SetMissionPoint(true,firstMission);
+            firstMission.OnMissionStart?.Invoke();
             
             // [발송 2] 임무 기록(Log) 갱신 이벤트 발송
             TriggerFullListUpdate();
@@ -77,6 +78,7 @@ public class MissionManager : MonoBehaviour
             
             // [발송 3] 미션 완료 팝업(Alert) 이벤트 발송
             OnMissionCompleted?.Invoke(completedMission);
+            completedMission.OnMissionEnd?.Invoke();
             
             // 2. 다음 미션으로 인덱스 이동
             Mission nextMission = targetList.GoToNextMission();
@@ -86,6 +88,7 @@ public class MissionManager : MonoBehaviour
             {
                 OnMissionStarted?.Invoke(nextMission);
                 SetMissionPoint(true,nextMission);
+                nextMission.OnMissionStart?.Invoke();
             }
             
             // 4. [발송 4] 임무 기록(Log) 갱신 (완료 표시를 위해)

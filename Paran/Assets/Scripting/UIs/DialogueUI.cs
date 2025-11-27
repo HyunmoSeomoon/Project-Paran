@@ -84,6 +84,7 @@ public class DialogueUI : IUIPanel
         else
         {
             playerMove.MoveEnable(true);
+            count=0;
             playerMove.currentState = PlayerMove.PlayerState.Stand;
             currentCinemachine.gameObject.SetActive(false);
             Hide();

@@ -3,127 +3,7 @@ guid: 54c47cbdb1d9d1646900081f81782e4d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Brows_Base_Transparency
-    second: {fileID: 2100000, guid: 68c2cc4f2c7caab489e903d0259db31d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Brows_Color_Transparency
-    second: {fileID: 2100000, guid: 68b8e66e7b2679545bc8d1cdff02b6ae, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Brows_Hair_Transparency
-    second: {fileID: 2100000, guid: a5695d3e557b1734e977029ce7966fb3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: CC_Base_Tear_Ducts
-    second: {fileID: 2100000, guid: f9dc9b7f3e4168b438349184857b35a7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hair9_Transparency
-    second: {fileID: 2100000, guid: f6ee8449a147b434aa315b91ccc8854a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hair_Clap_Transparency
-    second: {fileID: 2100000, guid: 2e5f0b96252bccf4f9e44019a1b33218, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Cornea_L
-    second: {fileID: 2100000, guid: 536bcaf3258a4e04c9571a3037ebd973, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Cornea_R
-    second: {fileID: 2100000, guid: b70652516370db4428c100dc0965f137, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Eye_L
-    second: {fileID: 2100000, guid: 4f9d3f545aa6f5d4d875986a2652df16, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Eye_Occlusion_L
-    second: {fileID: 2100000, guid: 33e974c1a31d53f4d808e42722064d2c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Eye_Occlusion_R
-    second: {fileID: 2100000, guid: f7ae6f07999660b48963fc2a5f6e3267, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Eye_R
-    second: {fileID: 2100000, guid: f56c81e8c2c5ec441bf240dd9fff45f8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Eyelash
-    second: {fileID: 2100000, guid: 0412fb55a1cda1445b758596313c03ae, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Lower_Teeth
-    second: {fileID: 2100000, guid: 3dc0e0a4219feaa4ca77418803a738e8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Nails
-    second: {fileID: 2100000, guid: cada04c5b6d93e44783b63b969ff3a67, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Skin_Arm
-    second: {fileID: 2100000, guid: 33c1869aea96d2547a186a3a85613851, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Skin_Body
-    second: {fileID: 2100000, guid: 86f967adcd97ec04ba80e0d8343b32fc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Skin_Head
-    second: {fileID: 2100000, guid: 1bed1f96e9b31fe41a82ce1928c3b170, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Skin_Leg
-    second: {fileID: 2100000, guid: 1431c7150876f7a45aa9b3de7ee9672e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Tearline_L
-    second: {fileID: 2100000, guid: 1c073649076d2124ebc22035f10c8cb6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Tearline_R
-    second: {fileID: 2100000, guid: e381809ea116d7a4b9699139390b80c8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Tongue
-    second: {fileID: 2100000, guid: 4b2681b19cecb954d812b44bf06abda9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Std_Upper_Teeth
-    second: {fileID: 2100000, guid: 5c541139ea79d4d4d8ead5ef6b22a3b3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: cop1_Hatmat
-    second: {fileID: 2100000, guid: 47a1459a3b9fd91418f16bfff6d6c735, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -217,7 +97,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

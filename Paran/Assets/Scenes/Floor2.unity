@@ -44578,6 +44578,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 2026743754908324966, guid: 86e1c2d235b8c7f4cb29742b18533de7, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e511e901795d5845b3d794eca6a0e52, type: 2}
+    - target: {fileID: 2026743754908324966, guid: 86e1c2d235b8c7f4cb29742b18533de7, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 2087315336}
+    - target: {fileID: 2026743754908324966, guid: 86e1c2d235b8c7f4cb29742b18533de7, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1823688467}
+    - target: {fileID: 2026743754908324966, guid: 86e1c2d235b8c7f4cb29742b18533de7, type: 3}
+      propertyPath: playerMove
+      value: 
+      objectReference: {fileID: 1698001922}
     - target: {fileID: 2901640283211525796, guid: 86e1c2d235b8c7f4cb29742b18533de7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.798
@@ -45590,7 +45606,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -80090,7 +80106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1560164690
 RectTransform:
   m_ObjectHideFlags: 0
@@ -109487,6 +109503,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
+      propertyPath: missionLists.Array.data[1].missionList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
       propertyPath: missionLists.Array.data[0].missionList.Array.data[0].missionName
       value: go main hall
       objectReference: {fileID: 0}
@@ -109515,6 +109535,10 @@ PrefabInstance:
       value: do mission
       objectReference: {fileID: 0}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
+      propertyPath: missionLists.Array.data[1].missionList.Array.data[3].missionName
+      value: check note
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
       propertyPath: missionLists.Array.data[0].missionList.Array.data[0].missionPoint
       value: 
       objectReference: {fileID: 831447428}
@@ -109540,6 +109564,10 @@ PrefabInstance:
       objectReference: {fileID: 1927760848}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
       propertyPath: missionLists.Array.data[1].missionList.Array.data[2].missionPoint
+      value: 
+      objectReference: {fileID: 1915624050}
+    - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
+      propertyPath: missionLists.Array.data[1].missionList.Array.data[3].missionPoint
       value: 
       objectReference: {fileID: 1915624050}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
@@ -109574,6 +109602,11 @@ PrefabInstance:
       value: "\uC21C\uACBD\uC774 \uB0B4\uB9B0 \uC784\uBB34\uB97C \uC218\uD589\uD558\uC2ED\uC2DC\uC624"
       objectReference: {fileID: 0}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
+      propertyPath: missionLists.Array.data[1].missionList.Array.data[3].missionDescription
+      value: "\uB3C4\uAD6C\uC5D0 \uC788\uB294 \uBA54\uBAA8\uB97C \uD655\uC778\uD558\uC5EC
+        \uB2E4\uC74C \uC784\uBB34\uB97C \uC218\uD589\uD558\uC2ED\uC2DC\uC624"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
       propertyPath: missionLists.Array.data[0].missionList.Array.data[0].MissionStartMethod.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -109587,6 +109620,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
       propertyPath: missionLists.Array.data[1].missionList.Array.data[0].MissionCompleteMethod.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
+      propertyPath: missionLists.Array.data[0].missionList.Array.data[3].OnMissionEnd.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
@@ -109610,9 +109647,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
+      propertyPath: missionLists.Array.data[0].missionList.Array.data[3].OnMissionEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2087315338}
+    - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
       propertyPath: missionLists.Array.data[0].missionList.Array.data[0].OnMissionStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2087315338}
+    - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
+      propertyPath: missionLists.Array.data[0].missionList.Array.data[3].OnMissionEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8842608683419402937, guid: 8ee06e66f00f3264e85a8ca17be32936, type: 3}
       propertyPath: missionLists.Array.data[1].missionList.Array.data[0].MissionStartMethod.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -113362,7 +113407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2693892642928516811, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3877389826719328599, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
       propertyPath: m_Sprite

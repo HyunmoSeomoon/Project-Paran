@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MissionNote
   m_EditorClassIdentifier: 
   itemName: "\uC784\uBB34 \uAD00\uB828 \uC815\uBCF4"
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 1284878133, guid: b98d7c55f37023d46b3559b0b1651430, type: 3}
   itemDescription: "\uC120\uBC1C\uB300\uC758 \uCCA9\uBCF4 \uD65C\uB3D9\uC73C\uB85C
     \uCD1D\uB3C5 \uC554\uC0B4\uC744 \uC704\uD55C \uC791\uC774 \uC900\uBE44\uB418\uC5B4
     \uC788\uB2E4. \uD558\uC9C0\uB9CC \uADF8\uB294 \uB3CC\uC544\uC624\uC9C0 \uBABB\uD574

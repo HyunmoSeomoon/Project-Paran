@@ -90396,7 +90396,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 7122574391721284194}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8e40930222caf945bdc2ba40159c30d, type: 3}
   m_Name: 
@@ -98270,7 +98270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1922200506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -115294,9 +115294,29 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -376
       objectReference: {fileID: 0}
+    - target: {fileID: 582276193440869764, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 582276193440869764, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
+      propertyPath: targetPoint.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 582276193440869764, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
+      propertyPath: 'targetPoint.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1922200505}
+    - target: {fileID: 2164852424289680784, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2693892642928516811, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142224377348882120, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3877389826719328599, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
       propertyPath: m_Sprite
@@ -115399,6 +115419,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6755076440572845418, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947790399348442980, guid: dcec0c86153bf0845957125c1ccf826f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

@@ -20796,6 +20796,7 @@ PlayableDirector:
     - 47042c8b3adf1e347af085ab5ef5e1be: {fileID: 742055718}
     - 66000b2898e0c06479eb44007a25d877: {fileID: 1119864272}
     - 3c9a8aa67f1e43c4ca0b0005229adf56: {fileID: 520212435}
+    - 6aab2547ce8ae5946b4421e7289ef3d6: {fileID: 1119864272}
     - 24eb34282adcb59459597a6ea86b392c: {fileID: 1210825598}
 --- !u!4 &750937504
 Transform:
@@ -30764,7 +30765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 1
+    Enabled: 0
     m_Value: 100
   OutputChannel: 1
   StandbyUpdate: 2
@@ -43286,15 +43287,22 @@ MonoBehaviour:
   - dialogueText: Element 3
     choices:
     - choiceText: "\uC544\uBB34 \uB9D0\uB3C4 \uD558\uC9C0 \uC54A\uB294\uB2E4"
-      nextDialogueIndex: 0
+      nextDialogueIndex: 6
       OnDialogueNodeEnd:
         m_PersistentCalls:
           m_Calls: []
     - choiceText: "\uBC1C\uBE8C\uD55C\uB2E4"
-      nextDialogueIndex: 0
+      nextDialogueIndex: 4
       OnDialogueNodeEnd:
         m_PersistentCalls:
           m_Calls: []
+    dialogueEnd: 0
+    OnDialogueNodeEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: "\uC1A1\uD601: \uD558\uD558... \uB2E4\uC2DC \uBCF4\uB2C8 \uC81C
+      \uC2DC\uACC4\uAC00 \uC544\uB2CC \uAC70 \uAC19\uAD70\uC694.\r\r"
+    choices: []
     dialogueEnd: 0
     OnDialogueNodeEnd:
       m_PersistentCalls:
@@ -43302,13 +43310,11 @@ MonoBehaviour:
   - dialogueText: "\uCF00\uC774\uCF54: \uADF8\uB7F0 \uB9D0\uB85C \uB098\uB97C \uC18D\uC77C
       \uC218 \uC788\uB2E4\uACE0 \uC0DD\uAC01\uD558\uB098\uC694? "
     choices: []
-    dialogueEnd: 0
+    dialogueEnd: 1
     OnDialogueNodeEnd:
       m_PersistentCalls:
         m_Calls: []
-  - dialogueText: "\uCF00\uC774\uCF54: \uAC71\uC815\uD558\uC9C0 \uB9C8\uC138\uC694.
-      \uC9C0\uAE08 \uC5EC\uAE30\uC11C \uB2F9\uC2E0\uC744 \uC5B4\uB5BB\uAC8C \uD560
-      \uC0DD\uAC01\uC740 \uC5C6\uC73C\uB2C8\uAE4C\uC694."
+  - dialogueText: " \uCF00\uC774\uCF54\r\r"
     choices: []
     dialogueEnd: 0
     OnDialogueNodeEnd:
@@ -43317,17 +43323,7 @@ MonoBehaviour:
   - dialogueText: "\uCF00\uC774\uCF54: \uAC71\uC815\uD558\uC9C0 \uB9C8\uC138\uC694.
       \uC9C0\uAE08 \uC5EC\uAE30\uC11C \uB2F9\uC2E0\uC744 \uC5B4\uB5BB\uAC8C \uD560
       \uC0DD\uAC01\uC740 \uC5C6\uC73C\uB2C8\uAE4C\uC694."
-    choices:
-    - choiceText: "\uC544\uBB34 \uB9D0\uB3C4 \uD558\uC9C0 \uC54A\uB294\uB2E4"
-      nextDialogueIndex: 0
-      OnDialogueNodeEnd:
-        m_PersistentCalls:
-          m_Calls: []
-    - choiceText: "\uBC1C\uBE8C\uD55C\uB2E4"
-      nextDialogueIndex: 0
-      OnDialogueNodeEnd:
-        m_PersistentCalls:
-          m_Calls: []
+    choices: []
     dialogueEnd: 0
     OnDialogueNodeEnd:
       m_PersistentCalls:
@@ -43372,17 +43368,7 @@ MonoBehaviour:
         m_Calls: []
   - dialogueText: "\uCF00\uC774\uCF54: \uD0C0\uCFE0\uC57C\uC758 \uC18C\uC2DD\uC744
       \uC54C\uC544\uBD10 \uC8FC\uC138\uC694. \r\r"
-    choices:
-    - choiceText: 
-      nextDialogueIndex: 0
-      OnDialogueNodeEnd:
-        m_PersistentCalls:
-          m_Calls: []
-    - choiceText: 
-      nextDialogueIndex: 0
-      OnDialogueNodeEnd:
-        m_PersistentCalls:
-          m_Calls: []
+    choices: []
     dialogueEnd: 0
     OnDialogueNodeEnd:
       m_PersistentCalls:
@@ -50301,9 +50287,9 @@ MonoBehaviour:
         z: 0.19070959
       Rotation:
         value:
-          x: 4.730767e-10
+          x: 4.7307674e-10
           y: 0.9800345
-          z: -9.5976935e-11
+          z: -9.597693e-11
           w: -0.19882761
     - Position:
         x: -0.53100014

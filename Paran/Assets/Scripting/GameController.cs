@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     }
 
     public GamePhase gamePhase;
+    public string lastSceneName;
 
     [SerializeField] private UIManager uIManager;
     [SerializeField] private CameraMove cameraMove;
@@ -114,6 +115,7 @@ public class GameController : MonoBehaviour
     private IEnumerator GameOver()
     {
         Debug.Log("잡힘 - 5초 후 SceneChange");
+        lastSceneName = SceneManager.GetActiveScene().name;
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("GameOverScene");
     }

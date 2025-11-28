@@ -27,6 +27,7 @@ public class PlayerMove : MonoBehaviour
     private Vector3 velocity;
 
     [SerializeField] Animator animator;
+    [SerializeField] private AudioSource audioSource;
 
     public PlayerState currentState = PlayerState.Stand;
     public float moveSpeed; // 현재 속도
@@ -84,6 +85,7 @@ public class PlayerMove : MonoBehaviour
         //유인 입력
         if (Input.GetKeyDown(KeyCode.G))
         {
+            audioSource.Play();
             Vector3 decoyPos = transform.position;
             Decoy(decoyPos);
         }

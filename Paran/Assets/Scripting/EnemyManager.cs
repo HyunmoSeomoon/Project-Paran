@@ -279,7 +279,7 @@ public class EnemyManager : MonoBehaviour
         {
             if (enemy.GetState() != EnemySearch.EnemyState.Warning) continue;
             float dist = Vector3.Distance(decoyPos, enemy.transform.position);
-            if (dist <= 500f)
+            if (dist <= 15f)
             {
                 EnemyMove mover = enemy.GetComponent<EnemyMove>();
                 mover.StartCoroutine(mover.Decoyed(decoyPos));

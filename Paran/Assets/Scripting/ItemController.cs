@@ -6,7 +6,7 @@ using System;
 public class ItemController : MonoBehaviour
 {
     [Header("Item Data")]
-    public ItemData itemData; // [변경] 개별 변수 대신 데이터 파일 연결
+    public ItemData[] itemData; // [변경] 개별 변수 대신 데이터 파일 연결
 
     [Header("Interaction Settings")]
     [SerializeField] private GameObject interactionUI;
@@ -67,19 +67,24 @@ public class ItemController : MonoBehaviour
     {
         // 1. 아이템 획득 이벤트 발송 (퀘스트 매니저 등이 수신)
         // 오브젝트가 꺼지기 전에 데이터를 넘깁니다.
-        OnGetItem?.Invoke(itemData);
+        foreach(ItemData id in itemData){
 
-        // 2. 획득 정보 UI 띄우기
-        if (uiManager != null)
-        {
-            uiManager.TurnOnUI(UIManager.UITypes.ItemInfo);
-            
-            if (uiManager.GetUIPanel(UIManager.UITypes.ItemInfo) is ItemInfoUI itemPanel)
+            OnGetItem?.Invoke(id);
+
+            if (uiManager != null)
             {
-                // ItemData에 있는 정보를 넘겨줌
-                itemPanel.UpdateInfo(itemData.itemIcon, itemData.itemName, itemData.itemDescription);
+                uiManager.TurnOnUI(UIManager.UITypes.ItemInfo);
+                
+                if (uiManager.GetUIPanel(UIManager.UITypes.ItemInfo) is ItemInfoUI itemPanel)
+                {
+                    // ItemData에 있는 정보를 넘겨줌
+                    itemPanel.UpdateInfo(id.itemIcon, id.itemName, id.itemDescription);
+                }
             }
         }
+
+        // 2. 획득 정보 UI 띄우기
+        
 
         // 3. 플레이어 이동 정지 (UI 보는 동안)
         if (playerMove != null)

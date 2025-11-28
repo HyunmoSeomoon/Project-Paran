@@ -28,6 +28,7 @@ public class CameraMove : MonoBehaviour
 
     void Update()
     {
+        if (isLocked) return;
         yaw += Input.GetAxis("Mouse X") * sensitivityX;
         pitch -= Input.GetAxis("Mouse Y") * sensitivityY;
         pitch = Mathf.Clamp(pitch, pitchMin, pitchMax);

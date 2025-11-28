@@ -27,7 +27,7 @@ public class CutSceneTrigger : MonoBehaviour
     public void PlayTimelineA()
     {
         playerCamera.SetActive(false);
-        timelineB.Stop();
+        if(timelineB!=null) timelineB.Stop();
         timelineA.time = 0;
         timelineA.Play();
     }
@@ -35,7 +35,7 @@ public class CutSceneTrigger : MonoBehaviour
     public void PlayTimelineB()
     {
         playerCamera.SetActive(false);
-        timelineA.Stop();
+        if(timelineA!=null) timelineA.Stop();
         timelineB.time = 0;
         timelineB.Play();
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -96,6 +97,12 @@ public class UIManager : MonoBehaviour
     public UITypes GetUITypes()
     {
         return currentUIType;
+    }
+
+    public bool IsMenuOpened()
+    {
+        IUIPanel menuPanel = GetUIPanel(UITypes.Menu);
+        return menuPanel.gameObject.activeSelf;
     }
 
     /*

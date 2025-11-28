@@ -29,10 +29,12 @@ public class InventoryManager : MonoBehaviour
         // 2. 데이터 가져오기 (ItemManager가 없다면 예외처리)
         if (ItemManager.Instance == null) return;
         List<ItemData> myItems = ItemManager.Instance.inventoryList;
+        Debug.Log("test1");
 
         // 3. 슬롯 생성
         foreach (ItemData item in myItems)
         {
+            Debug.Log("test2");
             GameObject newSlot = Instantiate(slotPrefab, slotContainer);
             InventorySlot slotScript = newSlot.GetComponent<InventorySlot>();
 
@@ -51,7 +53,7 @@ public class InventoryManager : MonoBehaviour
         if (itemInfoUI != null)
         {
             // 만약 ItemInfoUI가 꺼져있다면 켜줌 (필요 시)
-            // itemInfoUI.gameObject.SetActive(true); 
+            itemInfoUI.gameObject.SetActive(true); 
             
             // 정보 갱신 (ItemInfoUI의 UpdateInfo 함수가 public이어야 함)
             itemInfoUI.UpdateInfo(clickedItem.itemIcon, clickedItem.itemName, clickedItem.itemDescription);

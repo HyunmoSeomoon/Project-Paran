@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    [SerializeField] private UIManager uIManager;
+
     [Header("튜토리얼 UI")]
     [SerializeField] private GameObject[] UIs;
     [SerializeField] private GameObject[] buttons;
@@ -36,14 +38,17 @@ public class TutorialManager : MonoBehaviour
         }
         else if(UIsNum == UIsLength)
         {
-            Time.timeScale = 1;
+            if(!uIManager.IsMenuOpened())
+                Time.timeScale = 1;
             Destroy(gameObject);
         }
     }
 
     public void Imm()
     {
-        Time.timeScale = 1;
+        Debug.Log(uIManager.IsMenuOpened());
+        if(!uIManager.IsMenuOpened())
+            Time.timeScale = 1;
         UIs[UIsNum].SetActive(false);
         foreach(GameObject go in buttons)
         {

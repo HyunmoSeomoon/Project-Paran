@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,7 @@ public class InventorySlot : MonoBehaviour
 {
     [SerializeField] private Image iconImage;
     [SerializeField] private Button button;
+    [SerializeField] private TextMeshProUGUI itemName;
 
     private ItemData _itemData;
     
@@ -22,6 +24,11 @@ public class InventorySlot : MonoBehaviour
         else
         {
             iconImage.enabled = false;
+        }
+
+        if (data.itemName != null)
+        {
+            itemName.text = data.itemName;
         }
 
         // 2. 버튼 클릭 시 실행할 행동 연결 (상세 정보 띄우기 등)

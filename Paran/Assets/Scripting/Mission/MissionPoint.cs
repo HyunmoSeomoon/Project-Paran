@@ -36,10 +36,10 @@ public class MissionPoint : MonoBehaviour
     private void MissionViewChange()
     {
         if(cinemachine==null) Destroy(gameObject);
-        
-        cinemachine.SetActive(true);
-        Invoke("BackOriginalCamera",cameraTime);
-
+        else{
+            cinemachine.SetActive(true);
+            Invoke("BackOriginalCamera",cameraTime);
+        }
     }
 
     private void BackOriginalCamera()

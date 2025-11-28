@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
     public bool timeFlag = true;
     private DateTime startTime = new DateTime(1939, 11, 11, 9, 15, 00);
     private DateTime currentTime;
-    private int a = 0;
+    //private int a = 0;
     void Start()
     {
         currentTime = startTime;

@@ -3570,6 +3570,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6647797851450402037, guid: b6d9a064d511c4441b477479c260e4bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6777801778120396743, guid: b6d9a064d511c4441b477479c260e4bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.005803767
@@ -12988,13 +12992,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520212434}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15701966, y: 0.6818397, z: -0.15343247, w: 0.6977807}
-  m_LocalPosition: {x: -2.316002, y: 0.467, z: -6.8849983}
+  m_LocalRotation: {x: 0.17575167, y: 0.67254335, z: -0.16917296, w: 0.698697}
+  m_LocalPosition: {x: -0.9070015, y: 0.467, z: -6.8849983}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1336855553}
-  m_LocalEulerAnglesHint: {x: 25.364, y: 88.676, z: 0.95}
+  m_LocalEulerAnglesHint: {x: 28.239, y: -272.185, z: 0}
 --- !u!95 &520212437
 Animator:
   serializedVersion: 7
@@ -13031,7 +13035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SplineSettings:
     Spline: {fileID: 1444747929}
-    Position: 1
+    Position: 0
     Units: 1
   SplineOffset: {x: 0, y: 0, z: 0}
   CameraRotation: 0
@@ -19563,6 +19567,7 @@ GameObject:
   - component: {fileID: 750937504}
   - component: {fileID: 750937503}
   - component: {fileID: 750937505}
+  - component: {fileID: 750937506}
   m_Layer: 0
   m_Name: StartScene(Keiko)
   m_TagString: Untagged
@@ -19599,6 +19604,8 @@ PlayableDirector:
     value: {fileID: 1637490492}
   - key: {fileID: -5590385643201744496, guid: fb18a6c8c33dec4498840e9bdeae8df3, type: 2}
     value: {fileID: 1637490491}
+  - key: {fileID: -4272985529320768998, guid: fb18a6c8c33dec4498840e9bdeae8df3, type: 2}
+    value: {fileID: 750937506}
   m_ExposedReferences:
     m_References:
     - 88498b67beacd8342bbe23fea838e126: {fileID: 958389530}
@@ -19637,6 +19644,36 @@ MonoBehaviour:
   timelineB: {fileID: 0}
   playerCamera: {fileID: 0}
   sceneflag: 0
+--- !u!114 &750937506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750937502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: e47188c58f8757b4a875ab1bd6c20799, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1092209351}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!1 &756027273
 GameObject:
   m_ObjectHideFlags: 0
@@ -25711,6 +25748,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5105398520828799631, guid: e815b41904303424799a8e04d98a030b, type: 3}
   m_PrefabInstance: {fileID: 1085993415}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1092209351 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6647797851450402037, guid: b6d9a064d511c4441b477479c260e4bb, type: 3}
+  m_PrefabInstance: {fileID: 126224948}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1094638030
 GameObject:
   m_ObjectHideFlags: 0
@@ -30996,7 +31038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2276191729015276595, guid: 32cb29b0ec0a62546933a312bae28854, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.397
+      value: 5.44
       objectReference: {fileID: 0}
     - target: {fileID: 2276191729015276595, guid: 32cb29b0ec0a62546933a312bae28854, type: 3}
       propertyPath: m_LocalPosition.y
@@ -31724,12 +31766,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: a38a886a4cd9c144586c7ebb1267716d, type: 2}
     - target: {fileID: 5293564122508467785, guid: 32cb29b0ec0a62546933a312bae28854, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'CC_Base_L_Thigh'\n\tTransform 'CC_Base_R_Ring2'\n\tTransform
-        'CC_Base_L_Pinky1'\n\tTransform 'CC_Base_L_Clavicle'\n\tTransform 'CC_Base_R_Index1'\n\tTransform
-        'CC_Base_L_Ring1'\n\tTransform 'CC_Base_L_Mid3'\n\tTransform 'CC_Base_L_Calf'\n\tTransform
-        'CC_Base_L_Ring2'\n\tTransform 'CC_Base_NeckTwist02'\n\tand more ..."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5293564122508467785, guid: 32cb29b0ec0a62546933a312bae28854, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -34148,36 +34185,56 @@ MonoBehaviour:
       TangentIn:
         x: 0
         y: 0
-        z: -0.37800157
+        z: -0.34696445
       TangentOut:
         x: 0
         y: 0
-        z: 0.37800157
+        z: 0.34696445
       Rotation:
         value:
-          x: -3.1650854e-10
-          y: -0.7061714
-          z: 3.173441e-10
-          w: 0.708041
+          x: 3.2610495e-10
+          y: 0.73459333
+          z: -3.0120711e-10
+          w: -0.6785076
     - Position:
-        x: -1.4099998
+        x: -1.7039986
         y: 0
-        z: 0
+        z: 0.17199707
       TangentIn:
         x: 0
         y: 0
-        z: -0.60369754
+        z: -0.4275416
       TangentOut:
         x: 0
         y: 0
-        z: 0.60369754
+        z: 0.4275416
       Rotation:
         value:
-          x: 0.0000000012218874
-          y: 0.7238911
-          z: -0.0000000011645365
-          w: -0.68991435
+          x: -1.9644106e-10
+          y: -0.41279873
+          z: 4.334386e-10
+          w: 0.91082233
+    - Position:
+        x: -1.9299965
+        y: 0
+        z: 1.6909981
+      TangentIn:
+        x: 0
+        y: 0
+        z: -0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
     m_MetaData:
+    - Mode: 2
+      Tension: 0.5
     - Mode: 2
       Tension: 0.5
     - Mode: 2

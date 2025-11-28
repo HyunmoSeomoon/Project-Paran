@@ -8,9 +8,9 @@ public class GameController : MonoBehaviour
     public enum GamePhase
     {
         Prologue, //프롤로그 컷씬
-        Phase1, //페이즈1. 단서 및 도구 수집
-        Phase2, //과거 회상 컷씬
-        Phase3, //암살 페이즈
+        Phase1, //페이즈1, 튜토리얼
+        Phase2, //케이코 만남 및 1층
+        Phase3, //2층 암살 페이즈
         Phase4, //결말 컷씬
         Phase5, //
         Retry, // PlayerKilled, 재도전 씬
@@ -18,11 +18,14 @@ public class GameController : MonoBehaviour
     }
 
     public GamePhase gamePhase;
-    public string lastSceneName;
 
     [SerializeField] private UIManager uIManager;
     [SerializeField] private CameraMove cameraMove;
     [SerializeField] private MissionManager missionManager;
+
+    // 무조건 0번은 타이틀, 1번은 게임오버 씬. 이후로는 최초 플레이 순서대로 씬 입력
+    [Header("씬 이름 플레이 순서대로 입력")]
+    [SerializeField] private string[] sceneNames;
 
     [Header("튜토리얼 페이즈(Phase 1)")]
     [SerializeField] private TutorialManager tutorialManager;
@@ -47,7 +50,7 @@ public class GameController : MonoBehaviour
         SceneManager.sceneLoaded += checkcurrentPhase;
     }
 
-    public bool timeFlag = true;
+    public bool retry = false;
     private DateTime startTime = new DateTime(1939, 11, 11, 9, 15, 00);
     private DateTime currentTime;
     //private int a = 0;
@@ -77,6 +80,10 @@ public class GameController : MonoBehaviour
 
         if (gamePhase == GamePhase.Retry)
         {
+            if(SceneManager.GetActiveScene().name==sceneNames[2])
+                gamePhase = GamePhase.Phase1;
+            else if(SceneManager.GetActiveScene().name==sceneNames[3])
+                gamePhase = GamePhase.Phase2;
             StartCoroutine(GameOver());
         }
     }
@@ -101,7 +108,7 @@ public class GameController : MonoBehaviour
             missionManager.StartMissionList("Main Mission");
             Debug.Log("start Phase1");
 
-            sceneStartCoroutine = StartCoroutine(StartTutorial());
+            if(!retry) sceneStartCoroutine = StartCoroutine(StartTutorial());
         }
     }
 
@@ -112,11 +119,29 @@ public class GameController : MonoBehaviour
         tutorialManager.StartTutorial();
         sceneStartCoroutine = null;
     }
+    
     private IEnumerator GameOver()
     {
         Debug.Log("잡힘 - 5초 후 SceneChange");
-        lastSceneName = SceneManager.GetActiveScene().name;
+
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("GameOverScene");
+    }
+    
+    public void ChangeScene(string NextScene)
+    {
+        if(NextScene==sceneNames[3]){gamePhase = GamePhase.Phase2;}
+        SceneManager.LoadScene(NextScene);
+    }
+
+    public void ChangeScene(GamePhase phase)
+    {
+        switch (phase)
+        {
+            case GamePhase.Phase1: ChangeScene("Floor2");
+            break;
+            case GamePhase.Phase2: ChangeScene("Floor1");
+            break;
+        }
     }
 }

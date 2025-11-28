@@ -54,7 +54,6 @@ public class TutorialManager : MonoBehaviour
         {
             go.SetActive(false);
         }
-
     }
 
     public void Wait(int t)
@@ -64,7 +63,15 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator TutorialCoroutine(int t)
     {
+        GameObject immButton = null;
+        foreach(GameObject b in buttons)
+        {
+            if(b.activeSelf) immButton = b;
+            b.SetActive(false);
+        }
         yield return new WaitForSeconds(t);
+        if(immButton!=null)
+            immButton.SetActive(true);
         NextTutorial();
         yield break;
     }

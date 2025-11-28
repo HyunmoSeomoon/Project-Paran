@@ -73,6 +73,11 @@ public class GameController : MonoBehaviour
                 Time.timeScale = 0;
             }
         }
+
+        if (gamePhase == GamePhase.Retry)
+        {
+            StartCoroutine(GameOver());
+        }
     }
 
     /*
@@ -105,5 +110,11 @@ public class GameController : MonoBehaviour
         tutorialManager.gameObject.SetActive(true);
         tutorialManager.StartTutorial();
         sceneStartCoroutine = null;
+    }
+    private IEnumerator GameOver()
+    {
+        Debug.Log("잡힘 - 5초 후 SceneChange");
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("GameOverScene");
     }
 }

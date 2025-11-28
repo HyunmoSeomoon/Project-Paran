@@ -122,6 +122,7 @@ public class EnemySearch : MonoBehaviour
                     {
                         searchTimer += Time.deltaTime;
                     }
+                    TryCatchPlayer();
                     break;
                 }
         }
@@ -270,6 +271,45 @@ public class EnemySearch : MonoBehaviour
     {
         return Mathf.Clamp01(playerInSightTimer / timeToSwitchState);
     }
+
+    private void TryCatchPlayer()
+    {
+        if (currentState != EnemyState.Chase) return;
+        if (playerTransform == null) return;
+
+        float dist = Vector3.Distance(transform.position, playerTransform.position);
+
+        if (dist <= 5f && lastLos == LosResult.Player)
+        {
+            OnCatched();
+        }
+    }
+
+    private void OnCatched()
+    {
+        Debug.Log($"[EnemySearch] 플레이어를 잡음! → Game Over");
+
+        // 1) 플레이어 동작 정지
+        if (playerState != null)
+        {
+            playerState.enabled = false;
+            var cc = playerState.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
+        }
+
+        // 2) 적 동작 정지
+        var move = GetComponent<EnemyMove>();
+        if (move != null)
+        {
+            move.enabled = false;
+            if (move.GetComponent<NavMeshAgent>() != null)
+                move.GetComponent<NavMeshAgent>().isStopped = true;
+        }
+
+        // 3) 게임 Phase 변경
+        GameController.Instance.gamePhase = GameController.GamePhase.Retry;
+    }
+
 
     public void SetState(EnemyState newState)
     {

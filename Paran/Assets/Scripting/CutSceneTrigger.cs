@@ -8,6 +8,7 @@ public class CutSceneTrigger : MonoBehaviour
     public GameObject playerCamera;
 
     public bool sceneflag = false;
+    public bool playflag = false;
 
     void Start()
     {
@@ -18,10 +19,13 @@ public class CutSceneTrigger : MonoBehaviour
     public void StartCutscene()
     {
         // 플래그로 어떤 컷씬 나올지 조정
-        if (sceneflag)
-            PlayTimelineA();
-        else
-            PlayTimelineB();
+        if(playflag == true)
+        {
+            if (sceneflag)
+                PlayTimelineA();
+            else
+                PlayTimelineB();
+        }
     }
 
     public void PlayTimelineA()

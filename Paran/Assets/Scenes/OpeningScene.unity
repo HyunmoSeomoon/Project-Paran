@@ -27854,7 +27854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFadeIn: 0
   isFadeOut: 1
-  nextScene: OutdoorsScene
+  nextScene: Floor2
   panel: {fileID: 1376090718}
 --- !u!4 &665889212
 Transform:
@@ -28074,7 +28074,8 @@ MonoBehaviour:
   timelineA: {fileID: 1465398887}
   timelineB: {fileID: 1695358616}
   playerCamera: {fileID: 0}
-  sceneflag: 0
+  sceneflag: 1
+  playflag: 1
 --- !u!4 &668666969
 Transform:
   m_ObjectHideFlags: 0
@@ -39087,10 +39088,10 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
-  m_InitialState: 0
+  m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
-  m_InitialTime: 0
+  m_InitialTime: 110
   m_SceneBindings:
   - key: {fileID: -8635078297322648377, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
     value: {fileID: 1465398886}
@@ -44190,7 +44191,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 229d3c67bbfc1154d8ed0977aa25fb2d, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -44526,7 +44527,7 @@ Transform:
   m_GameObject: {fileID: 1728234122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.00000011920929, y: 1.0399, z: 6.279}
+  m_LocalPosition: {x: 0, y: 1.0399, z: 5.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

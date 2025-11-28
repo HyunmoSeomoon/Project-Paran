@@ -551,7 +551,8 @@ MonoBehaviour:
   timelineA: {fileID: 1878042024}
   timelineB: {fileID: 745144789}
   playerCamera: {fileID: 0}
-  sceneflag: 0
+  sceneflag: 1
+  playflag: 1
 --- !u!4 &628694257
 Transform:
   m_ObjectHideFlags: 0
@@ -834,7 +835,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: cb65756bde9664f48be346df716ace01, type: 2}
-  m_InitialState: 0
+  m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -2062,7 +2063,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 584f14ebc5ac5c546a6719502768ab5c, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -2387,8 +2388,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937683790}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0030482926, y: 0.7071002, z: -0.0030482926, w: 0.7071002}
-  m_LocalPosition: {x: -1.03, y: 1.3512535, z: 1.0800018}
+  m_LocalRotation: {x: 0.21954359, y: -0.67216116, z: 0.21954359, w: 0.67216116}
+  m_LocalPosition: {x: -74.721, y: 0.9300003, z: -5.342}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

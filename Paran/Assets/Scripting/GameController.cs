@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
         SceneManager.sceneLoaded += checkcurrentPhase;
     }
 
-    public bool timeFlag = true;
+    public bool retry = false;
     private DateTime startTime = new DateTime(1939, 11, 11, 9, 15, 00);
     private DateTime currentTime;
     //private int a = 0;
@@ -80,6 +80,10 @@ public class GameController : MonoBehaviour
 
         if (gamePhase == GamePhase.Retry)
         {
+            if(SceneManager.GetActiveScene().name==sceneNames[2])
+                gamePhase = GamePhase.Phase1;
+            else if(SceneManager.GetActiveScene().name==sceneNames[3])
+                gamePhase = GamePhase.Phase2;
             StartCoroutine(GameOver());
         }
     }
@@ -104,7 +108,7 @@ public class GameController : MonoBehaviour
             missionManager.StartMissionList("Main Mission");
             Debug.Log("start Phase1");
 
-            sceneStartCoroutine = StartCoroutine(StartTutorial());
+            if(!retry) sceneStartCoroutine = StartCoroutine(StartTutorial());
         }
     }
 
@@ -119,6 +123,7 @@ public class GameController : MonoBehaviour
     private IEnumerator GameOver()
     {
         Debug.Log("잡힘 - 5초 후 SceneChange");
+
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("GameOverScene");
     }
@@ -127,5 +132,16 @@ public class GameController : MonoBehaviour
     {
         if(NextScene==sceneNames[3]){gamePhase = GamePhase.Phase2;}
         SceneManager.LoadScene(NextScene);
+    }
+
+    public void ChangeScene(GamePhase phase)
+    {
+        switch (phase)
+        {
+            case GamePhase.Phase1: ChangeScene("Floor2");
+            break;
+            case GamePhase.Phase2: ChangeScene("Floor1");
+            break;
+        }
     }
 }

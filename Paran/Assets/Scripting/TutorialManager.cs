@@ -20,7 +20,6 @@ public class TutorialManager : MonoBehaviour
             go.SetActive(false);
         }
     }
-
     public void StartTutorial()
     {
         Time.timeScale = 0;

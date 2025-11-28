@@ -272,6 +272,7 @@ public class EnemyMove : MovableAI
         if (enemy.playerVisible)
         {
             enemyAnimator.SetFloat("Enemy_Speed", 4f);
+            agent.speed = 4f;
             lastPlayerPos = enemy.playerTransform.position;
             lastKnownPlayerPos = lastPlayerPos;
 
@@ -284,8 +285,8 @@ public class EnemyMove : MovableAI
         //시야에서 놓쳤을 때
         if (!enemy.playerVisible && lastPlayerPos != Vector3.zero && !isPausingAfterChase)
         {
+            agent.speed = 4f;
             float dist = Vector3.Distance(transform.position, lastPlayerPos);
-
             // 마지막 본 위치까지 이동
             if (!agent.pathPending)
                 Tracking(lastKnownPlayerPos);

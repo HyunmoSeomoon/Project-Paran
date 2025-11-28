@@ -23,6 +23,7 @@ public class TutorialManager : MonoBehaviour
     public void StartTutorial()
     {
         Time.timeScale = 0;
+        gameObject.SetActive(true);
         UIs[0].SetActive(true);
     }
 

@@ -19,9 +19,9 @@ public class GameController : MonoBehaviour
 
     public GamePhase gamePhase;
 
-    [SerializeField] private UIManager uIManager;
-    [SerializeField] private CameraMove cameraMove;
-    [SerializeField] private MissionManager missionManager;
+    public UIManager uIManager;
+    [SerializeField] private CameraMove cameraMove = null;
+    public MissionManager missionManager;
 
     // 무조건 0번은 타이틀, 1번은 게임오버 씬. 이후로는 최초 플레이 순서대로 씬 입력
     [Header("씬 이름 플레이 순서대로 입력")]
@@ -48,6 +48,8 @@ public class GameController : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += checkcurrentPhase;
+        cameraMove = FindAnyObjectByType<CameraMove>();
+        uIManager = FindAnyObjectByType<UIManager>().GetComponent<UIManager>();
     }
 
     public bool retry = false;
@@ -103,6 +105,9 @@ public class GameController : MonoBehaviour
 
     void checkcurrentPhase(Scene scene, LoadSceneMode mode)
     {
+        cameraMove = FindAnyObjectByType<CameraMove>();
+        uIManager = FindAnyObjectByType<UIManager>();
+        missionManager = FindAnyObjectByType<MissionManager>();
         if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2")
         {
             missionManager.StartMissionList("Main Mission");
@@ -115,8 +120,11 @@ public class GameController : MonoBehaviour
     private IEnumerator StartTutorial()
     {
         yield return new WaitForSeconds(1f);
-        tutorialManager.gameObject.SetActive(true);
-        tutorialManager.StartTutorial();
+        if (tutorialManager != null)
+        {
+            tutorialManager.gameObject.SetActive(true);
+            tutorialManager.StartTutorial();
+        }
         sceneStartCoroutine = null;
     }
     

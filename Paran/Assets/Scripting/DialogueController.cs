@@ -22,6 +22,11 @@ public class DialogueController : MonoBehaviour
 
     public float dialogueDistance = 1f;
 
+    void OnEnable()
+    {
+        //uIManager = FindAnyObjectByType<UIManager>();
+        missionManager = FindAnyObjectByType<MissionManager>();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -60,6 +65,11 @@ public class DialogueController : MonoBehaviour
             canDialogue = false;
             interactionUI.SetActive(false);
         }
+    }
+
+    public void OnDialogueMissionStart(string missionName)
+    {
+        missionManager.CompleteMission(missionName);
     }
 
     IEnumerator Dialogue()

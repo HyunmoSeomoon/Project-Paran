@@ -8,7 +8,6 @@ using UnityEngine.Events;
 public class MissionManager : MonoBehaviour
 {
     public MissionList[] missionLists; // 인스펙터에서 모든 미션 리스트를 설정
-    public static MissionManager Instance { get; private set; }
 
     // 1. 단일 객체 -> 리스트로 변경
     private List<MissionList> activeMissionLists = new List<MissionList>();
@@ -20,16 +19,6 @@ public class MissionManager : MonoBehaviour
     public static event Action<Mission> OnMissionCompleted;
     // 3. (기존) '임무 기록(Log)' 메뉴 UI 갱신용
     public static event Action<List<Mission>> OnActiveMissionsUpdated;
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else Destroy(gameObject);
-    }
     
     public void StartMissionList(string listName)
     {

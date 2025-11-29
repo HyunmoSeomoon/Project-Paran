@@ -18,15 +18,10 @@ public class DialogueController : MonoBehaviour
     public string missionName;
     public bool finished = false;
     private CameraMove cameraMove;
-    private bool canDialogue = false;
+    public bool canDialogue = false;
 
     public float dialogueDistance = 1f;
 
-    void OnEnable()
-    {
-        //uIManager = FindAnyObjectByType<UIManager>();
-        missionManager = FindAnyObjectByType<MissionManager>();
-    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -65,6 +60,11 @@ public class DialogueController : MonoBehaviour
             canDialogue = false;
             interactionUI.SetActive(false);
         }
+    }
+
+    public void SignalDialogueStart()
+    {
+        StartCoroutine(Dialogue());
     }
 
     public void OnDialogueMissionStart(string missionName)

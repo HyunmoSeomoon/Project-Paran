@@ -5,7 +5,7 @@ public class CutSceneTrigger : MonoBehaviour
 {
     public PlayableDirector timelineA;
     public PlayableDirector timelineB;
-    public GameObject playerCamera;
+    //public GameObject playerCamera;
 
     public bool sceneflag = false;
     public bool playflag = false;
@@ -14,23 +14,25 @@ public class CutSceneTrigger : MonoBehaviour
     {
         timelineA.stopped += OnCutsceneFinished;
         timelineB.stopped += OnCutsceneFinished;
+        if (playflag == true)
+        {
+            StartCutscene();
+        }
     }
 
     public void StartCutscene()
     {
         // 플래그로 어떤 컷씬 나올지 조정
-        if(playflag == true)
-        {
-            if (sceneflag)
-                PlayTimelineA();
-            else
-                PlayTimelineB();
-        }
+        Debug.Log("실행실행");
+        if (sceneflag)
+            PlayTimelineA();
+        else
+            PlayTimelineB();
     }
 
     public void PlayTimelineA()
     {
-        playerCamera.SetActive(false);
+        //playerCamera.SetActive(false);
         if(timelineB!=null) timelineB.Stop();
         timelineA.time = 0;
         timelineA.Play();
@@ -38,7 +40,7 @@ public class CutSceneTrigger : MonoBehaviour
 
     public void PlayTimelineB()
     {
-        playerCamera.SetActive(false);
+        //playerCamera.SetActive(false);
         if(timelineA!=null) timelineA.Stop();
         timelineB.time = 0;
         timelineB.Play();
@@ -46,6 +48,6 @@ public class CutSceneTrigger : MonoBehaviour
 
     private void OnCutsceneFinished(PlayableDirector obj)
     {
-        // 끝이긴 한디
+        playflag = false;
     }
 }

@@ -28073,8 +28073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timelineA: {fileID: 1465398887}
   timelineB: {fileID: 1695358616}
-  playerCamera: {fileID: 0}
-  sceneflag: 1
+  sceneflag: 0
   playflag: 1
 --- !u!4 &668666969
 Transform:
@@ -39088,7 +39087,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 110

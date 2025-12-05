@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68176eec960644147b9506a0df7351f8, type: 3}
+  m_Name: MissionNote3
+  m_EditorClassIdentifier: 
+  itemName: "\uC61B \uB3D9\uB8CC\uC758 \uC77C\uC9C0 3"
+  itemIcon: {fileID: 21300000, guid: f0600d95b731e834ba96648d107f870f, type: 3}
+  itemDescription: "\uC65C\uB188 \uC21C\uC0AC\uB4E4\uC740 \uC758\uC2EC\uC774 \uAC15\uD55C
+    \uAC83 \uAC19\uB2E4. \uB0B4 \uC5BC\uAD74\uC744 \uC790\uAFB8 \uBE64\uD788 \uCCD0\uB2E4\uBCF4\uB294
+    \uC774\uC720\uAC00 \uBB50\uC9C0? \uC65C\uB188\uACFC \uC6B0\uB9AC\uB294 \uD06C\uAC8C
+    \uB2E4\uB974\uC9C0 \uC54A\uAC8C \uC0DD\uACBC\uB2E4\uACE0 \uC0DD\uAC01\uD588\uB294\uB370,
+    \uBB54\uAC00 \uC758\uC2EC \uBC1B\uB294 \uAE30\uBD84\uC774\uAD70."
+  itemID: 0

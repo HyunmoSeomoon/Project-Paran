@@ -11096,6 +11096,121 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.026630018, y: 0.026167681, z: 0.0028410717}
   m_Center: {x: -0.013315009, y: -0.013083841, z: 0.0013494892}
+--- !u!1 &394450067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 394450069}
+  - component: {fileID: 394450068}
+  m_Layer: 0
+  m_Name: MissionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &394450068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394450067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613a4165b92dc84881fadb50e117b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionLists:
+  - missionList:
+    - missionName: start dialogue keiko
+      missionDescription: "\uC2DC\uACC4\uB97C \uBC1B\uC544 \uB300\uD654\uB97C \uC2DC\uC791\uD558\uC2ED\uC2DC\uC624"
+      isEnded: 0
+      OnMissionStart:
+        m_PersistentCalls:
+          m_Calls: []
+      OnMissionEnd:
+        m_PersistentCalls:
+          m_Calls: []
+      missionPoint: {fileID: 0}
+    - missionName: find clue
+      missionDescription: "\uC8FC\uBCC0\uC5D0\uC11C \uC544\uB77C\uBBF8\uCE58 \uD0C0\uCFE0\uC57C\uC5D0
+        \uB300\uD55C \uC815\uBCF4\uB97C \uCC3E\uC73C\uC2ED\uC2DC\uC624"
+      isEnded: 0
+      OnMissionStart:
+        m_PersistentCalls:
+          m_Calls: []
+      OnMissionEnd:
+        m_PersistentCalls:
+          m_Calls: []
+      missionPoint: {fileID: 0}
+    missionListName: Main Mission
+    isStarted: 0
+    isCompleted: 0
+  - missionList:
+    - missionName: search 1 floor
+      missionDescription: "1\uCE35\uC744 \uD0D0\uC0C9\uD558\uC5EC \uC544\uB77C\uBBF8\uCE58
+        \uD0C0\uCFE0\uC57C\uC5D0 \uB300\uD55C \uC815\uBCF4\uB97C \uCC3E\uC73C\uC2ED\uC2DC\uC624"
+      isEnded: 0
+      OnMissionStart:
+        m_PersistentCalls:
+          m_Calls: []
+      OnMissionEnd:
+        m_PersistentCalls:
+          m_Calls: []
+      missionPoint: {fileID: 0}
+    missionListName: Takuya Mission
+    isStarted: 0
+    isCompleted: 0
+  - missionList:
+    - missionName: escape 1 floor
+      missionDescription: "\uCF00\uC774\uCF54\uC758 \uB3C4\uC6C0\uC744 \uBC1B\uC544
+        1\uCE35\uC5D0\uC11C \uBC97\uC5B4\uB098\uC2ED\uC2DC\uC624"
+      isEnded: 0
+      OnMissionStart:
+        m_PersistentCalls:
+          m_Calls: []
+      OnMissionEnd:
+        m_PersistentCalls:
+          m_Calls: []
+      missionPoint: {fileID: 0}
+    missionListName: End Mission
+    isStarted: 0
+    isCompleted: 0
+  - missionList:
+    - missionName: go to underground
+      missionDescription: "\uC18C\uB9AC\uAC00 \uB4E4\uB9AC\uB294 \uACF3\uC73C\uB85C
+        \uAC00\uC2ED\uC2DC\uC624"
+      isEnded: 0
+      OnMissionStart:
+        m_PersistentCalls:
+          m_Calls: []
+      OnMissionEnd:
+        m_PersistentCalls:
+          m_Calls: []
+      missionPoint: {fileID: 0}
+    missionListName: B1 Mission
+    isStarted: 0
+    isCompleted: 0
+--- !u!4 &394450069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394450067}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.559114, y: 1.8657974, z: 1.0386626}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &397654130
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18947,7 +19062,7 @@ PrefabInstance:
     - target: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       propertyPath: playerTransform
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 126224949}
     - target: {fileID: 1634268175243923619, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -24933,7 +25048,7 @@ PrefabInstance:
     - target: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       propertyPath: playerTransform
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 126224949}
     - target: {fileID: 1634268175243923619, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -51945,7 +52060,7 @@ PrefabInstance:
     - target: {fileID: 1499466234852791681, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       propertyPath: playerTransform
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 126224949}
     - target: {fileID: 1634268175243923619, guid: ee3bef61f8ce33c43b6b46fd22085698, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -102437,3 +102552,4 @@ SceneRoots:
   - {fileID: 418857764}
   - {fileID: 2062238359}
   - {fileID: 801291121}
+  - {fileID: 394450069}

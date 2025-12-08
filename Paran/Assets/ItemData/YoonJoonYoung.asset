@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68176eec960644147b9506a0df7351f8, type: 3}
+  m_Name: YoonJoonYoung
+  m_EditorClassIdentifier: 
+  itemName: "\uC724\uC131\uC8FC, \uD14C\uB7EC \uB2E8\uCCB4 \uC9C0\uC6D0 \uC758\uD639"
+  itemIcon: {fileID: 21300000, guid: 872bc1f6f4d4beb469ed9e61f9195c0c, type: 3}
+  itemDescription: "\uC790\uC791 \uC724\uC900\uC601\uC758 \uC544\uB4E4 \uC724\uC131\uC8FC(21)\uAC00
+    \uCD5C\uADFC \uC870\uC120\uC758 \uB3C5\uB9BD \uC6B4\uB3D9 \uB2E8\uCCB4\uC640
+    \uBB34\uC7A5 \uD14C\uB7EC \uB2E8\uCCB4 \uB4F1\uC5D0 \uD604\uAE08\uC744 \uC9C0\uC6D0\uD588\uB2E4\uB294
+    \uC758\uD639\uC744 \uBC1B\uACE0 \uC788\uB2E4. \uADF8\uB294 \uC544\uBB34 \uC785\uC7A5\uB3C4
+    \uB0B4\uB193\uC9C0 \uC54A\uC558\uC73C\uBA70, \uADF8\uC758 \uC544\uBC84\uC9C0\uC778
+    \uC724\uC900\uC601\uC740 '\uC808\uB300 \uC0AC\uC2E4\uC774 \uC544\uB2C8\uB2E4'\uB77C\uBA70
+    \uADF9\uAD6C \uBD80\uC815\uD558\uACE0 \uB098\uC130\uB2E4."
+  itemID: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68176eec960644147b9506a0df7351f8, type: 3}
   m_Name: Takuya2
   m_EditorClassIdentifier: 
-  itemName: "\uC0C8\uB85C\uC6B4 \uACBD\uBB34\uAD6D\uC7A5 \uC784\uBA85"
+  itemName: "\uB9C8\uAD6C\uCE58 \uC544\uD0A4\uB77C, \uACBD\uBB34\uAD6D\uC7A5 \uCD94\uB300"
   itemIcon: {fileID: 21300000, guid: e1f9cbc49ca06b6408a8b252ebd5ba61, type: 3}
   itemDescription: "\uC0C8\uB85C\uC6B4 \uACBD\uBB34\uAD6D\uC7A5\uC73C\uB85C \uB9C8\uAD6C\uCE58
     \uC544\uD0A4\uB77C\uAC00 \uCDE8\uC784\uD588\uB2E4. \uAE09\uC9C4\uC801\uC774\uACE0

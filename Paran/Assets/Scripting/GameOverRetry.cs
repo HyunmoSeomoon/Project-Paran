@@ -15,7 +15,7 @@ public class GameOverRetry : MonoBehaviour
     {
         if (gameController != null)
         {
-            gameController.ChangeScene(gameController.gamePhase);
+            gameController.ChangeScene(gameController.previousPhase);
         }
     }
 }

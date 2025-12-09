@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
 
     public GamePhase gamePhase;
 
+    public GamePhase previousPhase;
+
     public UIManager uIManager;
     [SerializeField] private CameraMove cameraMove = null;
     public MissionManager missionManager;
@@ -31,6 +33,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private TutorialManager tutorialManager;
 
     private Coroutine sceneStartCoroutine; 
+    public bool isGameOverRoutineRunning = false;
 
     //For SingleTon pattern
     public static GameController Instance { get; private set; }
@@ -40,7 +43,6 @@ public class GameController : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
         }
         else Destroy(gameObject);
     }
@@ -80,12 +82,8 @@ public class GameController : MonoBehaviour
             }
         }
 
-        if (gamePhase == GamePhase.Retry)
-        {
-            if(SceneManager.GetActiveScene().name==sceneNames[2])
-                gamePhase = GamePhase.Phase1;
-            else if(SceneManager.GetActiveScene().name==sceneNames[3])
-                gamePhase = GamePhase.Phase2;
+        if (gamePhase == GamePhase.Retry && !isGameOverRoutineRunning)
+        {   
             StartCoroutine(GameOver());
         }
     }
@@ -105,15 +103,17 @@ public class GameController : MonoBehaviour
 
     void checkcurrentPhase(Scene scene, LoadSceneMode mode)
     {
-        cameraMove = FindAnyObjectByType<CameraMove>();
-        uIManager = FindAnyObjectByType<UIManager>();
-        missionManager = FindAnyObjectByType<MissionManager>();
-        if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2")
-        {
-            //missionManager.StartMissionList("Main Mission");
-            Debug.Log("start Phase1");
+        Time.timeScale = 1f; 
 
-            //if(!retry) sceneStartCoroutine = StartCoroutine(StartTutorial());
+        cameraMove = FindAnyObjectByType<CameraMove>(); 
+        uIManager = FindAnyObjectByType<UIManager>(); 
+        missionManager = FindAnyObjectByType<MissionManager>(); 
+        if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2") 
+        { 
+            //missionManager.StartMissionList("Main Mission");  
+            Debug.Log("start Phase1"); 
+            isGameOverRoutineRunning = false; 
+            //if(!retry) sceneStartCoroutine = StartCoroutine(StartTutorial()); 
         }
     }
 
@@ -130,6 +130,7 @@ public class GameController : MonoBehaviour
     
     private IEnumerator GameOver()
     {
+        isGameOverRoutineRunning = true;
         Debug.Log("잡힘 - 5초 후 SceneChange");
 
         yield return new WaitForSeconds(5f);
@@ -144,6 +145,7 @@ public class GameController : MonoBehaviour
 
     public void ChangeScene(GamePhase phase)
     {
+        gamePhase = phase;
         switch (phase)
         {
             case GamePhase.Phase1: ChangeScene("Floor2");

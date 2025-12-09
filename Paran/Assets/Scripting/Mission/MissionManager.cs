@@ -19,6 +19,7 @@ public class MissionManager : MonoBehaviour
     public static event Action<Mission> OnMissionCompleted;
     // 3. (기존) '임무 기록(Log)' 메뉴 UI 갱신용
     public static event Action<List<Mission>> OnActiveMissionsUpdated;
+    private List<Mission> currentActiveMission = new List<Mission>();
     
     public void StartMissionList(string listName)
     {
@@ -33,10 +34,18 @@ public class MissionManager : MonoBehaviour
             
             Mission firstMission = listToStart.GetCurrentMission();
 
+            if (CheckMissionAlreadyCompleted(firstMission))
+            {
+                CompleteMission(firstMission.missionName);
+                return;
+            }
+
             // [발송 1] 새 미션 팝업(Alert) 이벤트 발송
             OnMissionStarted?.Invoke(firstMission);
             SetMissionPoint(true,firstMission);
             firstMission.OnMissionStart?.Invoke();
+
+
             
             // [발송 2] 임무 기록(Log) 갱신 이벤트 발송
             TriggerFullListUpdate();
@@ -61,6 +70,9 @@ public class MissionManager : MonoBehaviour
 
         if (targetList != null)
         {
+            // 미션 조건 충족 못시켰을 시 그냥 리턴
+            if( completedMission.missionResultSenders.Count != 0 && !CheckMissionAlreadyCompleted(completedMission))
+                return;
             // 1. 현재 미션 완료 처리 (isEnded = true)
             targetList.CompleteCurrentMission();
             SetMissionPoint(false,targetList.GetCurrentMission());
@@ -75,9 +87,15 @@ public class MissionManager : MonoBehaviour
             // 3. (중요) 다음 미션이 있다면, '새 미션' 팝업 이벤트 또 발송
             if (nextMission != null)
             {
+                if (CheckMissionAlreadyCompleted(nextMission))
+                {
+                    CompleteMission(nextMission.missionName);
+                    return;
+                }
                 OnMissionStarted?.Invoke(nextMission);
                 SetMissionPoint(true,nextMission);
                 nextMission.OnMissionStart?.Invoke();
+
             }
             
             // 4. [발송 4] 임무 기록(Log) 갱신 (완료 표시를 위해)
@@ -88,6 +106,7 @@ public class MissionManager : MonoBehaviour
 
     private void TriggerFullListUpdate()
     {
+        Debug.Log("Mission Update!!");
         // "현재 UI에 표시해야 할 모든 활성 미션" 목록을 만듭니다.
         List<Mission> allCurrentActiveMissions = new List<Mission>();
         
@@ -109,8 +128,28 @@ public class MissionManager : MonoBehaviour
 
     private void SetMissionPoint(bool b, Mission mission)
     {
-        mission.missionPoint.SetActive(b);
+        if(mission.missionPoint!=null)
+            mission.missionPoint.SetActive(b);
     }
+
+    private bool CheckMissionAlreadyCompleted(Mission mission)
+    {
+        if (mission.missionResultSenders == null || mission.missionResultSenders.Count == 0)
+        {
+            return false; // 조건이 없으므로 "완료 가능"
+        }
+
+        foreach(var rs in mission.missionResultSenders)
+        {
+            if (rs.missionCompleted == false)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
 
 [System.Serializable]
@@ -122,6 +161,7 @@ public class Mission
     public UnityEvent OnMissionStart;
     public UnityEvent OnMissionEnd;
     public GameObject missionPoint;
+    public List<MissionResultSender> missionResultSenders = new List<MissionResultSender>();
 }
 
 [System.Serializable]

@@ -7,6 +7,7 @@ public class MissionResultSender : MonoBehaviour
     public string missionName;
     [SerializeField] private EnemySearch enemySearch;
     [SerializeField] private ItemData itemData;
+    public bool missionCompleted = false;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class MissionResultSender : MonoBehaviour
     {
         if (eventEnemySearch == enemySearch)
         {
+            missionCompleted = true;
             missionManager.CompleteMission(missionName);
         }
     }
@@ -26,6 +28,7 @@ public class MissionResultSender : MonoBehaviour
     {
         if (eventItemsManager == itemData)
         {
+            missionCompleted = true;
             missionManager.CompleteMission(missionName);
         }
     }

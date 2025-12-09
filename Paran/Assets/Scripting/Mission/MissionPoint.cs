@@ -10,6 +10,11 @@ public class MissionPoint : MonoBehaviour
     public GameObject cinemachine;
     public float cameraTime;
     private bool first = true;
+
+    void OnEnable()
+    {
+        missionManager = FindAnyObjectByType<MissionManager>();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

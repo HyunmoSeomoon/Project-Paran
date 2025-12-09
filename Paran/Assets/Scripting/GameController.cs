@@ -8,9 +8,9 @@ public class GameController : MonoBehaviour
     public enum GamePhase
     {
         Prologue, //프롤로그 컷씬
-        Phase1, //페이즈1. 단서 및 도구 수집
-        Phase2, //과거 회상 컷씬
-        Phase3, //암살 페이즈
+        Phase1, //페이즈1, 튜토리얼
+        Phase2, //케이코 만남 및 1층
+        Phase3, //2층 암살 페이즈
         Phase4, //결말 컷씬
         Phase5, //
         Retry, // PlayerKilled, 재도전 씬
@@ -19,14 +19,21 @@ public class GameController : MonoBehaviour
 
     public GamePhase gamePhase;
 
-    [SerializeField] private UIManager uIManager;
-    [SerializeField] private CameraMove cameraMove;
-    [SerializeField] private MissionManager missionManager;
+    public GamePhase previousPhase;
+
+    public UIManager uIManager;
+    [SerializeField] private CameraMove cameraMove = null;
+    public MissionManager missionManager;
+
+    // 무조건 0번은 타이틀, 1번은 게임오버 씬. 이후로는 최초 플레이 순서대로 씬 입력
+    [Header("씬 이름 플레이 순서대로 입력")]
+    [SerializeField] private string[] sceneNames;
 
     [Header("튜토리얼 페이즈(Phase 1)")]
     [SerializeField] private TutorialManager tutorialManager;
 
     private Coroutine sceneStartCoroutine; 
+    public bool isGameOverRoutineRunning = false;
 
     //For SingleTon pattern
     public static GameController Instance { get; private set; }
@@ -36,7 +43,6 @@ public class GameController : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
         }
         else Destroy(gameObject);
     }
@@ -44,9 +50,11 @@ public class GameController : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += checkcurrentPhase;
+        cameraMove = FindAnyObjectByType<CameraMove>();
+        uIManager = FindAnyObjectByType<UIManager>().GetComponent<UIManager>();
     }
 
-    public bool timeFlag = true;
+    public bool retry = false;
     private DateTime startTime = new DateTime(1939, 11, 11, 9, 15, 00);
     private DateTime currentTime;
     //private int a = 0;
@@ -74,8 +82,8 @@ public class GameController : MonoBehaviour
             }
         }
 
-        if (gamePhase == GamePhase.Retry)
-        {
+        if (gamePhase == GamePhase.Retry && !isGameOverRoutineRunning)
+        {   
             StartCoroutine(GameOver());
         }
     }
@@ -95,26 +103,55 @@ public class GameController : MonoBehaviour
 
     void checkcurrentPhase(Scene scene, LoadSceneMode mode)
     {
-        if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2")
-        {
-            missionManager.StartMissionList("Main Mission");
-            Debug.Log("start Phase1");
+        Time.timeScale = 1f; 
 
-            sceneStartCoroutine = StartCoroutine(StartTutorial());
+        cameraMove = FindAnyObjectByType<CameraMove>(); 
+        uIManager = FindAnyObjectByType<UIManager>(); 
+        missionManager = FindAnyObjectByType<MissionManager>(); 
+        if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2") 
+        { 
+            //missionManager.StartMissionList("Main Mission");  
+            Debug.Log("start Phase1"); 
+            isGameOverRoutineRunning = false; 
+            //if(!retry) sceneStartCoroutine = StartCoroutine(StartTutorial()); 
         }
     }
 
     private IEnumerator StartTutorial()
     {
         yield return new WaitForSeconds(1f);
-        tutorialManager.gameObject.SetActive(true);
-        tutorialManager.StartTutorial();
+        if (tutorialManager != null)
+        {
+            tutorialManager.gameObject.SetActive(true);
+            tutorialManager.StartTutorial();
+        }
         sceneStartCoroutine = null;
     }
+    
     private IEnumerator GameOver()
     {
+        isGameOverRoutineRunning = true;
         Debug.Log("잡힘 - 5초 후 SceneChange");
+
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("GameOverScene");
+    }
+    
+    public void ChangeScene(string NextScene)
+    {
+        if(NextScene==sceneNames[3]){gamePhase = GamePhase.Phase2;}
+        SceneManager.LoadScene(NextScene);
+    }
+
+    public void ChangeScene(GamePhase phase)
+    {
+        gamePhase = phase;
+        switch (phase)
+        {
+            case GamePhase.Phase1: ChangeScene("Floor2");
+            break;
+            case GamePhase.Phase2: ChangeScene("Floor1");
+            break;
+        }
     }
 }

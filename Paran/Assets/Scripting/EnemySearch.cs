@@ -307,6 +307,7 @@ public class EnemySearch : MonoBehaviour
         }
 
         // 3) 게임 Phase 변경
+        GameController.Instance.previousPhase = GameController.Instance.gamePhase;
         GameController.Instance.gamePhase = GameController.GamePhase.Retry;
     }
 

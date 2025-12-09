@@ -14,10 +14,14 @@ public class ItemController : MonoBehaviour
     [SerializeField] private PlayerMove playerMove;
 
     private bool canInteract = false;
-    [SerializeField] private UIManager uiManager; // [최적화] 미리 참조 저장
+    private UIManager uiManager; // [최적화] 미리 참조 저장
 
     public static event Action<ItemData> OnGetItem; 
 
+    void OnEnable()
+    {
+        uiManager = FindAnyObjectByType<UIManager>();
+    }
     void Start()
     {
         if (interactionUI != null)

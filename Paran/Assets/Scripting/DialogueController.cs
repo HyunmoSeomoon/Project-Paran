@@ -18,7 +18,7 @@ public class DialogueController : MonoBehaviour
     public string missionName;
     public bool finished = false;
     private CameraMove cameraMove;
-    private bool canDialogue = false;
+    public bool canDialogue = false;
 
     public float dialogueDistance = 1f;
 
@@ -60,6 +60,16 @@ public class DialogueController : MonoBehaviour
             canDialogue = false;
             interactionUI.SetActive(false);
         }
+    }
+
+    public void SignalDialogueStart()
+    {
+        StartCoroutine(Dialogue());
+    }
+
+    public void OnDialogueMissionStart(string missionName)
+    {
+        missionManager.CompleteMission(missionName);
     }
 
     IEnumerator Dialogue()

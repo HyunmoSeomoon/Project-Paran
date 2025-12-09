@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68176eec960644147b9506a0df7351f8, type: 3}
+  m_Name: Takuya8
+  m_EditorClassIdentifier: 
+  itemName: "\uB9C8\uAD6C\uCE58 \uC544\uD0A4\uB77C\uC758 \uD3B8\uC9C0"
+  itemIcon: {fileID: 21300000, guid: 872bc1f6f4d4beb469ed9e61f9195c0c, type: 3}
+  itemDescription: "\uBA4D\uCCAD\uD55C \uB188\uC774 \uC0C1\uAD00\uC758 \uC9C0\uC2DC\uB97C
+    \uC774\uD589\uD558\uC9C0 \uC54A\uC544 \uC989\uACB0 \uCC98\uD615\uD588\uB2E4.\n\uC77C\uC740
+    \uBD99\uC7A1\uC544 \uB193\uC740 \uC870\uC120\uC778\uC758 \uC18C\uD589\uC73C\uB85C
+    \uAE30\uB85D\uD574\uB77C.\n\uC544\uB77C\uBBF8\uCE58 \uAC00\uC758 \uADC0\uC5D0
+    \uB4E4\uC5B4\uAC00\uAE30\uB77C\uB3C4 \uD558\uBA74 \uADC0\uCC2E\uC544\uC9C4\uB2E4.
+    \uBAA8\uB450 \uC785\uB2E8\uC18D \uCCA0\uC800\uD788 \uD558\uB3C4\uB85D \uD558\uACE0,
+    \uC774 \uC77C\uC744 \uC785\uC5D0 \uC62C\uB9AC\uB294 \uC790\uB294 \uC989\uACB0
+    \uC2EC\uD310\uD558\uACA0\uB2E4\uACE0 \uC804\uD574\uB77C."
+  itemID: 0

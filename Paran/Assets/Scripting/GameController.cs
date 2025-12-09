@@ -110,10 +110,10 @@ public class GameController : MonoBehaviour
         missionManager = FindAnyObjectByType<MissionManager>();
         if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2")
         {
-            missionManager.StartMissionList("Main Mission");
+            //missionManager.StartMissionList("Main Mission");
             Debug.Log("start Phase1");
 
-            if(!retry) sceneStartCoroutine = StartCoroutine(StartTutorial());
+            //if(!retry) sceneStartCoroutine = StartCoroutine(StartTutorial());
         }
     }
 

@@ -90,7 +90,7 @@ public class GameController : MonoBehaviour
 
         cameraMove = FindAnyObjectByType<CameraMove>(); 
         uIManager = FindAnyObjectByType<UIManager>();  
-        sceneSettingController = FindAnyObjectByType<SceneSettingController>().GetComponent<SceneSettingController>();
+        sceneSettingController = FindAnyObjectByType<SceneSettingController>();
         if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2") 
         {  
             Debug.Log("start Phase1"); 

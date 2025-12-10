@@ -44,6 +44,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (!cc.enabled) return;
         Vector3 inputDir = Vector3.zero;
         float x = 0;
         float z = 0;
@@ -193,5 +194,33 @@ public class PlayerMove : MonoBehaviour
     void Decoy(Vector3 decoyPos)
     {
         OnDecoyEnemies?.Invoke(decoyPos);
+    }
+    public void WarpB1()
+    {
+        StartCoroutine(WarpRoutine(new Vector3(-34.5919991f, 10.7446089f, 3.05800009f)));
+    }
+    public void Warp1F()
+    {
+        StartCoroutine(WarpRoutine(new Vector3(36.1339989f,11.4549999f,-22.3139992f)));
+    }
+    private IEnumerator WarpRoutine(Vector3 targetPos)
+    {
+        // 1) CharacterController 끄기
+        if (cc != null)
+            cc.enabled = false;
+
+        // 한 프레임 쉬면 더 안전함 (Optional)
+        yield return null;
+
+        // 2) 좌표 이동
+        transform.position = targetPos;
+
+        // 한 프레임 더 쉬는 것도 권장됨 (카메라/충돌 안정화)
+        yield return null;
+
+        // 3) CharacterController 다시 켜기
+        if (cc != null)
+            cc.enabled = true;
+        else if (cc == null) Debug.Log("cc가 null임니다");
     }
 }

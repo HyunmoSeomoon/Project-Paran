@@ -10,13 +10,22 @@ public class CutSceneTrigger : MonoBehaviour
     public bool sceneflag = false;
     public bool playflag = false;
 
+    GameController gameController = null;
+    
+    void OnEnable()
+    {
+        gameController = null;
+        gameController = FindAnyObjectByType<GameController>();
+    }
+
     void Start()
     {
         timelineA.stopped += OnCutsceneFinished;
         timelineB.stopped += OnCutsceneFinished;
-        if (playflag == true)
+        if (timelineA != null && timelineB != null)
         {
-            StartCutscene();
+            if (gameController.gamePhase == GameController.GamePhase.Phase3) PlayTimelineB();
+            else PlayTimelineA();
         }
     }
 
@@ -32,6 +41,7 @@ public class CutSceneTrigger : MonoBehaviour
 
     public void PlayTimelineA()
     {
+        //if (timelineA == null) return;
         //playerCamera.SetActive(false);
         if(timelineB!=null) timelineB.Stop();
         timelineA.time = 0;
@@ -40,6 +50,7 @@ public class CutSceneTrigger : MonoBehaviour
 
     public void PlayTimelineB()
     {
+        //if (timelineB == null) return;
         //playerCamera.SetActive(false);
         if(timelineA!=null) timelineA.Stop();
         timelineB.time = 0;

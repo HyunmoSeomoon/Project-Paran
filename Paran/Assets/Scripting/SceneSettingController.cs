@@ -9,7 +9,7 @@ public class SceneSettingController : MonoBehaviour
     public GameObject[] npcs;
     public GameObject[] missionPoints;
     public GameObject[] items;
-    public GameObject[] missionManagers;
+    public Transform[] startPosition;
 
     public void SetScenefromPhase(GameController.GamePhase gamePhase)
     {
@@ -57,6 +57,13 @@ public class SceneSettingController : MonoBehaviour
             missionPoints[p].SetActive(true);
         if(items[p]!=null)
             items[p].SetActive(true);
+        if (startPosition[p] != null)
+        {
+            Transform player = FindAnyObjectByType<PlayerMove>().gameObject.transform;
+            player.position = startPosition[p].position;
+            player.rotation = startPosition[p].rotation;
+        }
+            
     }
 
 }

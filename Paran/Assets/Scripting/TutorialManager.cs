@@ -11,6 +11,7 @@ public class TutorialManager : MonoBehaviour
 
     private int currentStepIndex = 0; // UIsNum 이름을 좀 더 직관적으로 변경
     private int UIsLength;
+    private GameController gameController;
 
     void Awake()
     {
@@ -21,10 +22,16 @@ public class TutorialManager : MonoBehaviour
         CloseAllTutorialUIs();
     }
 
+    void Start()
+    {
+        gameController = FindAnyObjectByType<GameController>().GetComponent<GameController>();
+    }
+
     // [기존 기능] 처음부터 순서대로 시작
     public void StartTutorial()
     {
-        ShowTutorialByIndex(0);
+        if(gameController.previousPhase!=GameController.GamePhase.Phase1)
+            ShowTutorialByIndex(0);
     }
 
     // [요청하신 기능] 특정 인덱스의 튜토리얼을 강제로 실행

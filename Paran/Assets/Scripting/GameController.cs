@@ -21,9 +21,10 @@ public class GameController : MonoBehaviour
 
     public GamePhase previousPhase;
 
-    public UIManager uIManager;
+    private UIManager uIManager;
     [SerializeField] private CameraMove cameraMove = null;
-    public MissionManager missionManager;
+    private MissionManager missionManager;
+    private SceneSettingController sceneSettingController;
 
     // 무조건 0번은 타이틀, 1번은 게임오버 씬. 이후로는 최초 플레이 순서대로 씬 입력
     [Header("씬 이름 플레이 순서대로 입력")]
@@ -31,8 +32,6 @@ public class GameController : MonoBehaviour
 
     [Header("튜토리얼 페이즈(Phase 1)")]
     [SerializeField] private TutorialManager tutorialManager;
-
-    private Coroutine sceneStartCoroutine; 
     public bool isGameOverRoutineRunning = false;
 
     //For SingleTon pattern
@@ -50,8 +49,6 @@ public class GameController : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += checkcurrentPhase;
-        cameraMove = FindAnyObjectByType<CameraMove>();
-        uIManager = FindAnyObjectByType<UIManager>().GetComponent<UIManager>();
     }
 
     public bool retry = false;
@@ -61,7 +58,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         currentTime = startTime;
-        //uIManager.SetClockTime(currentTime.Hour, currentTime.Minute);
     }
 
     void Update()
@@ -88,44 +84,20 @@ public class GameController : MonoBehaviour
         }
     }
 
-    /*
-    void FixedUpdate()
-    {
-        a++;
-        if (a == 100)
-        {
-            currentTime = currentTime.AddMinutes(1);
-            uIManager.NormalClockTime();
-            a = 0;
-        }
-    }
-    */
-
     void checkcurrentPhase(Scene scene, LoadSceneMode mode)
     {
         Time.timeScale = 1f; 
 
         cameraMove = FindAnyObjectByType<CameraMove>(); 
-        uIManager = FindAnyObjectByType<UIManager>(); 
-        missionManager = FindAnyObjectByType<MissionManager>(); 
+        uIManager = FindAnyObjectByType<UIManager>();  
+        sceneSettingController = FindAnyObjectByType<SceneSettingController>().GetComponent<SceneSettingController>();
         if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2") 
-        { 
-            //missionManager.StartMissionList("Main Mission");  
+        {  
             Debug.Log("start Phase1"); 
-            isGameOverRoutineRunning = false; 
-            //if(!retry) sceneStartCoroutine = StartCoroutine(StartTutorial()); 
+            isGameOverRoutineRunning = false;
         }
-    }
-
-    private IEnumerator StartTutorial()
-    {
-        yield return new WaitForSeconds(1f);
-        if (tutorialManager != null)
-        {
-            tutorialManager.gameObject.SetActive(true);
-            tutorialManager.StartTutorial();
-        }
-        sceneStartCoroutine = null;
+        if(sceneSettingController!=null)
+            sceneSettingController.SetScenefromPhase(gamePhase);
     }
     
     private IEnumerator GameOver()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
@@ -23,8 +24,8 @@ public class GameController : MonoBehaviour
 
     private UIManager uIManager;
     [SerializeField] private CameraMove cameraMove = null;
-    private MissionManager missionManager;
     private SceneSettingController sceneSettingController;
+    private MissionManager missionManager;
 
     // 무조건 0번은 타이틀, 1번은 게임오버 씬. 이후로는 최초 플레이 순서대로 씬 입력
     [Header("씬 이름 플레이 순서대로 입력")]
@@ -91,10 +92,19 @@ public class GameController : MonoBehaviour
         cameraMove = FindAnyObjectByType<CameraMove>(); 
         uIManager = FindAnyObjectByType<UIManager>();  
         sceneSettingController = FindAnyObjectByType<SceneSettingController>();
+        missionManager = FindAnyObjectByType<MissionManager>();
         if (gamePhase == GamePhase.Phase1 && scene.name == "Floor2") 
         {  
             Debug.Log("start Phase1"); 
             isGameOverRoutineRunning = false;
+        }
+        else if(gamePhase == GamePhase.Phase3 && scene.name == "Floor2")
+        {
+            Debug.Log("start Phase3");
+            isGameOverRoutineRunning = false;
+            GameObject go = GameObject.Find("StartScene");
+            go.SetActive(false);
+            missionManager.StartMissionList("Phase3 Start Mission");
         }
         if(sceneSettingController!=null)
             sceneSettingController.SetScenefromPhase(gamePhase);

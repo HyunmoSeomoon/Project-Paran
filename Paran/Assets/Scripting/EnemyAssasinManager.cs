@@ -54,7 +54,8 @@ public class EnemyAssasinManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             AssassinUI.SetActive(true);
-            AssassinUI.transform.forward = Camera.forward;
+            if(Camera!=null)
+                AssassinUI.transform.forward = Camera.forward;
             if (Input.GetKeyDown(KeyCode.F))
             {
                 other.transform.position = transform.position;

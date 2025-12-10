@@ -28073,7 +28073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timelineA: {fileID: 1465398887}
   timelineB: {fileID: 1695358616}
-  sceneflag: 0
+  sceneflag: 1
   playflag: 1
 --- !u!4 &668666969
 Transform:
@@ -28611,7 +28611,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -29742,6 +29742,456 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &883480339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 883480344}
+  - component: {fileID: 883480343}
+  - component: {fileID: 883480342}
+  - component: {fileID: 883480341}
+  - component: {fileID: 883480340}
+  m_Layer: 5
+  m_Name: subtitle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &883480340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883480339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: e47188c58f8757b4a875ab1bd6c20799, type: 2}
+    - {fileID: 11400000, guid: d7a7f6d16b775a544a99c5fbc52a7bd0, type: 2}
+    - {fileID: 11400000, guid: 20117ccd0b7f1d2449d5e483c79c0928, type: 2}
+    - {fileID: 11400000, guid: 7f468eb8bb22c5e4da1de5d7972c7782, type: 2}
+    - {fileID: 11400000, guid: 48b79da8679a1194b92109e7cbe4be5b, type: 2}
+    - {fileID: 11400000, guid: eb099585feaf960459376706d14c85de, type: 2}
+    - {fileID: 11400000, guid: 3bb4b852a8c724a45ae6e508862dc248, type: 2}
+    - {fileID: 11400000, guid: 7c3cbd858b238b04d90e67c004a5b058, type: 2}
+    - {fileID: 11400000, guid: cadc795d83a3b084f9132cb4f06f24e0, type: 2}
+    - {fileID: 11400000, guid: d8e88402cd7094049862d35506613f57, type: 2}
+    - {fileID: 11400000, guid: fc6411359cdde7f4e8af2ffa2f1e7dce, type: 2}
+    - {fileID: 11400000, guid: a72be2410a97d864e9e3e8a81f8316ff, type: 2}
+    - {fileID: 11400000, guid: badb2c9f760c6e549ad1a450968727c2, type: 2}
+    - {fileID: 11400000, guid: 4459719ea2f50e643b0044a85fd100ea, type: 2}
+    - {fileID: 11400000, guid: 7fd7103b20fe4764a88a859265baedff, type: 2}
+    - {fileID: 11400000, guid: 5f80ae9bf24558a4d8f65fe3a04765e3, type: 2}
+    - {fileID: 11400000, guid: abfb81f4320466d45988746d78ea4b15, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uB9C8\uC74C\uC758 \uC900\uBE44\uB294 \uB410\uB098?"
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ClearSubtitle
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uC774\uBBF8 \uB418\uC5B4 \uC788\uC2B5\uB2C8\uB2E4."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uADF8\uB7FC, \uB9C8\uC9C0\uB9C9\uC73C\uB85C \uB2E4\uC2DC
+              \uC791\uC804\uC744 \uC54C\uB824\uC8FC\uACA0\uB124. \\n 9\uC6D4 4\uC77C,
+              \uBAA8\uB808\uAC00 \uBC14\uB85C \uCD1D\uB3C5\uC758 \uC0DD\uC77C\uC774
+              \uC788\uB294 \uB0A0\uC774\uB124. \uB188\uB4E4\uC774 \uBAA8\uB450 \uBAA8\uC774\uB294
+              \uB0A0\uC774\uC9C0."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uCD1D \uB124 \uBA85\uC744 \uC81C\uAC70\uD574\uC57C
+              \uD558\uB124. \uC801\uC5B4\uB3C4 \uCD1D\uB3C5\uC758 \uBAA9\uC740 \uAC00\uC838\uC624\uC790\uACE0."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uAC01\uC624\uB294 \uB410\uC2B5\uB2C8\uB2E4."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uB9CC\uC57D \uCD1D\uB3C5 \uC81C\uAC70\uC5D0 \uC2E4\uD328\uD55C\uB2E4
+              \uD574\uB3C4 \uB098\uBA38\uC9C0 \uB188\uB4E4\uC758 \uBAA9\uC774\uB77C\uB3C4
+              \uAC00\uC838\uC624\uAC8C. \\n \uAC70\uC0AC\uC5D0 \uC2E4\uD328\uD558\uBA74,
+              \uB098\uBA38\uC9C0\uB294 \uC790\uB124\uAC00 \uC54C\uC544\uC11C \uC798
+              \uD560 \uAC70\uB77C\uACE0 \uC0DD\uAC01\uD558\uB124."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uC774\uB188\uC774 \uC774\uBC88 \uAC70\uC0AC\uC758
+              \uBAA9\uD45C, \uC870\uC120 \uCD1D\uB3C5 \uBBF8\uB098\uBBF8 \uC9C0\uB85C\uC57C."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uC774\uB188\uC740 \uC9C0\uAE08 \uC815\uBB34\uCD1D\uAC10\uC744
+              \uB9E1\uACE0 \uC788\uB294 \uC624\uB178 \uB85C\uCFE0\uC774\uCE58\uB85C\uC57C.
+              \uC5C4\uCCAD\uB098\uAC8C \uC2E0\uC911\uD55C \uC131\uACA9\uC774\uB2C8
+              \uC8FC\uC758\uD574\uC57C \uD574."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uC774\uB188\uC774 \uB3D9\uC591\uCC99\uC2DD\uC8FC\uC2DD\uD68C\uC0AC\uC758
+              \uC7AC\uBB34\uB2F4\uB2F9\uAD00\uC778 \uBBF8\uC57C\uBAA8\uD1A0 \uB3C4\uB77C\uC9C0\uC57C.\\n\uC870\uC120\uC778
+              \uC218\uD0C8 \uC0AC\uC5C5\uC758 \uB300\uBD80\uBD84\uC774 \uC774\uB188\uC758
+              \uBA38\uB9AC\uC5D0\uC11C \uB098\uC654\uB2E4\uACE0 \uBCF4\uBA74 \uB418\uB124."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uC774\uB188\uC774 \uBC14\uB85C \uD3D0\uD558\uB97C
+              \uC2DC\uD574\uD55C \uACBD\uC220\uAD6D\uC801 \uC724\uC900\uC601\uC77C\uC138."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uBBF8\uB098\uBBF8 \uC9C0\uB85C\uC758 \uC0DD\uC77C\uC774\uB2C8,
+              \uC800\uB188\uB4E4\uC774 \uBAA8\uB450 \uD55C \uC790\uB9AC\uC5D0 \uBAA8\uC77C
+              \uAC78\uC138.\\n\uADF8\uB54C \uC800 \uB124 \uB188\uC758 \uBAA9\uC744
+              \uBAA8\uB450 \uB4E4\uACE0 \uC640\uC57C \uD574."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uAC70\uC0AC\uB97C \uD560 \uB550 \uC8FC\uBCC0 \uC870\uC0AC\uB97C
+              \uB9CE\uC774 \uD558\uB3C4\uB85D \uD558\uB294 \uAC8C \uC88B\uC544.\\n\uADF8\uB0A0
+              \uC138\uBD80 \uC77C\uC815\uC744 \uD30C\uC545\uD574 \uB193\uC544\uC57C
+              \uD589\uB3D9\uD558\uAE30 \uD3B8\uD560 \uAC78\uC138"
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uAC70\uC0AC\uAC00 \uC788\uC744 \uC870\uC120\uCD1D\uB3C5\uBD80
+              \uCCAD\uC0AC\uC758 \uC9C0\uB3C4\uB97C \uC8FC\uACA0\uB124.\\n\uAE30\uBCF8\uC801\uC778
+              \uC2DC\uC124\uC758 \uAD6C\uC870\uB97C \uC54C \uC218 \uC788\uC744 \uAC70\uC57C."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uC785\uAD6C\uB294 \uC5EC\uAE30\uACE0, \uC900\uBE44\uD574\uB454
+              \uC704\uC7A5 \uC2E0\uBD84\uC744 \uC0AC\uC6A9\uD558\uBA74 \uC758\uC2EC\uBC1B\uC9C0
+              \uC54A\uACE0 \uB4E4\uC5B4\uAC08 \uC218 \uC788\uC744 \uAC78\uC138."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uBB34\uC6B4\uC744 \uBE4C\uACA0\uB124."
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 883480341}
+          m_TargetAssemblyTypeName: SubtitleController, Assembly-CSharp
+          m_MethodName: ChangeSubtitle
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "\uC774\uBC88 \uAE30\uD68C\uB97C \uB193\uCE58\uBA74,
+              \uB188\uB4E4\uC740 \uBAA8\uB450 \uAC81\uC744 \uBA39\uACE0 \uC228\uC5B4\uBC84\uB9B4\uAC70\uC57C.\\n\uADF8\uB7FC
+              \uB354 \uC774\uC0C1 \uAE30\uD68C\uB294 \uC5C6\uB124."
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &883480341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883480339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bfba9c9ca8347f4097d6f67fcc500cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subtitleText: {fileID: 883480342}
+--- !u!114 &883480342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883480339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 16c20267fe753a94ab9558c0b953700d, type: 2}
+  m_sharedMaterial: {fileID: 5195838062126768420, guid: 16c20267fe753a94ab9558c0b953700d, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 3036676095
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.7058824}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 4096
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -286.34915, y: -38.886074, z: -274.78976, w: -7.638796}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &883480343
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883480339}
+  m_CullTransparentMesh: 1
+--- !u!224 &883480344
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883480339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2008040949}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -187.5}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &896601836
 GameObject:
   m_ObjectHideFlags: 0
@@ -37701,6 +38151,11 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!1 &1217310003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 57fbed7c636e1b24ba4c6ae0cb68d515, type: 3}
+  m_PrefabInstance: {fileID: 1980990244}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &1226751501 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5197118176682910397, guid: e27dc2f6b02c95543b8c7c7b88c7b867, type: 3}
@@ -39090,7 +39545,7 @@ PlayableDirector:
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
-  m_InitialTime: 110
+  m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: -8635078297322648377, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
     value: {fileID: 1465398886}
@@ -39110,8 +39565,13 @@ PlayableDirector:
     value: {fileID: 115882702}
   - key: {fileID: -1827714424272363268, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
     value: {fileID: 1465398888}
+  - key: {fileID: 9161758454772276637, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
+    value: {fileID: 883480340}
+  - key: {fileID: -8467331407895939930, guid: a1fdbc4f3b08c214f8ac8eead96c0150, type: 2}
+    value: {fileID: 1980990246}
   m_ExposedReferences:
     m_References:
+    - 12f7f5fa874b7894d9fa7a45b088dbc2: {fileID: 1916730828}
     - 0e995114fd410544db774d0472e8d534: {fileID: 1344113027}
     - 9ef8a5ae38cf2814fa0308dd0b29b768: {fileID: 101008947}
     - 3cf9b31aec87f084fbacefa42289f8c7: {fileID: 238028757}
@@ -39121,6 +39581,7 @@ PlayableDirector:
     - 8bcd968f51d287a43ade605337e2a3b9: {fileID: 2098926772}
     - b7b3f344e10a8534994569cdec055eef: {fileID: 1522377268}
     - 9a2f559b7840c1245bd00be7580e7f8a: {fileID: 238028757}
+    - f7ec8146ae2cd6b448c7625a230d9d54: {fileID: 1676535297}
     - bae3bf751be5584409e569487c875dd2: {fileID: 1740641862}
     - 3bcb59f985fddaf45b8ea26135618b5b: {fileID: 1728234125}
     - 4e0d3f69242a7b349aba5e41f8a59ebb: {fileID: 10872095}
@@ -45524,13 +45985,113 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 57fbed7c636e1b24ba4c6ae0cb68d515, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1317062090}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57fbed7c636e1b24ba4c6ae0cb68d515, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1980990246}
   m_SourcePrefab: {fileID: 100100000, guid: 57fbed7c636e1b24ba4c6ae0cb68d515, type: 3}
 --- !u!4 &1980990245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 57fbed7c636e1b24ba4c6ae0cb68d515, type: 3}
   m_PrefabInstance: {fileID: 1980990244}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1980990246
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217310003}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1987521030 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -137504043206402741, guid: a3d6daa13646f7e46b3132c7fa30bcaf, type: 3}
@@ -45776,6 +46337,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1376090721}
+  - {fileID: 883480344}
   m_Father: {fileID: 665889212}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -45840,8 +46402,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

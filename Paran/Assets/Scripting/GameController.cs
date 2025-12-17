@@ -98,6 +98,11 @@ public class GameController : MonoBehaviour
             Debug.Log("start Phase1"); 
             isGameOverRoutineRunning = false;
         }
+        else if(gamePhase == GamePhase.Phase2 && scene.name == "Floor1")
+        {
+            Debug.Log("start Phase2");
+            isGameOverRoutineRunning = false;
+        }
         else if(gamePhase == GamePhase.Phase3 && scene.name == "Floor2")
         {
             Debug.Log("start Phase3");
@@ -133,6 +138,10 @@ public class GameController : MonoBehaviour
             case GamePhase.Phase1: ChangeScene("Floor2");
             break;
             case GamePhase.Phase2: ChangeScene("Floor1");
+            break;
+            default : 
+                gamePhase = GamePhase.Phase1;
+                ChangeScene("Floor2");
             break;
         }
     }

@@ -201,7 +201,8 @@ public class PlayerMove : MonoBehaviour
     }
     public void Warp1F()
     {
-        StartCoroutine(WarpRoutine(new Vector3(36.1339989f,11.4549999f,-22.3139992f)));
+        Debug.Log("워프 1F");
+        StartCoroutine(WarpRoutine(new Vector3(36.1339989f,11.4549999f,-24.3139992f)));
     }
     private IEnumerator WarpRoutine(Vector3 targetPos)
     {

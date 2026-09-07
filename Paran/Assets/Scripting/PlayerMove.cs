@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -32,7 +31,6 @@ public class PlayerMove : MonoBehaviour
     public PlayerState currentState = PlayerState.Stand;
     public float moveSpeed; // 현재 속도
     public float targetSpeed; // 가속 감속을 위한 목표 속도
-    //private bool attackFlag = false;
     public bool isMoved = true;
     public static event Action<Vector3> OnDecoyEnemies;
 
@@ -94,51 +92,16 @@ public class PlayerMove : MonoBehaviour
         // 상태에 따라 속도 설정
         switch (currentState)
         {
-            case PlayerState.Stand:
-                targetSpeed = 0;
-                animator.SetBool("Running", false);
-                animator.SetBool("Carrying", false);
-                animator.SetBool("Crawling", false);
-                break;
-            case PlayerState.Walk:
-                targetSpeed = walkSpeed;
-                animator.SetFloat("Speed", 1f);
-                animator.SetBool("Running", false);
-                animator.SetBool("Carrying", false);
-                animator.SetBool("Crawling", false);
-                break;
-            case PlayerState.Crawl:
-                targetSpeed = crawlSpeed;
-                animator.SetBool("Running", false);
-                animator.SetBool("Carrying", false);
-                animator.SetBool("Crawling", true);
-                break;
-            case PlayerState.Run:
-                targetSpeed = runSpeed;
-                animator.SetBool("Running", true);
-                animator.SetBool("Carrying", false);
-                animator.SetBool("Crawling", false);
-                break;
-            case PlayerState.Carry:
-                targetSpeed = walkSpeed - 1;
-                animator.SetBool("Running", false);
-                animator.SetBool("Carrying", true);
-                animator.SetBool("Crawling", false);
-                break;
-            case PlayerState.Attack:
-                targetSpeed = 0;
-                animator.SetBool("Running", false);
-                animator.SetBool("Carrying", false);
-                animator.SetBool("Crawling", false);
-                Attack();
-                break;
-            case PlayerState.Dialogue:
-                targetSpeed = 0;
-                animator.SetBool("Running", false);
-                animator.SetBool("Carrying", false);
-                animator.SetBool("Crawling", false);
-                break;
+            case PlayerState.Walk:  targetSpeed = walkSpeed;     break;
+            case PlayerState.Crawl: targetSpeed = crawlSpeed;    break;
+            case PlayerState.Run:   targetSpeed = runSpeed;      break;
+            case PlayerState.Carry: targetSpeed = walkSpeed - 1; break;
+            default:                targetSpeed = 0;             break; // Stand/Attack/Dialogue
         }
+        animator.SetBool("Running",  currentState == PlayerState.Run);
+        animator.SetBool("Carrying", currentState == PlayerState.Carry);
+        animator.SetBool("Crawling", currentState == PlayerState.Crawl);
+        if (currentState == PlayerState.Attack) Attack();
 
         if (Mathf.Abs(moveSpeed - targetSpeed) < 0.01f)
             moveSpeed = targetSpeed;
@@ -164,9 +127,7 @@ public class PlayerMove : MonoBehaviour
         }
         animator.SetFloat("Speed", inputDir.magnitude);
 
-        bool isGrounded = cc.isGrounded;
-
-        if (isGrounded && velocity.y < 0) velocity.y = 0;
+        if (cc.isGrounded && velocity.y < 0) velocity.y = 0;
 
         velocity.y += gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
@@ -184,7 +145,6 @@ public class PlayerMove : MonoBehaviour
         currentState = PlayerState.Stand;
         yield return new WaitForSeconds(6.5f);
         MoveEnable(true);
-        yield break;
     }
 
     public void MoveEnable(bool b)
@@ -222,6 +182,6 @@ public class PlayerMove : MonoBehaviour
         // 3) CharacterController 다시 켜기
         if (cc != null)
             cc.enabled = true;
-        else if (cc == null) Debug.Log("cc가 null임니다");
+        else Debug.Log("cc가 null임니다");
     }
 }
